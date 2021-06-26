@@ -14,10 +14,9 @@ import http from "axios";
 
 export default {
   setup(): void {
-    console.log("Component is mounted!");
     onMounted(() => {
       http
-        .get("https://best-weather-vue.herokuapp.com/api/weekly")
+        .get("http://3.35.230.196:8989/api/ko/nowWeather")
         .then((res: unknown) => {
           console.log(res);
           return res;
