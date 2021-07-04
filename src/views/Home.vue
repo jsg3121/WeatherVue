@@ -1,32 +1,23 @@
 <template>
-  <!-- <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div> -->
   <div>
     <h1>TEST</h1>
-    <h1>{{ this.location }}</h1>
+    <h1>{{ this.store.state.location }}</h1>
   </div>
 </template>
 
 <script lang="ts">
 import { onMounted } from "vue"
 import http from "axios"
+import { Store, useStore } from "vuex"
 
-type DataType = {
-  location: string
+type ReturnFuncSetup = {
+  store: Store<any>
 }
-
 export default {
-  data(): DataType {
-    return {
-      location: "서울 특별시 강남구",
-    }
-  },
-  setup(): void {
-    console.log("created!!!")
+  setup(): ReturnFuncSetup | void {
+    const store = useStore()
     const getGeolocation = async (position: any) => {
-      http
+      await http
         .request({
           url: "http://localhost:3306/geolocation",
           method: "GET",
@@ -36,12 +27,24 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res)
+          console.log(res.data)
+          store.dispatch("getLocation", { params: res.data })
         })
     }
-    const defaultGeolocation = () => {
-      console.log(123)
-      console.log(456)
+    const defaultGeolocation = async () => {
+      await http
+        .request({
+          url: "http://localhost:3306/geolocation",
+          method: "GET",
+          params: {
+            latitude: 37.514575,
+            longitude: 127.04955555555556,
+          },
+        })
+        .then((res) => {
+          console.log(res.data)
+          store.dispatch("getLocation", { params: res.data })
+        })
     }
 
     navigator.geolocation.getCurrentPosition(getGeolocation, defaultGeolocation)
@@ -53,6 +56,9 @@ export default {
           return res
         })
     })
+    return {
+      store,
+    }
   },
 }
 </script>
