@@ -2,6 +2,8 @@ html,
 body {
   max-width: 720px;
   height: 100vh;
-  background-color: gray;
+  overflow: hidden;
   margin: 0 auto;
+  font-size: 16px;
+  padding: 0 2rem;
 }

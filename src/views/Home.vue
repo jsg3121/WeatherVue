@@ -13,6 +13,7 @@ import { Store, useStore } from "vuex"
 type ReturnFuncSetup = {
   store: Store<any>
 }
+
 export default {
   setup(): ReturnFuncSetup | void {
     const store = useStore()

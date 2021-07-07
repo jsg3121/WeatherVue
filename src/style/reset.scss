@@ -1,7 +1,5 @@
 @import "./font.scss";
 
-html,
-body,
 div,
 span,
 applet,
@@ -84,9 +82,11 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
+  font-size: 1rem;
   font-family: "NanumSquare", sans-serif;
   vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
 
 article,
@@ -102,6 +102,12 @@ nav,
 section {
   display: block;
 }
+
+html,
+body {
+  position: relative;
+}
+
 body {
   line-height: 1;
 }
@@ -123,4 +129,44 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+input,
+textarea {
+  -webkit-appearance: none;
+}
+
+button:focus,
+input[type="text"]:focus,
+button:focus,
+input[type="password"]:focus {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: "NanumSquare";
+}
+
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+select option:focus {
+  border: 0;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+img {
+  -webkit-user-drag: none;
 }
