@@ -1,13 +1,14 @@
 <template>
-  <HeaderVue></HeaderVue>
+  <HeaderVue />
+  asdfasdf
 </template>
 
 <script lang="ts">
-import { HeaderVue } from "@/components"
+import { Components } from "@/components"
 
 export default {
   components: {
-    HeaderVue,
+    HeaderVue: Components.Header,
   },
 }
 </script>
