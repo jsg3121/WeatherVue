@@ -1,14 +1,15 @@
 <template>
-  <HeaderVue />
-  asdfasdf
+  <div>
+    <Currnet />
+  </div>
 </template>
 
 <script lang="ts">
-import { Components } from "@/components"
+import { Service } from "@/service"
 
 export default {
   components: {
-    HeaderVue: Components.Header,
+    Currnet: Service.Temperatures,
   },
 }
 </script>

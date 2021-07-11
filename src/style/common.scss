@@ -7,3 +7,9 @@ body {
   font-size: 16px;
   padding: 0 2rem;
 }
+
+.display-flex {
+  display: flex;
+  align-items: center;
+  flex: 0;
+}
