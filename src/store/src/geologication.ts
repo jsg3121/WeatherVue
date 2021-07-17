@@ -6,7 +6,28 @@ type StateLocationPrameter = {
   }
 }
 
-const geologication = createStore({
+export interface GeoloGicateModuleState {
+  location: {
+    num: string
+    country: string
+    divisionCode: string
+    depth1: string
+    depth2: string
+    depth3: string
+    gridX: string
+    gridY: string
+    longitudeHour: string
+    longitudeMin: string
+    longitudeSec: string
+    latitudeHour: string
+    latitudeMin: string
+    latitudeSec: string
+    longitudePerSec: string
+    latitudePerSec: string
+  }
+}
+
+export const geologication = createStore({
   state: {
     location: {
       num: "499",
@@ -33,11 +54,9 @@ const geologication = createStore({
     },
   },
   actions: {
-    getLocation(_, payload: StateLocationPrameter): void {
-      this.commit("setLocation", payload)
+    getLocation({ commit }, payload: StateLocationPrameter): void {
+      commit("setLocation", payload)
     },
   },
   modules: {},
 })
-
-export default geologication

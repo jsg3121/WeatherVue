@@ -2,10 +2,13 @@ html,
 body {
   max-width: 720px;
   height: 100vh;
-  overflow: hidden;
   margin: 0 auto;
   font-size: 16px;
   padding: 0 2rem;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 .display-flex {

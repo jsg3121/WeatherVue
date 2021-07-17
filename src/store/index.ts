@@ -1,8 +1,12 @@
-import Vuex from "vuex"
-import geologication from "./src/geologication"
+import { createStore } from "vuex"
+import { GeoloGicateModuleState, geologication } from "./src/geologication"
 
-export const store = new Vuex.Store({
+export interface RootState {
+  geologication: GeoloGicateModuleState
+}
+
+export default createStore({
   modules: {
-    geologicationStore: geologication,
+    geologication,
   },
 })
