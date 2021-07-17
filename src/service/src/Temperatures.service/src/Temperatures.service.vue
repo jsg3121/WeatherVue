@@ -2,7 +2,10 @@
   <div>
     <HeaderVue />
     <Location />
-    <NowTemperature />
+    <div class="display-flex">
+      <NowTemperature />
+      <WeatherCopSideBar />
+    </div>
   </div>
 </template>
 
@@ -14,6 +17,7 @@ export default {
     HeaderVue: Components.Header,
     Location: Components.Location,
     NowTemperature: Components.CurrentTemperatures,
+    WeatherCopSideBar: Components.WeatherCoperations,
   },
 }
 </script>
