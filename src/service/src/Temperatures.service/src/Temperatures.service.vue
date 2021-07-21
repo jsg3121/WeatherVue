@@ -38,6 +38,7 @@ export default {
         .then((res) => {
           console.log(res.data)
           store.dispatch("getLocation", { params: res.data })
+          alert(res.data)
         })
         .catch(() => {
           return
