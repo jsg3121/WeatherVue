@@ -38,7 +38,7 @@ export default {
         .then((res) => {
           console.log(res.data)
           store.dispatch("getLocation", { params: res.data })
-          alert(res.data)
+          alert(`${res.data.depth1} ${res.data.depth2} ${res.data.depth3}`)
         })
         .catch(() => {
           return
