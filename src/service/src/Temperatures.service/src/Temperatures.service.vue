@@ -13,7 +13,8 @@
 <script lang="ts">
 import { Components } from "@/components"
 import http from "axios"
-import { useStore } from "vuex"
+import { useStore } from "@/store"
+import { GeolocationActionTypes } from "@/store/src/actions"
 
 export default {
   components: {
@@ -37,9 +38,12 @@ export default {
             longitude: position.coords.longitude,
           },
         })
-        .then((res) => {
+        .then(async (res) => {
           console.log(res.data)
-          store.dispatch("getLocation", { params: res.data })
+          await store.dispatch(GeolocationActionTypes.GET_LOCATION, {
+            params: res.data,
+          })
+          console.log(store.state)
         })
         .catch(() => {
           return
@@ -57,7 +61,9 @@ export default {
         })
         .then((res) => {
           console.log(res.data)
-          store.dispatch("getLocation", { params: res.data })
+          store.dispatch(GeolocationActionTypes.GET_LOCATION, {
+            params: res.data,
+          })
         })
         .catch(() => {
           return

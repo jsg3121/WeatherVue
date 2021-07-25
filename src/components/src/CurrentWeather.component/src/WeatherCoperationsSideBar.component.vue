@@ -80,7 +80,7 @@ export default {
       margin: 0 0 1.25rem 2.5rem;
       padding: 1.25rem 1.5625rem 1.5625rem 2.1875rem;
       box-shadow: 0 0.375rem 1.125rem 0 rgba(0, 0, 0, 0.24);
-      background-color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.08);
       border-bottom-left-radius: 3.125rem;
       border-top-left-radius: 3.125rem;
 
