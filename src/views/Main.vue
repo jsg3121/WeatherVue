@@ -1,6 +1,8 @@
 <template>
   <div>
     <Currnet />
+    <TimeSetWeather />
+    <WeeklyWeather />
   </div>
 </template>
 
@@ -10,6 +12,8 @@ import { Service } from "@/service"
 export default {
   components: {
     Currnet: Service.Temperatures,
+    TimeSetWeather: Service.TimeSetWeather,
+    WeeklyWeather: Service.WeeklyWeather,
   },
 }
 </script>
