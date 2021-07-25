@@ -28,7 +28,7 @@ export default {}
   width: 100%;
   margin-top: 3.875rem;
   margin-bottom: 2.5rem;
-  height: 84px;
+  height: 5.25rem;
   justify-content: space-between;
 
   > div {
@@ -36,9 +36,9 @@ export default {}
     height: 100%;
     padding: 1.375rem 1.9375rem 1.375rem 2.375rem;
     border-radius: 1.5rem;
-    box-shadow: 0px 0.3125rem 1.125rem 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0.3125rem 1.125rem 0 rgba(0, 0, 0, 0.08);
     background-color: #ffffff;
-    border: solid 2px #ffffff;
+    border: solid 0.125rem #ffffff;
     flex: 1;
 
     .atmosphere-container__img {

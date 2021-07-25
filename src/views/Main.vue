@@ -3,6 +3,7 @@
     <Currnet />
     <TimeSetWeather />
     <WeeklyWeather />
+    <AtmosEnv />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
     Currnet: Service.Temperatures,
     TimeSetWeather: Service.TimeSetWeather,
     WeeklyWeather: Service.WeeklyWeather,
+    AtmosEnv: Service.AtmosphereEnv,
   },
 }
 </script>

@@ -74,7 +74,7 @@ export default {}
         height: 2.75rem;
         margin: 0 auto 1.6875rem;
         border-radius: 1.25rem;
-        box-shadow: 0px 0.375rem 0.75rem 0 rgba(0, 0, 0, 0.08);
+        box-shadow: 0 0.375rem 0.75rem 0 rgba(0, 0, 0, 0.08);
         background-color: #ffffff;
         justify-content: center;
 
@@ -95,7 +95,7 @@ export default {}
         }
 
         .current-info__separator {
-          width: 2px;
+          width: 0.125rem;
           height: 1.25rem;
           margin: 0.625rem;
           background-color: #e1e1e1;

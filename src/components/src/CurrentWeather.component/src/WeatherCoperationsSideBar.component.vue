@@ -75,14 +75,14 @@ export default {
 
   .weather-sideBar__list {
     .weather-sideBar__item {
-      width: 224px;
-      height: 146px;
-      margin: 0 0 20px 40px;
-      padding: 20px 25px 25px 35px;
-      box-shadow: 0px 6px 18px 0 rgba(0, 0, 0, 0.24);
+      width: 14rem;
+      height: 9.125rem;
+      margin: 0 0 1.25rem 2.5rem;
+      padding: 1.25rem 1.5625rem 1.5625rem 2.1875rem;
+      box-shadow: 0 0.375rem 1.125rem 0 rgba(0, 0, 0, 0.24);
       background-color: #ffffff;
-      border-bottom-left-radius: 50px;
-      border-top-left-radius: 50px;
+      border-bottom-left-radius: 3.125rem;
+      border-top-left-radius: 3.125rem;
 
       &:last-child {
         margin-bottom: 0;
@@ -92,8 +92,8 @@ export default {
         justify-content: space-around;
 
         .weather-sideBar__icon {
-          width: 30px;
-          height: 30px;
+          width: 1.875rem;
+          height: 1.875rem;
 
           img {
             width: 100%;
@@ -102,7 +102,7 @@ export default {
         }
 
         .weather-sideBar__name {
-          font-size: 24px;
+          font-size: 1.5rem;
           font-weight: normal;
           text-align: left;
           color: #757575;
@@ -111,13 +111,13 @@ export default {
 
       .weather-sideBar__description {
         width: 100%;
-        height: calc(100% - 51px);
-        margin-top: 21px;
+        height: calc(100% - 3.1875rem);
+        margin-top: 1.3125rem;
         justify-content: flex-start;
 
         .weather-sideBar__currentIcon {
-          width: 50px;
-          height: 50px;
+          width: 3.125rem;
+          height: 3.125rem;
 
           img {
             width: 100%;
@@ -127,11 +127,11 @@ export default {
 
         .weather-sideBar__current-temperature {
           font-family: "Oswald";
-          font-size: 48px;
+          font-size: 3rem;
           font-weight: 500;
           text-align: center;
           color: #555555;
-          margin-left: 36px;
+          margin-left: 2.25rem;
         }
       }
     }

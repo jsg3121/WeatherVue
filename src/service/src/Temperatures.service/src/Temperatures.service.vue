@@ -21,7 +21,7 @@ export default {
     Location: Components.Location,
     NowTemperature: Components.CurrentTemperatures,
     WeatherCopSideBar: Components.WeatherCoperations,
-    Atmostphere: Components.AtmosphereInfo,
+    Atmostphere: Components.AtmosphereStatus,
   },
 
   setup() {

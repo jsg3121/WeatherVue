@@ -20,7 +20,7 @@ export default {}
     height: 3.75rem;
     padding: 0.625rem;
     border-radius: 1.25rem;
-    box-shadow: 0px 0.1875rem 0.875rem 0 rgba(24, 61, 94, 0.18);
+    box-shadow: 0 0.1875rem 0.875rem 0 rgba(24, 61, 94, 0.18);
     background-color: #ffffff;
 
     img {

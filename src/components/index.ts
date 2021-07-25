@@ -4,6 +4,7 @@ import { GeolocationComponents } from "./src/Geolocation.component"
 import { CurrentTemperaturesComponents } from "./src/CurrentWeather.component"
 import { TimeSetComponent } from "./src/TimeSetWeather.component"
 import { WeeklyWeatherComponent } from "./src/WeeklyWeather.component"
+import { AtmosphereComponent } from "./src/Atmosphere.component"
 
 export const Components = {
   Header,
@@ -12,4 +13,5 @@ export const Components = {
   ...CurrentTemperaturesComponents,
   ...TimeSetComponent,
   ...WeeklyWeatherComponent,
+  ...AtmosphereComponent,
 }

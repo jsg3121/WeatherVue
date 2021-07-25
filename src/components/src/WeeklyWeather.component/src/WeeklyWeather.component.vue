@@ -34,33 +34,33 @@ export default {}
 <style lang="scss">
 .weekly-weather-container {
   width: 100%;
-  height: 417px;
-  padding: 30px 30px 35px 30px;
-  border-radius: 24px;
-  box-shadow: 0px 5px 18px 0 rgba(0, 0, 0, 0.08);
-  border: solid 2px #ffffff;
+  height: 26.0625rem;
+  padding: 1.875rem 1.875rem 2.1875rem 1.875rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0.3125rem 1.125rem 0 rgba(0, 0, 0, 0.08);
+  border: solid 0.125rem #ffffff;
   background-color: #ffffff;
-  margin-top: 40px;
+  margin-top: 2.5rem;
 
   .weekly-weather-container__title {
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 900;
     line-height: 1;
-    letter-spacing: -0.84px;
+    letter-spacing: -0.0525rem;
     text-align: left;
     color: #333333;
-    margin-bottom: 29px;
+    margin-bottom: 1.8125rem;
   }
 
   .weekly-weather-container__item-list {
-    height: calc(100% - 57px);
+    height: calc(100% - 3.5625rem);
     width: 100%;
     justify-content: space-between;
     flex: 1;
 
     .weekly-weather-container__list {
       height: 100%;
-      width: 56px;
+      width: 3.5rem;
 
       .item-container {
         width: 100%;
@@ -71,10 +71,10 @@ export default {}
         text-align: center;
 
         p[class*="item-container__temperatures--"] {
-          font-size: 24px;
+          font-size: 1.5rem;
           font-weight: bold;
           line-height: 1.17;
-          letter-spacing: -0.72px;
+          letter-spacing: -0.045rem;
           text-align: center;
           color: #505050;
         }
@@ -89,24 +89,24 @@ export default {}
         }
 
         .item-container__separator {
-          width: 2px;
-          height: 14px;
-          border-radius: 1.5px;
+          width: 0.125rem;
+          height: 0.875rem;
+          border-radius: 0.09375rem;
           background-color: #6e6d7c;
           transform: rotate(45deg);
         }
 
         .item-container__date-info {
-          max-height: 54px;
+          max-height: 3.375rem;
           justify-content: space-between;
           flex-direction: column;
           flex: 1;
-          margin-top: 36px;
+          margin-top: 2.25rem;
 
           p {
-            font-size: 20px;
+            font-size: 1.25rem;
             font-weight: normal;
-            letter-spacing: -0.6px;
+            letter-spacing: -0.0375rem;
             text-align: center;
             color: #505050;
           }

@@ -26,9 +26,9 @@ export default {}
   height: 15.125rem;
   padding: 1.875rem;
   border-radius: 1.5rem;
-  box-shadow: 0px 0.3125rem 1.125rem 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0.3125rem 1.125rem 0 rgba(0, 0, 0, 0.08);
   background-color: #ffffff;
-  border: solid 2px #ffffff;
+  border: solid 0.125rem #ffffff;
 
   .timeSet-container__title {
     font-family: "NanumSquare";
