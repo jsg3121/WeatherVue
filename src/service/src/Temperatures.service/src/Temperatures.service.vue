@@ -38,12 +38,8 @@ export default {
             longitude: position.coords.longitude,
           },
         })
-        .then(async (res) => {
-          console.log(res.data)
-          await store.dispatch(GeolocationActionTypes.GET_LOCATION, {
-            params: res.data,
-          })
-          console.log(store.state)
+        .then((res) => {
+          return store.dispatch(GeolocationActionTypes.GET_LOCATION, res.data)
         })
         .catch(() => {
           return
@@ -60,16 +56,12 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data)
-          store.dispatch(GeolocationActionTypes.GET_LOCATION, {
-            params: res.data,
-          })
+          return store.dispatch(GeolocationActionTypes.GET_LOCATION, res.data)
         })
         .catch(() => {
           return
         })
     }
-
     navigator.geolocation.getCurrentPosition(getGeolocation, defaultGeolocation)
 
     return { store }
