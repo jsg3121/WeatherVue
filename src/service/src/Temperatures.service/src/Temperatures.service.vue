@@ -30,7 +30,7 @@ export default {
     const getGeolocation = async (position: any) => {
       await http
         .request({
-          url: "http://3.35.230.196:8989/geolocation",
+          url: "https://best-weather.com/geolocation",
           method: "GET",
           params: {
             latitude: position.coords.latitude,
@@ -40,6 +40,7 @@ export default {
         .then((res) => {
           console.log(res.data)
           store.dispatch("getLocation", { params: res.data })
+          alert(`${res.data.depth1} ${res.data.depth2} ${res.data.depth3}`)
         })
         .catch(() => {
           return
@@ -48,7 +49,7 @@ export default {
     const defaultGeolocation = async () => {
       await http
         .request({
-          url: "http://3.35.230.196:8989/geolocation",
+          url: "https://best-weather.com/geolocation",
           method: "GET",
           params: {
             latitude: 37.514575,
