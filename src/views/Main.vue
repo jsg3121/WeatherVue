@@ -4,11 +4,13 @@
     <TimeSetWeather />
     <WeeklyWeather />
     <AtmosEnv />
+    <FooterVue />
   </div>
 </template>
 
 <script lang="ts">
 import { Service } from "@/service"
+import { Components } from "@/components"
 
 export default {
   components: {
@@ -16,6 +18,7 @@ export default {
     TimeSetWeather: Service.TimeSetWeather,
     WeeklyWeather: Service.WeeklyWeather,
     AtmosEnv: Service.AtmosphereEnv,
+    FooterVue: Components.Footer,
   },
 }
 </script>

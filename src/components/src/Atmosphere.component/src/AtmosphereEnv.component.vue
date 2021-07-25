@@ -34,7 +34,7 @@ export default {}
       border-radius: 1.5rem;
       box-shadow: 0 0.3125rem 1.125rem 0 rgba(0, 0, 0, 0.08);
       border: solid 0.125rem #ffffff;
-      background-color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.2);
 
       .item-container {
         height: 100%;

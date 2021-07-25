@@ -2,7 +2,7 @@
   <div>
     <HeaderVue />
     <Location />
-    <div class="display-flex">
+    <div class="current-temperature-container display-flex">
       <NowTemperature />
       <WeatherCopSideBar />
     </div>
@@ -71,4 +71,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.current-temperature-container {
+  justify-content: space-between;
+}
+</style>

@@ -1,14 +1,17 @@
-html,
+html {
+  overflow-x: hidden;
+  background-image: url("./assets/img/bg@2x.png");
+  overflow-x: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 body {
   max-width: 720px;
-  height: 100vh;
   margin: 0 auto;
   font-size: 16px;
   padding: 0 2rem;
-}
-
-html {
-  overflow-x: hidden;
 }
 
 .display-flex {

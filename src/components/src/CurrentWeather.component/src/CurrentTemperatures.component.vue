@@ -82,7 +82,6 @@ export default {}
           font-family: "Oswald";
           font-size: 1.625rem;
           font-weight: normal;
-          line-height: 2.31;
           color: #2a62c9;
         }
 
@@ -90,7 +89,6 @@ export default {}
           font-family: "Oswald";
           font-size: 1.625rem;
           font-weight: normal;
-          line-height: 2.31;
           color: #ff4848;
         }
 

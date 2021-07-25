@@ -21,7 +21,7 @@ export default {}
     padding: 0.625rem;
     border-radius: 1.25rem;
     box-shadow: 0 0.1875rem 0.875rem 0 rgba(24, 61, 94, 0.18);
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
 
     img {
       width: 100%;
