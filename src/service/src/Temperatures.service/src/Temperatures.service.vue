@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div v-if="location === undefined">loading...!!!</div>
+    <div v-else>
+      {{ store.state.location }}
+    </div>
+
     <HeaderVue />
     <Location />
     <div class="current-temperature-container display-flex">
@@ -12,9 +17,10 @@
 
 <script lang="ts">
 import { Components } from "@/components"
-import http from "axios"
 import { useStore } from "@/store"
+import http from "axios"
 import { GeolocationActionTypes } from "@/store/src/actions"
+import { ref } from "@vue/runtime-core"
 
 export default {
   components: {
@@ -25,11 +31,12 @@ export default {
     Atmostphere: Components.AtmosphereStatus,
   },
 
-  setup() {
+  async setup(): Promise<any> {
     const store = useStore()
+    const location = ref()
 
-    const getGeolocation = async (position: any) => {
-      await http
+    navigator.geolocation.getCurrentPosition(async function (position) {
+      const data = await http
         .request({
           url: "https://best-weather.com/geolocation",
           method: "GET",
@@ -39,32 +46,17 @@ export default {
           },
         })
         .then((res) => {
-          return store.dispatch(GeolocationActionTypes.GET_LOCATION, res.data)
+          return res.data
         })
         .catch(() => {
           return
         })
-    }
-    const defaultGeolocation = async () => {
-      await http
-        .request({
-          url: "https://best-weather.com/geolocation",
-          method: "GET",
-          params: {
-            latitude: 37.514575,
-            longitude: 127.04955555555556,
-          },
-        })
-        .then((res) => {
-          return store.dispatch(GeolocationActionTypes.GET_LOCATION, res.data)
-        })
-        .catch(() => {
-          return
-        })
-    }
-    navigator.geolocation.getCurrentPosition(getGeolocation, defaultGeolocation)
+      location.value = await data
+      console.log(location.value)
 
-    return { store }
+      await store.dispatch(GeolocationActionTypes.GET_LOCATION, data)
+    })
+    return { store, location }
   },
 }
 </script>

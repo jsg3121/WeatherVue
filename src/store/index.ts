@@ -8,12 +8,14 @@ import { Getters, getters } from "./src/getters"
 import { State, state } from "./src/state"
 import { Mutations, mutations } from "./src/mutation"
 import { Actions, actions } from "./src/actions"
+import createPersistedState from "vuex-persistedstate"
 
 export const store = createStore({
   state,
   mutations,
   actions,
   getters,
+  plugins: [createPersistedState()],
 })
 
 export type Store = Omit<VueStore<State>, "getters" | "commit" | "dispatch"> & {

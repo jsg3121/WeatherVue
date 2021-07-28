@@ -1,6 +1,13 @@
 <template>
   <div>
-    <Currnet />
+    <suspense>
+      <template #default>
+        <Currnet />
+      </template>
+      <template #fallback>
+        <h1>loading</h1>
+      </template>
+    </suspense>
     <TimeSetWeather />
     <WeeklyWeather />
     <AtmosEnv />
