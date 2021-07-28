@@ -1,12 +1,7 @@
 <template>
   <div>
-    <div v-if="location === undefined">loading...!!!</div>
-    <div v-else>
-      {{ store.state.location }}
-    </div>
-
     <HeaderVue />
-    <Location />
+    <Location :locationName="locationName()" />
     <div class="current-temperature-container display-flex">
       <NowTemperature />
       <WeatherCopSideBar />
@@ -20,7 +15,17 @@ import { Components } from "@/components"
 import { useStore } from "@/store"
 import http from "axios"
 import { GeolocationActionTypes } from "@/store/src/actions"
-import { ref } from "@vue/runtime-core"
+import { Ref, ref } from "@vue/runtime-core"
+import { GeoLocationStateType } from "@/store/src/state"
+import { Store } from "@/store"
+
+type LocationType = GeoLocationStateType["location"]
+
+type SetUpTypes = {
+  location: Ref<LocationType | undefined>
+  store: Store
+  locationName: () => string
+}
 
 export default {
   components: {
@@ -31,12 +36,12 @@ export default {
     Atmostphere: Components.AtmosphereStatus,
   },
 
-  async setup(): Promise<any> {
+  async setup(): Promise<SetUpTypes> {
     const store = useStore()
-    const location = ref()
+    const location = ref<LocationType>()
 
-    navigator.geolocation.getCurrentPosition(async function (position) {
-      const data = await http
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const data: Promise<LocationType> = await http
         .request({
           url: "https://best-weather.com/geolocation",
           method: "GET",
@@ -48,15 +53,21 @@ export default {
         .then((res) => {
           return res.data
         })
-        .catch(() => {
-          return
+        .catch((e) => {
+          return e
         })
       location.value = await data
-      console.log(location.value)
 
-      await store.dispatch(GeolocationActionTypes.GET_LOCATION, data)
+      await store.dispatch(
+        GeolocationActionTypes.GET_LOCATION,
+        data as ReturnType<any>
+      )
     })
-    return { store, location }
+
+    const locationName = () => {
+      return `${store.state.location.depth1} ${store.state.location.depth2} ${store.state.location.depth3}`
+    }
+    return { store, location, locationName }
   },
 }
 </script>

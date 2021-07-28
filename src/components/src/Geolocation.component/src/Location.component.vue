@@ -4,12 +4,32 @@
       <figure class="location-title__img">
         <img src="@/assets/img/location-icon@2x.png" alt="icon-location" />
       </figure>
-      <h2 class="location-title__text">서울시 강남구 논현동</h2>
+      <h2 class="location-title__text">{{ location }}</h2>
     </div>
   </div>
 </template>
 <script lang="ts">
-export default {}
+import { useStore } from "@/store"
+import { onUpdated, ref } from "@vue/runtime-core"
+export default {
+  props: {
+    locationName: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props: any) {
+    const store = useStore()
+    const location = ref()
+
+    onUpdated(() => {
+      location.value = props.locationName
+      return location.value
+    })
+
+    return { store, location, onUpdated }
+  },
+}
 </script>
 <style lang="scss">
 .location-title {
