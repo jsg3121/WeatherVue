@@ -1,10 +1,10 @@
 import { AtmosphereService } from "./AtmosphereEnv.service"
-import { TemperaturesService } from "./Temperatures.service"
+import { CurrentStatusService } from "./CurrentStatus.service"
 import { TimeSetService } from "./TimeSetWeather.service"
 import { WeeklyWeatherService } from "./WeeklyWeather.service"
 
 export const Service = {
-  ...TemperaturesService,
+  ...CurrentStatusService,
   ...TimeSetService,
   ...WeeklyWeatherService,
   ...AtmosphereService,

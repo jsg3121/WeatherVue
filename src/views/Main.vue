@@ -21,7 +21,7 @@ import { Components } from "@/components"
 
 export default {
   components: {
-    Currnet: Service.Temperatures,
+    Currnet: Service.CurrentStatus,
     TimeSetWeather: Service.TimeSetWeather,
     WeeklyWeather: Service.WeeklyWeather,
     AtmosEnv: Service.AtmosphereEnv,
