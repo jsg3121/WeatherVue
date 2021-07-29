@@ -1,16 +1,24 @@
 <template>
-  <div>
+  <Fragment>
     <div class="location-title display-flex">
       <figure class="location-title__img">
         <img src="@/assets/img/location-icon@2x.png" alt="icon-location" />
       </figure>
-      <h2 class="location-title__text">{{ location }}</h2>
+      <h2 class="location-title__text">
+        {{ location }}
+      </h2>
     </div>
-  </div>
+  </Fragment>
 </template>
 <script lang="ts">
-import { useStore } from "@/store"
-import { onUpdated, ref } from "@vue/runtime-core"
+import { Store, useStore } from "@/store"
+import { onUpdated, Ref, ref } from "vue"
+
+type SetUpTypes = {
+  store: Store
+  location: Ref<string>
+}
+
 export default {
   props: {
     locationName: {
@@ -18,16 +26,18 @@ export default {
       required: true,
     },
   },
-  setup(props: any) {
+  setup(props: any): SetUpTypes {
     const store = useStore()
-    const location = ref()
+    const location = ref(
+      `${store.state.location.depth1} ${store.state.location.depth2} ${store.state.location.depth3}`
+    )
 
     onUpdated(() => {
       location.value = props.locationName
       return location.value
     })
 
-    return { store, location, onUpdated }
+    return { store, location }
   },
 }
 </script>

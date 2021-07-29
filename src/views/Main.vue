@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Fragment>
     <suspense>
       <template #default>
         <Currnet />
@@ -12,7 +12,7 @@
     <WeeklyWeather />
     <AtmosEnv />
     <FooterVue />
-  </div>
+  </Fragment>
 </template>
 
 <script lang="ts">
