@@ -26,6 +26,7 @@ export default {
       required: true,
     },
   },
+  // #TODO : #2. any타입 변경
   setup(props: any): SetUpTypes {
     const store = useStore()
     const location = ref(

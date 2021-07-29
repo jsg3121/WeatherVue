@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Fragment>
     <HeaderVue />
     <Location :locationName="locationName()" />
     <div class="current-temperature-container display-flex">
@@ -7,7 +7,7 @@
       <WeatherCopSideBar />
     </div>
     <Atmostphere />
-  </div>
+  </Fragment>
 </template>
 
 <script lang="ts">
@@ -40,29 +40,42 @@ export default {
     const store = useStore()
     const location = ref<LocationType>()
 
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const data: Promise<LocationType> = await http
-        .request({
-          url: "https://best-weather.com/geolocation",
-          method: "GET",
-          params: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          },
-        })
-        .then((res) => {
-          return res.data
-        })
-        .catch((e) => {
-          return e
-        })
-      location.value = await data
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const data: Promise<LocationType> = await http
+            .request({
+              url: "https://best-weather.com/geolocation",
+              method: "GET",
+              params: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              },
+            })
+            .then((res) => {
+              return res.data
+            })
+            .catch((e) => {
+              return e
+            })
+          location.value = await data
 
-      await store.dispatch(
-        GeolocationActionTypes.GET_LOCATION,
-        data as ReturnType<any>
+          await store.dispatch(
+            GeolocationActionTypes.GET_LOCATION,
+            // #TODO : #1. any타입 변경
+            data as ReturnType<any>
+          )
+        },
+        () => {
+          alert("서비스 사용을 위해 위치 정보 권한을 허용해주세요.")
+        },
+        {
+          enableHighAccuracy: true,
+        }
       )
-    })
+    } else {
+      alert("서비스 사용을 위해 위치 정보 권한을 허용해주세요.")
+    }
 
     const locationName = () => {
       return `${store.state.location.depth1} ${store.state.location.depth2} ${store.state.location.depth3}`
