@@ -72,7 +72,6 @@ export default {
           })
       }
     }
-
     await getLocation()
 
     const locationName = () => {
