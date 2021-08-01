@@ -2,7 +2,10 @@
   <Fragment>
     <suspense>
       <template #default>
-        <Currnet />
+        <Fragment>
+          <Currnet />
+          <AtmosStatus />
+        </Fragment>
       </template>
       <template #fallback>
         <h1>loading</h1>
@@ -25,6 +28,7 @@ export default {
     TimeSetWeather: Service.TimeSetWeather,
     WeeklyWeather: Service.WeeklyWeather,
     AtmosEnv: Service.AtmosphereEnv,
+    AtmosStatus: Service.AtmosphereStatus,
     FooterVue: Components.Footer,
   },
 }

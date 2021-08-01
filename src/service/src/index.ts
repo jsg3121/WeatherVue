@@ -1,4 +1,4 @@
-import { AtmosphereService } from "./AtmosphereEnv.service"
+import { AtmosphereService } from "./Atmosphere.service"
 import { CurrentStatusService } from "./CurrentStatus.service"
 import { TimeSetService } from "./TimeSetWeather.service"
 import { WeeklyWeatherService } from "./WeeklyWeather.service"

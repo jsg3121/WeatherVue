@@ -1,27 +1,44 @@
 <template>
   <div class="atmosphere-container display-flex">
-    <div class="atmosphere-container__wind-direction display-flex">
+    <div
+      class="atmosphere-container__info display-flex"
+      v-for="item in cardData"
+      :key="item"
+    >
       <figure class="atmosphere-container__img">
-        <img src="@/assets/img/windy-icon@2x.png" alt="풍향 아이콘" />
+        <img :src="item.img" :alt="item.alt" />
       </figure>
       <div class="atmosphere-container__description display-flex">
-        <p class="atmosphere-container__figure">3 m/s</p>
-        <p class="atmosphere-container__description-name">북서풍</p>
-      </div>
-    </div>
-    <div class="atmosphere-container__humidity display-flex">
-      <figure class="atmosphere-container__img">
-        <img src="@/assets/img/rain-drop-icon@2x.png" alt="습도 아이콘" />
-      </figure>
-      <div class="atmosphere-container__description display-flex">
-        <p class="atmosphere-container__figure">17 %</p>
-        <p class="atmosphere-container__description-name">습도</p>
+        <p class="atmosphere-container__figure">3 {{ item.unit }}</p>
+        <p class="atmosphere-container__description-name">
+          {{ item.description }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-export default {}
+import { ref } from "@vue/reactivity"
+export default {
+  setup() {
+    const cardData = ref([
+      {
+        img: require("@/assets/img/windy-icon@2x.png"),
+        alt: "풍향 아이콘",
+        unit: "m/s",
+        description: "북서풍",
+      },
+      {
+        img: require("@/assets/img/rain-drop-icon@2x.png"),
+        alt: "습도 아이콘",
+        unit: "%",
+        description: "습도",
+      },
+    ])
+
+    return { cardData }
+  },
+}
 </script>
 <style lang="scss">
 .atmosphere-container {

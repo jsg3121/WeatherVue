@@ -3,7 +3,7 @@
     <ul class="weather-sideBar__list">
       <li
         class="weather-sideBar__item"
-        v-for="items in data.weatherCoperations"
+        v-for="items in weatherCoperations"
         :key="items"
       >
         <div class="weather-sideBar__title display-flex">
@@ -23,7 +23,7 @@
   </div>
 </template>
 <script lang="ts">
-import { reactive, Ref, ref } from "vue"
+import { Ref, ref } from "vue"
 import { NodeRequire } from "@/types"
 
 type SideBarListType = {
@@ -34,12 +34,12 @@ type SideBarListType = {
 }
 
 type ReturnFuncSetupType = {
-  data: ReturnType<typeof reactive>
+  weatherCoperations: Ref<SideBarListType[]>
 }
 
 export default {
   setup(): ReturnFuncSetupType {
-    const weatherCoperations: Ref<SideBarListType[]> = ref([
+    const weatherCoperations = ref([
       {
         index: 1,
         name: "기상청",
@@ -60,11 +60,11 @@ export default {
       },
     ])
 
-    const data: ReturnType<typeof reactive> = reactive({
-      weatherCoperations,
-    })
+    // const data: ReturnType<typeof reactive> = reactive({
+    //   weatherCoperations,
+    // })
 
-    return { data }
+    return { weatherCoperations }
   },
 }
 </script>
