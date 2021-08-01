@@ -4,8 +4,8 @@
       <img :src="`${img}`" alt="기상 아이콘" />
     </figure>
     <div class="current-info__description display-flex">
-      <NowInfo :nowInfo="{ nowTemp, nowSky }" />
-      <MinMaxInfo :minMax="{ minMax }" />
+      <NowInfo :nowInfo="nowStatus" />
+      <MinMaxInfo :minMax="minMax" />
     </div>
   </div>
 </template>
@@ -24,33 +24,32 @@ export default {
     },
   },
   setup(props: any) {
-    const nowTemp = ref(Math.round(Number(props.nowTemperature.nowTemp)))
-    const nowSky = ref()
+    const nowStatus = ref({
+      nowTemp: props.nowTemperature.t1h,
+      nowSky: props.nowTemperature.sky,
+    })
     const img = ref()
-    const minMax = ref()
+    const minMax = ref({
+      minTemp: props.nowTemperature.tmn,
+      maxTemp: props.nowTemperature.tmx,
+    })
 
     const getSky = () => {
-      const value = props.nowTemperature.nowSky
-      const minMaxProps = props.nowTemperature.minMax
+      const value = nowStatus.value.nowSky
       if (value === "1") {
-        nowSky.value = "맑음"
+        nowStatus.value.nowSky = "맑음"
         img.value = require("@/assets/img/main-sunny-icon@2x.png")
       } else if (value === "2") {
-        nowSky.value = "구름 많음"
+        nowStatus.value.nowSky = "구름 많음"
         img.value = require("@/assets/img/main-fog-icon@2x.png")
       } else if (value === "4") {
-        nowSky.value = "흐림"
+        nowStatus.value.nowSky = "흐림"
         img.value = require("@/assets/img/main-cloud-icon@2x.png")
-      }
-
-      minMax.value = {
-        min: minMaxProps[0].fcstValue,
-        max: minMaxProps[1].fcstValue,
       }
     }
     getSky()
 
-    return { nowTemp, nowSky, img, minMax }
+    return { nowStatus, img, minMax }
   },
 }
 </script>

@@ -20,7 +20,15 @@
 <script lang="ts">
 import { ref } from "@vue/reactivity"
 export default {
-  setup() {
+  props: {
+    atmosphere: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props: any) {
+    console.log(props.atmosphere)
+
     const cardData = ref([
       {
         img: require("@/assets/img/windy-icon@2x.png"),

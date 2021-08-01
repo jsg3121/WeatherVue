@@ -11,7 +11,10 @@ import Temperature from "./Temperatures.service.vue"
 import http from "axios"
 import { GeoLocationStateType } from "@/store/src/state"
 import { Store, useStore } from "@/store"
-import { GeolocationActionTypes } from "@/store/src/actions"
+import {
+  GeolocationActionTypes,
+  KoreaWeatherActionTypes,
+} from "@/store/src/actions"
 import { ref, Ref } from "vue"
 
 type LocationType = GeoLocationStateType["location"]
@@ -73,6 +76,19 @@ export default {
       }
     }
     await getLocation()
+
+    await http
+      .request({
+        url: " http://localhost:80/api/ko/nowWeather",
+        method: "GET",
+        params: {
+          nx: store.state.location.gridX,
+          ny: store.state.location.gridY,
+        },
+      })
+      .then((res) => {
+        store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
+      })
 
     const locationName = () => {
       return `${store.state.location.depth1} ${store.state.location.depth2} ${store.state.location.depth3}`

@@ -3,11 +3,11 @@
     <div class="current-info__additional-information">
       <div class="current-info__maxAndmin-temperature display-flex">
         <p class="current-info__min-temperature">
-          {{ Math.round(Number(temperature.min)) }}º
+          {{ Math.round(temperature.minTemp) }}º
         </p>
         <span class="current-info__separator"></span>
         <p class="current-info__max-temperature">
-          {{ Math.round(Number(temperature.max)) }}º
+          {{ Math.round(temperature.maxTemp) }}º
         </p>
       </div>
       <div class="current-info__diff-yesterday">
@@ -26,7 +26,7 @@ export default {
     },
   },
   setup(props: any) {
-    const temperature = ref(props.minMax.minMax)
+    const temperature = ref(props.minMax)
 
     return { temperature }
   },
