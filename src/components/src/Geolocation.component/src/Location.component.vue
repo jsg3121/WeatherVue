@@ -11,11 +11,9 @@
   </Fragment>
 </template>
 <script lang="ts">
-import { Store, useStore } from "@/store"
-import { onUpdated, Ref, ref } from "vue"
+import { Ref, ref } from "vue"
 
 type SetUpTypes = {
-  store: Store
   location: Ref<string>
 }
 
@@ -28,17 +26,9 @@ export default {
   },
   // #TODO : #2. any타입 변경
   setup(props: any): SetUpTypes {
-    const store = useStore()
-    const location = ref(
-      `${store.state.location.depth1} ${store.state.location.depth2} ${store.state.location.depth3}`
-    )
+    const location = ref(props.locationName)
 
-    onUpdated(() => {
-      location.value = props.locationName
-      return location.value
-    })
-
-    return { store, location }
+    return { location }
   },
 }
 </script>

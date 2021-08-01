@@ -26,8 +26,9 @@ export const geolocationAction: ActionTree<
 > &
   GeolocationActions = {
   [GeolocationActionTypes.GET_LOCATION]({ commit }, payload) {
-    return new Promise(() => {
+    return new Promise((res) => {
       commit(GeologicationMutationTypes.SET_LOCATION, payload)
+      res(payload)
     })
   },
 }

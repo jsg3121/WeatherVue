@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "vue": "^3.1.4",
     "vue-class-component": "^8.0.0-0",
+    "vue-fragment": "^1.5.2",
     "vue-loader": "^16.2.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",
