@@ -9,7 +9,9 @@
         <img :src="item.img" :alt="item.alt" />
       </figure>
       <div class="atmosphere-container__description display-flex">
-        <p class="atmosphere-container__figure">3 {{ item.unit }}</p>
+        <p class="atmosphere-container__figure">
+          {{ item.rate }} {{ item.unit }}
+        </p>
         <p class="atmosphere-container__description-name">
           {{ item.description }}
         </p>
@@ -19,6 +21,7 @@
 </template>
 <script lang="ts">
 import { ref } from "@vue/reactivity"
+import { onMounted } from "@vue/runtime-core"
 export default {
   props: {
     atmosphere: {
@@ -27,22 +30,42 @@ export default {
     },
   },
   setup(props: any) {
-    console.log(props.atmosphere)
-
     const cardData = ref([
       {
         img: require("@/assets/img/windy-icon@2x.png"),
         alt: "풍향 아이콘",
         unit: "m/s",
         description: "북서풍",
+        rate: 0,
       },
       {
         img: require("@/assets/img/rain-drop-icon@2x.png"),
         alt: "습도 아이콘",
         unit: "%",
         description: "습도",
+        rate: 0,
       },
     ])
+
+    const setWindDriection = (vec: number) => {
+      if (vec) {
+        if (22.5 < vec && vec <= 67.5) return "북동풍"
+        else if (67.5 < vec && vec <= 112.5) return "동풍"
+        else if (112.5 < vec && vec <= 157.5) return "남동풍"
+        else if (157.5 < vec && vec <= 202.5) return "남풍"
+        else if (202.5 < vec && vec <= 247.5) return "남서풍"
+        else if (247.5 < vec && vec <= 292.5) return "서풍"
+        else if (292.5 < vec && vec <= 337.5) return "북서풍"
+        else if (337.5 < vec && vec <= 22.5) return "북풍"
+      }
+      return "풍속"
+    }
+
+    onMounted(() => {
+      cardData.value[1].rate = props.atmosphere.reh
+      cardData.value[0].rate = props.atmosphere.wsd
+      cardData.value[0].description = setWindDriection(props.atmosphere.vec)
+    })
 
     return { cardData }
   },

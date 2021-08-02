@@ -79,7 +79,7 @@ export default {
 
     await http
       .request({
-        url: " http://localhost:80/api/ko/nowWeather",
+        url: "https://best-weather.com/api/ko/nowWeather",
         method: "GET",
         params: {
           nx: store.state.location.gridX,

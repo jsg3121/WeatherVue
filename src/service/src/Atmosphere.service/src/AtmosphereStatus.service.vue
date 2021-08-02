@@ -6,7 +6,7 @@
 <script lang="ts">
 import { Components } from "@/components"
 import { useStore } from "@/store"
-import { ref } from "@vue/runtime-core"
+import { onMounted, ref } from "@vue/runtime-core"
 
 export default {
   components: {
@@ -16,18 +16,20 @@ export default {
     const store = useStore()
     const data = ref()
 
-    const state = store.state.currentTemperature
-    data.value = {
-      reh: state.reh,
-      vec: state.vec,
-      wsd: state.wsd,
-    }
-
-    console.log(data.value)
-
     const atmosphere = () => {
+      const state = store.state.currentTemperature
+      data.value = {
+        reh: state.reh,
+        vec: state.vec,
+        wsd: state.wsd,
+      }
       return data.value
     }
+
+    onMounted(() => {
+      atmosphere()
+    })
+
     return { atmosphere }
   },
 }
