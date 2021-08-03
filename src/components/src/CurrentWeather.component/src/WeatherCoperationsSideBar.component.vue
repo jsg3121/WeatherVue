@@ -16,7 +16,13 @@
           <figure class="weather-sideBar__currentIcon">
             <img src="@/assets/img/sunny-small-icon@2x.png" alt="" />
           </figure>
-          <p class="weather-sideBar__current-temperature">99º</p>
+          <p class="weather-sideBar__current-temperature">
+            {{
+              items.temperature
+                ? Math.round(parseInt(items.temperature, 10))
+                : 99
+            }}º
+          </p>
         </div>
       </li>
     </ul>
@@ -25,6 +31,7 @@
 <script lang="ts">
 import { Ref, ref } from "vue"
 import { NodeRequire } from "@/types"
+import { useStore } from "@/store"
 
 type SideBarListType = {
   index: number
@@ -39,12 +46,15 @@ type ReturnFuncSetupType = {
 
 export default {
   setup(): ReturnFuncSetupType {
+    const store = useStore()
+
     const weatherCoperations = ref([
       {
         index: 1,
         name: "기상청",
         logo: require("@/assets/img/korea-weather-icon-s@2x.png"),
         selectLogo: require("@/assets/img/korea-weather-icon-n@2x.png"),
+        temperature: store.state.currentTemperature.t1h,
       },
       {
         index: 2,

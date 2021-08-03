@@ -5,13 +5,13 @@
         <Fragment>
           <Currnet />
           <AtmosStatus />
+          <TimeSetWeather />
         </Fragment>
       </template>
       <template #fallback>
         <h1>loading</h1>
       </template>
     </suspense>
-    <TimeSetWeather />
     <WeeklyWeather />
     <AtmosEnv />
     <FooterVue />
