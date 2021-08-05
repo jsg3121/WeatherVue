@@ -4,11 +4,15 @@ import { KoreaWeatherMutationTypes } from "./types"
 
 export type KoreaWeatherMutaions<S = KoreaWeatherStateType> = {
   [KoreaWeatherMutationTypes.SET_WEATHER](state: S, payload: any): void
+  [KoreaWeatherMutationTypes.SET_THREES](state: S, payload: any): void
 }
 
 export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
   KoreaWeatherMutaions = {
   [KoreaWeatherMutationTypes.SET_WEATHER](state, payload) {
     state.currentTemperature = payload
+  },
+  [KoreaWeatherMutationTypes.SET_THREES](state, payload) {
+    state.threeHours = payload
   },
 }

@@ -8,10 +8,15 @@
 <script lang="ts">
 import TitleLocation from "./TitleLocation.service.vue"
 import Temperature from "./Temperatures.service.vue"
-import { useStore } from "@/store"
-import { ref } from "vue"
-import { getLocation, getTemperature } from "./getWeather"
-import { LocationType, PositionType, SetUpTypes } from "./types"
+import { Store, useStore } from "@/store"
+import { Ref, ref } from "vue"
+import { getLocation, getTemperature, getThreeHours } from "./getWeather"
+import { LocationType, PositionType } from "./types"
+
+type SetUpTypes = {
+  location: Ref<LocationType | undefined>
+  store: Store
+}
 
 export default {
   components: {
@@ -36,12 +41,9 @@ export default {
 
     await getLocation(data)
     await getTemperature()
+    await getThreeHours()
 
-    const locationName = () => {
-      return `${store.state.location.depth1} ${store.state.location.depth2} ${store.state.location.depth3}`
-    }
-
-    return { store, location, locationName }
+    return { store, location }
   },
 }
 </script>

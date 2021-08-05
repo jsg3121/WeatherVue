@@ -19,6 +19,10 @@ export interface KoreaWeatherActions {
     { commit }: ArgumentedActionContext,
     payload: KoreaWeatherStateType
   ): Promise<KoreaWeatherStateType>
+  [KoreaWeatherActionTypes.GET_THREES](
+    { commit }: ArgumentedActionContext,
+    payload: KoreaWeatherStateType
+  ): Promise<KoreaWeatherStateType>
 }
 
 export const koreaWeatherAction: ActionTree<
@@ -29,6 +33,12 @@ export const koreaWeatherAction: ActionTree<
   [KoreaWeatherActionTypes.GET_WEATHER]({ commit }, payload) {
     return new Promise((res) => {
       commit(KoreaWeatherMutationTypes.SET_WEATHER, payload)
+      res(payload)
+    })
+  },
+  [KoreaWeatherActionTypes.GET_THREES]({ commit }, payload) {
+    return new Promise((res) => {
+      commit(KoreaWeatherMutationTypes.SET_THREES, payload)
       res(payload)
     })
   },

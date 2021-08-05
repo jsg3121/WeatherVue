@@ -8,12 +8,21 @@
 import { Components } from "@/components"
 import { useStore } from "@/store"
 
+type SetUpTypes = {
+  nowTemperature: () => {
+    t1h: number // 현재 기온
+    tmn: number // 최저 기온
+    tmx: number // 최고 기온
+    sky: string // 하늘 상태
+  }
+}
+
 export default {
   components: {
     NowTemperature: Components.CurrentTemperatures,
     WeatherCopSideBar: Components.WeatherCoperations,
   },
-  async setup(): Promise<any> {
+  async setup(): Promise<SetUpTypes> {
     const store = useStore()
     const nowTemperature = () => {
       const data = store.state.currentTemperature

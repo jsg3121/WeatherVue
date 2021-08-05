@@ -46,3 +46,18 @@ export const getTemperature = async () => {
       store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
     })
 }
+
+export const getThreeHours = async () => {
+  await http
+    .request({
+      url: "https://best-weather.com/api/ko/threeHours",
+      method: "GET",
+      params: {
+        nx: store.state.location.gridX,
+        ny: store.state.location.gridY,
+      },
+    })
+    .then((res) => {
+      store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
+    })
+}

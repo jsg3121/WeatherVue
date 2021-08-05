@@ -9,6 +9,13 @@ export const KoreaWeatherState = {
     tmn: "",
     tmx: "",
   },
+  threeHours: [
+    {
+      date: "",
+      time: "",
+      value: "",
+    },
+  ],
 }
 
 export type KoreaWeatherStateType = typeof KoreaWeatherState
