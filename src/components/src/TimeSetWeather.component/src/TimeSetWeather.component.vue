@@ -2,23 +2,39 @@
   <div class="timeSet-container">
     <h3 class="timeSet-container__title">시간대별</h3>
     <ul class="timeSet-container__item-list display-flex">
-      <li class="tiemSet-container__list" v-for="item in 8" :key="item">
+      <li class="tiemSet-container__list" v-for="item in data" :key="item">
         <div class="item-container display-flex">
-          <p class="item-container__temperatures">99º</p>
+          <p class="item-container__temperatures">{{ item.value }}º</p>
           <figure class="item-container__img">
             <img
               src="@/assets/img/sunny-icon@2x.png"
               alt="시간대별 날씨 아이콘"
             />
           </figure>
-          <p class="item-container__time">24시</p>
+          <p class="item-container__time">{{ item.time.substr(0, 2) }}시</p>
         </div>
       </li>
     </ul>
   </div>
 </template>
 <script lang="ts">
-export default {}
+import { onMounted, ref } from "@vue/runtime-core"
+export default {
+  props: {
+    onDataList: {
+      type: Array,
+      required: true,
+    },
+  },
+  setup(props: any) {
+    const data = ref()
+
+    onMounted(() => {
+      data.value = props.onDataList
+    })
+    return { data }
+  },
+}
 </script>
 <style lang="scss">
 .timeSet-container {
@@ -46,11 +62,15 @@ export default {}
     width: 100%;
     flex: 1;
     justify-content: space-between;
-    height: calc(100% - 3.5rem);
+    height: calc(100% - 2.375rem);
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding-bottom: 0.5rem;
 
     .tiemSet-container__list {
-      width: 3.5rem;
+      min-width: 3.5rem;
       height: 100%;
+      margin-right: 1rem;
 
       .item-container {
         height: 100%;
