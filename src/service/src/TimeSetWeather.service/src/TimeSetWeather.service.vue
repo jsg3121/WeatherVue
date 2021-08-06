@@ -10,13 +10,16 @@ import { useStore } from "@/store"
 import { onMounted } from "vue"
 
 type SetUpTypes = {
-  onDataList: () => TimeSetDataTypes[] | undefined
+  onDataList: () => TimeSetDataTypes | undefined
 }
 
 type TimeSetDataTypes = {
   date: string
   time: string
   value: string
+  valueSKY: string
+  valueR06: string
+  valuePTY: string
 }
 
 export default {
@@ -25,10 +28,11 @@ export default {
   },
   async setup(): Promise<SetUpTypes> {
     const store = useStore()
-    const timeSetData = ref<TimeSetDataTypes[]>()
+    const timeSetData = ref<TimeSetDataTypes>()
 
     const onDataList = () => {
-      timeSetData.value = store.state.threeHours
+      const data = store.state.threeHours
+      timeSetData.value = data
       return timeSetData.value
     }
 

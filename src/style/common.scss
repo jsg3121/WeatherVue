@@ -5,6 +5,17 @@ html {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+body {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 16px;
+  padding: 0 2rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   *::-webkit-scrollbar {
     background-color: rgba(0, 0, 0, 0);
@@ -20,13 +31,6 @@ html {
   *::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0);
   }
-}
-
-body {
-  max-width: 720px;
-  margin: 0 auto;
-  font-size: 16px;
-  padding: 0 2rem;
 }
 
 .display-flex {

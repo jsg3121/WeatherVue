@@ -19,10 +19,20 @@
 </template>
 <script lang="ts">
 import { onMounted, ref } from "@vue/runtime-core"
+
+type DataProps = {
+  date: string
+  time: string
+  value: string
+  valueSKY: string
+  valueR06: string
+  valuePTY: string
+}
+
 export default {
   props: {
     onDataList: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
@@ -31,6 +41,29 @@ export default {
 
     onMounted(() => {
       data.value = props.onDataList
+      // data.value = data.value.map((item: Pick<DataProps, "valueSKY">) => {
+      //   if (item.valueSKY === "0") {
+      //     // 강수는 0이지만 하늘 상태에 따라 흐림 또는 맑음
+      //     require("@/assets/img/sunny-icon@2x.png")
+      //   }
+      //   // 맑음
+      //   else if (
+      //     item.valueSKY === "1" ||
+      //     item.valueSKY === "2" ||
+      //     item.valueSKY === "4" ||
+      //     item.valueSKY === "5" ||
+      //     item.valueSKY === "6" ||
+      //     item.valueSKY === "7"
+      //   ) {
+      //     // 6시간 강우량이 70이상 예상될 때 번개
+      //     require("@/assets/img/sunny-icon@2x.png")
+      //   }
+      //   // 비와 관련된 모든 기상
+      //   else if (item.valueSKY === "3")
+      //     require("@/assets/img/sunny-icon@2x.png")
+      //   // 눈
+      // })
+      // console.log(data.value)
     })
     return { data }
   },
