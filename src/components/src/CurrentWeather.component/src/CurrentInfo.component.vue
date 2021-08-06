@@ -39,7 +39,7 @@ export default {
       if (value === "1") {
         nowStatus.value.nowSky = "맑음"
         img.value = require("@/assets/img/main-sunny-icon@2x.png")
-      } else if (value === "2") {
+      } else if (value === "3") {
         nowStatus.value.nowSky = "구름 많음"
         img.value = require("@/assets/img/main-fog-icon@2x.png")
       } else if (value === "4") {
