@@ -22,6 +22,11 @@ export const KoreaWeatherState = {
     time: "",
     value: "",
   },
+  s06: {
+    date: "",
+    time: "",
+    value: "",
+  },
 }
 
 export type KoreaWeatherStateType = typeof KoreaWeatherState

@@ -9,17 +9,22 @@ import { ref } from "@vue/runtime-core"
 import { useStore } from "@/store"
 import { onMounted } from "vue"
 
-type SetUpTypes = {
-  onDataList: () => TimeSetDataTypes | undefined
-}
-
-type TimeSetDataTypes = {
+type DataTypesProps = {
   date: string
   time: string
   value: string
   valueSKY: string
-  valueR06: string
   valuePTY: string
+}
+
+type TimeSetDataTypes = {
+  threeHours: DataTypesProps
+  r06: Pick<DataTypesProps, "date" | "time" | "value">
+  s06: Pick<DataTypesProps, "date" | "time" | "value">
+}
+
+type SetUpTypes = {
+  onDataList: () => TimeSetDataTypes | undefined
 }
 
 export default {
@@ -31,7 +36,11 @@ export default {
     const timeSetData = ref<TimeSetDataTypes>()
 
     const onDataList = () => {
-      const data = store.state.threeHours
+      const data = {
+        threeHours: store.state.threeHours,
+        r06: store.state.r06,
+        s06: store.state.s06,
+      }
       timeSetData.value = data
       return timeSetData.value
     }

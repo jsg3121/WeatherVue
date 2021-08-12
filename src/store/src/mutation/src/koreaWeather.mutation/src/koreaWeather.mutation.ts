@@ -13,7 +13,6 @@ export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
     state.currentTemperature = payload
   },
   [KoreaWeatherMutationTypes.SET_THREES](state, payload) {
-    console.log(payload)
     const data = payload.T3H.map((item: any, idx: number) => {
       const res = (item = {
         ...item,
@@ -22,7 +21,8 @@ export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
       })
       return res
     })
+    state.r06 = payload.R06
     state.threeHours = data
-    state.r06 = payload.r06
+    state.s06 = payload.S06
   },
 }

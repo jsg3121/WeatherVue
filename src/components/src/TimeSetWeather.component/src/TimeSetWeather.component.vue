@@ -2,14 +2,11 @@
   <div class="timeSet-container">
     <h3 class="timeSet-container__title">시간대별</h3>
     <ul class="timeSet-container__item-list display-flex">
-      <li class="tiemSet-container__list" v-for="item in data" :key="item">
+      <li class="tiemSet-container__list" v-for="item in listData" :key="item">
         <div class="item-container display-flex">
           <p class="item-container__temperatures">{{ item.value }}º</p>
           <figure class="item-container__img">
-            <img
-              src="@/assets/img/sunny-icon@2x.png"
-              alt="시간대별 날씨 아이콘"
-            />
+            <img :src="item.iconSrc" alt="시간대별 날씨 아이콘" />
           </figure>
           <p class="item-container__time">{{ item.time.substr(0, 2) }}시</p>
         </div>
@@ -20,15 +17,6 @@
 <script lang="ts">
 import { onMounted, ref } from "@vue/runtime-core"
 
-type DataProps = {
-  date: string
-  time: string
-  value: string
-  valueSKY: string
-  valueR06: string
-  valuePTY: string
-}
-
 export default {
   props: {
     onDataList: {
@@ -36,11 +24,23 @@ export default {
       required: true,
     },
   },
+
   setup(props: any) {
     const data = ref()
+    const listData = ref(props.onDataList.threeHours)
 
     onMounted(() => {
       data.value = props.onDataList
+      console.log(data.value)
+
+      listData.value = listData.value.map((item: any) => {
+        console.log(item)
+        return {
+          ...item,
+          iconSrc: require("@/assets/img/rain-icon@2x.png"),
+        }
+      })
+
       // data.value = data.value.map((item: Pick<DataProps, "valueSKY">) => {
       //   if (item.valueSKY === "0") {
       //     // 강수는 0이지만 하늘 상태에 따라 흐림 또는 맑음
@@ -63,9 +63,9 @@ export default {
       //     require("@/assets/img/sunny-icon@2x.png")
       //   // 눈
       // })
-      // console.log(data.value)
     })
-    return { data }
+
+    return { data, listData }
   },
 }
 </script>
