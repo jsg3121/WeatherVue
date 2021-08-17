@@ -20,8 +20,21 @@
   </div>
 </template>
 <script lang="ts">
-import { ref } from "@vue/reactivity"
+import { Ref, ref } from "@vue/reactivity"
 import { onMounted } from "@vue/runtime-core"
+
+type setUpTypes = {
+  cardData: Ref<
+    {
+      img: (path: string) => string
+      alt: string
+      unit: string
+      description: string
+      rate: number
+    }[]
+  >
+}
+
 export default {
   props: {
     atmosphere: {
@@ -29,7 +42,7 @@ export default {
       required: true,
     },
   },
-  setup(props: any) {
+  setup(props: any): setUpTypes {
     const cardData = ref([
       {
         img: require("@/assets/img/windy-icon@2x.png"),

@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1>Weather Right</h1>
+    <h1>Best Weather</h1>
   </header>
 </template>
 

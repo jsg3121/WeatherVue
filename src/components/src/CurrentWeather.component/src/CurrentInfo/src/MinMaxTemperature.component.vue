@@ -10,9 +10,9 @@
           {{ Math.round(temperature.maxTemp) }}º
         </p>
       </div>
-      <div class="current-info__diff-yesterday">
+      <!-- <div class="current-info__diff-yesterday">
         <p>어제보다 99º높음</p>
-      </div>
+      </div> -->
     </div>
   </Fragment>
 </template>
@@ -27,7 +27,6 @@ export default {
   },
   setup(props: any) {
     const temperature = ref(props.minMax)
-
     return { temperature }
   },
 }

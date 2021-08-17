@@ -28,7 +28,7 @@ export default {
       nowTemp: props.nowTemperature.t1h,
       nowSky: props.nowTemperature.sky,
     })
-    const img = ref()
+    const img = ref<string>()
     const minMax = ref({
       minTemp: props.nowTemperature.tmn,
       maxTemp: props.nowTemperature.tmx,
