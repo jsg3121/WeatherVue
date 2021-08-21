@@ -1,7 +1,5 @@
 <template>
-  <Fragment>
-    <AtmosphereStatus :atmosphere="atmosphere()" />
-  </Fragment>
+  <AtmosphereStatus :atmosphere="atmosphere()" />
 </template>
 <script lang="ts">
 import { Components } from "@/components"

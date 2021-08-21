@@ -1,17 +1,15 @@
 <template>
-  <Fragment>
-    <div class="current-info__additional-information">
-      <div class="current-info__maxAndmin-temperature display-flex">
-        <p class="current-info__min-temperature">
-          {{ Math.round(temperature.minTemp) }}º
-        </p>
-        <span class="current-info__separator"></span>
-        <p class="current-info__max-temperature">
-          {{ Math.round(temperature.maxTemp) }}º
-        </p>
-      </div>
+  <div class="current-info__additional-information">
+    <div class="current-info__maxAndmin-temperature display-flex">
+      <p class="current-info__min-temperature">
+        {{ Math.round(temperature.minTemp) }}º
+      </p>
+      <span class="current-info__separator"></span>
+      <p class="current-info__max-temperature">
+        {{ Math.round(temperature.maxTemp) }}º
+      </p>
     </div>
-  </Fragment>
+  </div>
 </template>
 <script lang="ts">
 import { ref, toRefs } from "@vue/reactivity"

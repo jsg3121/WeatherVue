@@ -1,14 +1,12 @@
 <template>
-  <Fragment>
-    <div class="location-title display-flex">
-      <figure class="location-title__img">
-        <img src="@/assets/img/location-icon@2x.png" alt="icon-location" />
-      </figure>
-      <h2 class="location-title__text">
-        {{ location }}
-      </h2>
-    </div>
-  </Fragment>
+  <div class="location-title display-flex">
+    <figure class="location-title__img">
+      <img src="@/assets/img/location-icon@2x.png" alt="icon-location" />
+    </figure>
+    <h2 class="location-title__text">
+      {{ location }}
+    </h2>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue"

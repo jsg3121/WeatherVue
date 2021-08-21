@@ -1,8 +1,8 @@
 <template>
-  <Fragment>
+  <div>
     <HeaderVue />
     <Location :locationName="locationName()" />
-  </Fragment>
+  </div>
 </template>
 <script lang="ts">
 import { Components } from "@/components"

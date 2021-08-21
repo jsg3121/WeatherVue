@@ -1,8 +1,8 @@
 <template>
-  <Fragment>
+  <div>
     <TitleLocation />
     <Temperature />
-  </Fragment>
+  </div>
 </template>
 
 <script lang="ts">
