@@ -14,6 +14,8 @@ Todo List (**last update : 2021.08.21**)
 
 ---
 
+```
+
 프로젝트 파일 구조
 │ App.vue
 │ main.ts
@@ -39,7 +41,7 @@ Todo List (**last update : 2021.08.21**)
 │ │
 │ ├───CurrentWeather.component
 │ │ │ index.ts
-│ │ │  
+│ │ │
 │ │ └───src
 │ │ │ CurrentInfo.component.vue
 │ │ │ WeatherCoperationsSideBar.component.vue
@@ -80,7 +82,7 @@ Todo List (**last update : 2021.08.21**)
 │ │
 │ └───src
 │ │ index.ts
-│ │  
+│ │
 │ ├───Atmosphere.service
 │ │ │ index.ts
 │ │ │
@@ -170,7 +172,7 @@ Todo List (**last update : 2021.08.21**)
 │ │ │
 │ │ ├───example.mutation
 │ │ │ │ index.ts
-│ │ │ │  
+│ │ │ │
 │ │ │ └───src
 │ │ │ example.mutation.ts
 │ │ │ types.ts
@@ -228,3 +230,5 @@ Todo List (**last update : 2021.08.21**)
 │
 └───views
 Main.vue
+
+```
