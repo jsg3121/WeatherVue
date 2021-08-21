@@ -20,30 +20,19 @@
   </div>
 </template>
 <script lang="ts">
-import { Ref, ref } from "@vue/reactivity"
-import { onMounted } from "@vue/runtime-core"
+import { ref } from "@vue/reactivity"
+import { defineComponent, onMounted, PropType } from "@vue/runtime-core"
+import { setUpTypes, PropsType, CardDataType } from "./types"
 
-type setUpTypes = {
-  cardData: Ref<
-    {
-      img: (path: string) => string
-      alt: string
-      unit: string
-      description: string
-      rate: number
-    }[]
-  >
-}
-
-export default {
+export default defineComponent({
   props: {
     atmosphere: {
-      type: Object,
+      type: Object as PropType<PropsType>,
       required: true,
     },
   },
-  setup(props: any): setUpTypes {
-    const cardData = ref([
+  setup(props): setUpTypes {
+    const cardData = ref<Array<CardDataType>>([
       {
         img: require("@/assets/img/windy-icon@2x.png"),
         alt: "풍향 아이콘",
@@ -82,7 +71,7 @@ export default {
 
     return { cardData }
   },
-}
+})
 </script>
 <style lang="scss">
 .atmosphere-container {

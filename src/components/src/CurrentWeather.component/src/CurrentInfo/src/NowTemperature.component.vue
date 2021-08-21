@@ -5,23 +5,30 @@
   </div>
 </template>
 <script lang="ts">
-import { ref } from "@vue/reactivity"
-export default {
+import { Ref, ref } from "@vue/reactivity"
+import { defineComponent } from "vue"
+import { NowInfoProps } from "./types"
+
+type SetUpTypes = {
+  nowData: Ref<NowInfoProps>
+}
+
+export default defineComponent({
   props: {
     nowInfo: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
-  setup(props: any) {
-    const nowData = ref({
+  setup(props): SetUpTypes {
+    const nowData = ref<NowInfoProps>({
       nowTemp: props.nowInfo.nowTemp,
       nowSky: props.nowInfo.nowSky,
     })
 
     return { nowData }
   },
-}
+})
 </script>
 <style lang="scss">
 .current-info__current-status {

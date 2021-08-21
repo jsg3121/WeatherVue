@@ -3,14 +3,16 @@
     <h2>기상 정보 사이트</h2>
     <br />
     <p>개발자</p>
-    <p>Gmail : asdfasdf@asdf.com</p>
-    <p>Git : asdfasd.asdf.adsf</p>
-    <br />
-    <p>api 및 오픈소스 정보(링크)</p>
+    <p>Gmail : xodm95@gmail.com</p>
+    <p>
+      Git :
+      <a href="https://github.com/jsg3121">https://github.com/jsg3121</a>
+    </p>
     <br />
     <p>
       위 사이트는 상업적 용도로 개발된것이 아니며 <br />
-      해당 사이트에 관련된 코드나 정보에 대하여 무단 복제 및 배포를 금합니다.
+      해당 사이트에 관련된 코드나 정보에 대하여 <br />
+      무단 복제 및 배포를 금합니다.
     </p>
   </div>
 </template>

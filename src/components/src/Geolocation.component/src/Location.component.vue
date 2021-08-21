@@ -11,26 +11,22 @@
   </Fragment>
 </template>
 <script lang="ts">
-import { Ref, ref } from "vue"
+import { defineComponent, ref } from "vue"
+import { SetUpTypes } from "./types"
 
-type SetUpTypes = {
-  location: Ref<string>
-}
-
-export default {
+export default defineComponent({
   props: {
     locationName: {
       type: String,
       required: true,
     },
   },
-  // #TODO : #2. any타입 변경
-  setup(props: any): SetUpTypes {
+  setup(props): SetUpTypes {
     const location = ref(props.locationName)
 
     return { location }
   },
-}
+})
 </script>
 <style lang="scss">
 .location-title {

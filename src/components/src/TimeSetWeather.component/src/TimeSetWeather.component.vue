@@ -15,9 +15,10 @@
   </div>
 </template>
 <script lang="ts">
-import { onMounted, ref } from "@vue/runtime-core"
+import { defineComponent, onMounted, ref } from "@vue/runtime-core"
+import { OnDataListType, TimeSetProps } from "./types"
 
-export default {
+export default defineComponent({
   props: {
     onDataList: {
       type: Object,
@@ -25,49 +26,48 @@ export default {
     },
   },
 
-  setup(props: any) {
-    const data = ref()
-    const listData = ref(props.onDataList.threeHours)
+  setup(props) {
+    const data = ref<Record<string, TimeSetProps>>(props.onDataList)
+    const listData = ref<Array<OnDataListType>>(props.onDataList.threeHours)
 
     onMounted(() => {
-      data.value = props.onDataList
-      console.log(data.value)
-
-      listData.value = listData.value.map((item: any) => {
-        console.log(item)
-        return {
-          ...item,
-          iconSrc: require("@/assets/img/rain-icon@2x.png"),
+      listData.value = listData.value.map((item: OnDataListType) => {
+        // 맑음
+        if (item.valueSKY === "1") {
+          return {
+            ...item,
+            iconSrc: require("@/assets/img/sunny-icon@2x.png"),
+          }
+        } else if (item.valueSKY === "3" || item.valueSKY === "4") {
+          if (item.valuePTY === "0") {
+            return {
+              ...item,
+              iconSrc: require("@/assets/img/cloud-icon@2x.png"),
+            }
+          } else if (
+            item.valuePTY === "1" ||
+            item.valuePTY === "2" ||
+            item.valuePTY === "4" ||
+            item.valuePTY === "5" ||
+            item.valuePTY === "6"
+          ) {
+            return {
+              ...item,
+              iconSrc: require("@/assets/img/rain-icon@2x.png"),
+            }
+          } else if (item.valuePTY === "3" || item.valuePTY === "7") {
+            return {
+              ...item,
+              iconSrc: require("@/assets/img/snow-icon@2x.png"),
+            }
+          }
         }
-      })
-
-      // data.value = data.value.map((item: Pick<DataProps, "valueSKY">) => {
-      //   if (item.valueSKY === "0") {
-      //     // 강수는 0이지만 하늘 상태에 따라 흐림 또는 맑음
-      //     require("@/assets/img/sunny-icon@2x.png")
-      //   }
-      //   // 맑음
-      //   else if (
-      //     item.valueSKY === "1" ||
-      //     item.valueSKY === "2" ||
-      //     item.valueSKY === "4" ||
-      //     item.valueSKY === "5" ||
-      //     item.valueSKY === "6" ||
-      //     item.valueSKY === "7"
-      //   ) {
-      //     // 6시간 강우량이 70이상 예상될 때 번개
-      //     require("@/assets/img/sunny-icon@2x.png")
-      //   }
-      //   // 비와 관련된 모든 기상
-      //   else if (item.valueSKY === "3")
-      //     require("@/assets/img/sunny-icon@2x.png")
-      //   // 눈
-      // })
+      }) as Array<OnDataListType>
     })
 
     return { data, listData }
   },
-}
+})
 </script>
 <style lang="scss">
 .timeSet-container {

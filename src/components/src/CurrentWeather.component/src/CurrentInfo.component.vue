@@ -1,6 +1,7 @@
 <template>
   <div class="current-info">
     <figure class="current-info__img">
+      <!-- #TODO : #1  -->
       <img :src="`${img}`" alt="기상 아이콘" />
     </figure>
     <div class="current-info__description display-flex">
@@ -10,9 +11,18 @@
   </div>
 </template>
 <script lang="ts">
-import { ref } from "@vue/reactivity"
+import { Ref, ref } from "@vue/reactivity"
+import { defineComponent } from "vue"
 import { CurrentInfo } from "./CurrentInfo/index"
-export default {
+import { NowStatusRef, MinMaxRef } from "./types"
+
+type SetUpTypes = {
+  nowStatus: Ref<NowStatusRef>
+  img: Ref<string | undefined>
+  minMax: Ref<MinMaxRef>
+}
+
+export default defineComponent({
   components: {
     MinMaxInfo: CurrentInfo.MinMaxInfo,
     NowInfo: CurrentInfo.NowInfo,
@@ -23,13 +33,13 @@ export default {
       required: true,
     },
   },
-  setup(props: any) {
-    const nowStatus = ref({
+  setup(props): SetUpTypes {
+    const nowStatus = ref<NowStatusRef>({
       nowTemp: props.nowTemperature.t1h,
       nowSky: props.nowTemperature.sky,
     })
     const img = ref<string>()
-    const minMax = ref({
+    const minMax = ref<MinMaxRef>({
       minTemp: props.nowTemperature.tmn,
       maxTemp: props.nowTemperature.tmx,
     })
@@ -51,7 +61,7 @@ export default {
 
     return { nowStatus, img, minMax }
   },
-}
+})
 </script>
 <style lang="scss">
 .current-info {

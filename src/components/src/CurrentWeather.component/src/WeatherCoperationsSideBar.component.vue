@@ -30,22 +30,15 @@
 </template>
 <script lang="ts">
 import { Ref, ref } from "vue"
-import { NodeRequire } from "@/types"
 import { useStore } from "@/store"
+import { SideBarListType } from "./types"
 
-type SideBarListType = {
-  index: number
-  name: string
-  logo: NodeRequire
-  selectLogo: NodeRequire
-}
-
-type ReturnFuncSetupType = {
+export type SetUpTypes = {
   weatherCoperations: Ref<SideBarListType[]>
 }
 
 export default {
-  setup(): ReturnFuncSetupType {
+  setup(): SetUpTypes {
     const store = useStore()
 
     const weatherCoperations = ref([
@@ -69,10 +62,6 @@ export default {
         selectLogo: require("@/assets/img/accu-weather-icon-s@2x.png"),
       },
     ])
-
-    // const data: ReturnType<typeof reactive> = reactive({
-    //   weatherCoperations,
-    // })
 
     return { weatherCoperations }
   },

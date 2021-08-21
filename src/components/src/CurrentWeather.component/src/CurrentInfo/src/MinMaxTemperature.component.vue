@@ -10,26 +10,32 @@
           {{ Math.round(temperature.maxTemp) }}º
         </p>
       </div>
-      <!-- <div class="current-info__diff-yesterday">
-        <p>어제보다 99º높음</p>
-      </div> -->
     </div>
   </Fragment>
 </template>
 <script lang="ts">
-import { ref } from "@vue/reactivity"
-export default {
+import { ref, toRefs } from "@vue/reactivity"
+import { defineComponent } from "vue"
+import { ReturnToRefString } from "@/types"
+
+type SetUpTypes = {
+  temperature: ReturnToRefString
+}
+
+export default defineComponent({
   props: {
     minMax: {
       type: Object,
       required: true,
     },
   },
-  setup(props: any) {
-    const temperature = ref(props.minMax)
+  setup(props): SetUpTypes {
+    const { minMax } = toRefs(props)
+
+    const temperature = ref<ReturnToRefString>(minMax)
     return { temperature }
   },
-}
+})
 </script>
 <style lang="scss">
 .current-info__additional-information {
