@@ -23,9 +23,9 @@ body {
 
   *::-webkit-scrollbar-thumb {
     background-color: #a7a7a7;
-    border-radius: 0.625rem;
+    border-radius: 10px;
     background-clip: padding-box;
-    border: 0.375rem solid transparent;
+    border: 6px solid transparent;
   }
 
   *::-webkit-scrollbar-track {
@@ -37,4 +37,46 @@ body {
   display: flex;
   align-items: center;
   flex: 0;
+}
+
+@media screen and (min-width: 1920px) {
+  html,
+  body {
+    font-size: 20px !important;
+  }
+}
+
+@media screen and (min-width: 720px) and (max-width: 1919px) {
+  html,
+  body {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 719px) {
+  html,
+  body {
+    font-size: 14px !important;
+  }
+}
+
+@media screen and (min-width: 520px) and (max-width: 639px) {
+  html,
+  body {
+    font-size: 12px !important;
+  }
+}
+
+@media screenand and (min-width: 420px) and (max-width: 519px) {
+  html,
+  body {
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (max-width: 419px) {
+  html,
+  body {
+    font-size: 8px !important;
+  }
 }

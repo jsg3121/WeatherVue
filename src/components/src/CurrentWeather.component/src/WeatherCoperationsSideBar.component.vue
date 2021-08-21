@@ -133,6 +133,10 @@ export default {
           margin-left: 2.25rem;
         }
       }
+
+      @media screen and (max-width: 640px) {
+        margin-left: 0;
+      }
     }
   }
 }
