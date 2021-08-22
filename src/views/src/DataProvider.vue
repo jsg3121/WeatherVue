@@ -5,20 +5,17 @@
         <Currnet />
         <AtmosStatus />
         <TimeSetWeather />
+        <WeeklyWeather />
+        <AtmosEnv />
+        <FooterVue />
       </Fragment>
     </template>
-    <template #fallback>
-      <h1>loading</h1>
-    </template>
+    <template #fallback> loading.... </template>
   </suspense>
-  <WeeklyWeather />
-  <AtmosEnv />
-  <FooterVue />
 </template>
 <script lang="ts">
 import { Components } from "@/components"
 import { Service } from "@/service"
-import { useStore } from "@/store"
 import { RequestPositionType } from "@/types"
 import { defineComponent, ref } from "vue"
 import { getKoreaWeather } from "./koreaWeather.data"
@@ -33,7 +30,6 @@ export default defineComponent({
     FooterVue: Components.Footer,
   },
   async setup() {
-    const store = useStore()
     const data = ref<RequestPositionType>()
     await new Promise((res: (value: RequestPositionType) => void) => {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -45,9 +41,9 @@ export default defineComponent({
     }).then((res) => {
       data.value = res
     })
-
     await getKoreaWeather(data)
-    return { store }
+
+    return {}
   },
 })
 </script>

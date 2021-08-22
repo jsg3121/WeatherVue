@@ -45,7 +45,6 @@ export const getKoreaWeather = async (
     })
     .then((res) => {
       store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
-      console.log("Asffdasf")
     })
 
   await http
@@ -59,6 +58,5 @@ export const getKoreaWeather = async (
     })
     .then((res) => {
       store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
-      console.log("asdfawefwef")
     })
 }

@@ -1,16 +1,20 @@
 <template>
-  <DataProvider />
+  <suspense>
+    <template #default>
+      <DataProvider />
+    </template>
+    <template #fallback> loading.... </template>
+  </suspense>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/runtime-core"
 import { DataProvider } from "./src/"
 
-export default defineComponent({
+export default {
   components: {
     DataProvider,
   },
-})
+}
 </script>
 
 <style></style>
