@@ -3,12 +3,14 @@ import {
   GeolocationActionTypes,
   KoreaWeatherActionTypes,
 } from "@/store/src/actions"
+import { RequestPositionType } from "@/types"
 import http from "axios"
 import { Ref } from "vue"
-import { PositionType } from "./types"
 const store = useStore()
 
-export const getLocation = async (data: Ref<PositionType | undefined>) => {
+export const getLocation = async (
+  data: Ref<RequestPositionType | undefined>
+) => {
   if (data.value) {
     await http
       .request({

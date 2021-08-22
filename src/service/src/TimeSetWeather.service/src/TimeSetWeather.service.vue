@@ -35,6 +35,7 @@ export default {
     const store = useStore()
     const timeSetData = ref<TimeSetDataTypes>()
 
+    // await getThreeHours()
     const onDataList = () => {
       const data = {
         threeHours: store.state.threeHours,

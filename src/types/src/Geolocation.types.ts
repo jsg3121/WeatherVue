@@ -6,3 +6,8 @@ export type GeolocationPosition = {
     }
   }
 }
+
+export type RequestPositionType = {
+  lat: number
+  lon: number
+}

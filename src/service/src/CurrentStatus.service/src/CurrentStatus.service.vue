@@ -10,8 +10,13 @@ import TitleLocation from "./TitleLocation.service.vue"
 import Temperature from "./Temperatures.service.vue"
 import { Store, useStore } from "@/store"
 import { Ref, ref } from "vue"
-import { getLocation, getTemperature, getThreeHours } from "./getWeather"
-import { LocationType, PositionType } from "./types"
+import {
+  getLocation,
+  getTemperature,
+  getThreeHours,
+} from "./getWeather.service"
+import { LocationType } from "./types"
+import { RequestPositionType } from "@/types"
 
 type SetUpTypes = {
   location: Ref<LocationType | undefined>
@@ -26,9 +31,9 @@ export default {
   async setup(): Promise<SetUpTypes> {
     const store = useStore()
     const location = ref<LocationType>()
-    const data = ref<PositionType>()
+    const data = ref<RequestPositionType>()
 
-    await new Promise((res: (value: PositionType) => void) => {
+    await new Promise((res: (value: RequestPositionType) => void) => {
       navigator.geolocation.getCurrentPosition((position) => {
         res({
           lat: position.coords.latitude,
