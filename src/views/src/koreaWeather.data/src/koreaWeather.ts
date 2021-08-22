@@ -32,6 +32,22 @@ export const getKoreaWeather = async (
       .catch((e) => {
         return e
       })
+
+    await http
+      .request({
+        url: "http://localhost/api/ko/weekly",
+        method: "GET",
+        params: {
+          latitude: data.value.lat,
+          longitude: data.value.lon,
+        },
+      })
+      .then((res) => {
+        store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data)
+      })
+      .catch((e) => {
+        return e
+      })
   }
 
   await http

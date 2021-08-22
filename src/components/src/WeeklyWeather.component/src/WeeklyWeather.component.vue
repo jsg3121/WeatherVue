@@ -2,7 +2,7 @@
   <div class="weekly-weather-container">
     <h3 class="weekly-weather-container__title">주간예보</h3>
     <ul class="weekly-weather-container__item-list display-flex">
-      <li class="weekly-weather-container__list" v-for="item in 7" :key="item">
+      <li class="weekly-weather-container__list" v-for="item in 2" :key="item">
         <div class="item-container display-flex">
           <p class="item-container__temperatures--maximum">99º</p>
           <figure class="item-container__img--maximum">
@@ -25,11 +25,87 @@
           </div>
         </div>
       </li>
+      <li
+        class="weekly-weather-container__list"
+        v-for="item in setWeekly"
+        :key="item"
+      >
+        <div class="item-container display-flex">
+          <p class="item-container__temperatures--maximum">{{ item.max }}º</p>
+          <figure class="item-container__img--maximum">
+            <img
+              :src="dateStatus(item.wfPm)"
+              alt="주간예보 날씨 아이콘 (최고 기온)"
+            />
+          </figure>
+          <span class="item-container__separator"></span>
+          <figure class="item-container__img--minimum">
+            <img
+              :src="dateStatus(item.wfAm)"
+              alt="주간예보 날씨 아이콘 (최저 기온)"
+            />
+          </figure>
+          <p class="item-container__temperatures--minimum">{{ item.min }}º</p>
+          <div class="item-container__date-info display-flex">
+            <p
+              class="item-container__day"
+              :class="
+                dateChange(item.dateNum).day === '일'
+                  ? 'font-color_red'
+                  : dateChange(item.dateNum).day === '토'
+                  ? 'font-color_blue'
+                  : ''
+              "
+            >
+              {{ dateChange(item.dateNum).day }}
+            </p>
+            <p
+              class="item-container__date"
+              :class="
+                dateChange(item.dateNum).day === '일'
+                  ? 'font-color_red'
+                  : dateChange(item.dateNum).day === '토'
+                  ? 'font-color_blue'
+                  : ''
+              "
+            >
+              {{ dateChange(item.dateNum).date }}
+            </p>
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
 </template>
 <script lang="ts">
-export default {}
+import { defineComponent, toRefs } from "@vue/runtime-core"
+import { dayChange, statusChange } from "./dateChange"
+import { SetUpType } from "./types"
+
+export default defineComponent({
+  props: {
+    setWeekly: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props): SetUpType {
+    const { setWeekly } = toRefs(props)
+    console.log(setWeekly.value)
+
+    const dateChange: SetUpType["dateChange"] = (num) => {
+      const res = dayChange(num)
+      return res
+    }
+
+    const dateStatus: SetUpType["dateStatus"] = (value) => {
+      const data = statusChange(value)
+      return require(`@/assets/img/${data}-icon@2x.png`)
+    }
+
+    return { dateChange, dateStatus }
+  },
+})
 </script>
 <style lang="scss">
 .weekly-weather-container {
@@ -109,6 +185,13 @@ export default {}
             letter-spacing: -0.0375rem;
             text-align: center;
             color: #505050;
+
+            &.font-color_red {
+              color: #f04b4b;
+            }
+            &.font-color_blue {
+              color: #4a4afc;
+            }
           }
         }
       }

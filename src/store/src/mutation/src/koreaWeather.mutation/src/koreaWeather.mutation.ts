@@ -28,6 +28,7 @@ export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
   },
   [KoreaWeatherMutationTypes.SET_WEEKLY](state, payload) {
     console.log(payload)
+
     state.weekly = payload.weekOut
   },
 }

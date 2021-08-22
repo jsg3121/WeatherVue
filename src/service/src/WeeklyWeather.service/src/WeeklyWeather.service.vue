@@ -1,12 +1,11 @@
 <template>
   <div>
-    <WeeklyWeather />
+    <WeeklyWeather :setWeekly="weekly" />
   </div>
 </template>
 <script lang="ts">
 import { Components } from "@/components"
 import { useStore } from "@/store"
-import { onMounted } from "@vue/runtime-core"
 import { defineComponent } from "vue"
 
 export default defineComponent({
@@ -14,12 +13,11 @@ export default defineComponent({
     WeeklyWeather: Components.WeeklyWeather,
   },
   setup() {
-    const store = useStore()
-    onMounted(() => {
-      console.log(store.state.location)
-    })
+    const {
+      state: { weekly },
+    } = useStore()
 
-    return
+    return { weekly }
   },
 })
 </script>
