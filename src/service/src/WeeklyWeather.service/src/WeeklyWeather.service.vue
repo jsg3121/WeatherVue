@@ -5,20 +5,22 @@
 </template>
 <script lang="ts">
 import { Components } from "@/components"
-import { getWeeklyGetData } from "./WeeklyWeather.service"
 import { useStore } from "@/store"
+import { onMounted } from "@vue/runtime-core"
+import { defineComponent } from "vue"
 
-export default {
+export default defineComponent({
   components: {
     WeeklyWeather: Components.WeeklyWeather,
   },
   setup() {
     const store = useStore()
-
-    console.log(store.state.location)
+    onMounted(() => {
+      console.log(store.state.location)
+    })
 
     return
   },
-}
+})
 </script>
 <style lang="scss"></style>

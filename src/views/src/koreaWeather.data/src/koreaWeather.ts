@@ -6,9 +6,10 @@ import {
 import { RequestPositionType } from "@/types"
 import http from "axios"
 import { Ref } from "vue"
+
 const store = useStore()
 
-export const getLocation = async (
+export const getKoreaWeather = async (
   data: Ref<RequestPositionType | undefined>
 ) => {
   if (data.value) {
@@ -32,9 +33,7 @@ export const getLocation = async (
         return e
       })
   }
-}
 
-export const getTemperature = async () => {
   await http
     .request({
       url: "https://best-weather.com/api/ko/nowWeather",
@@ -46,10 +45,9 @@ export const getTemperature = async () => {
     })
     .then((res) => {
       store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
+      console.log("Asffdasf")
     })
-}
 
-export const getThreeHours = async () => {
   await http
     .request({
       url: "https://best-weather.com/api/ko/threeHours",
@@ -61,5 +59,6 @@ export const getThreeHours = async () => {
     })
     .then((res) => {
       store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
+      console.log("asdfawefwef")
     })
 }
