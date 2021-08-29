@@ -12,7 +12,7 @@
     <script type="text/javascript">
       const scrollEvent = () => {
         document.querySelector("html").style.backgroundPositionY =
-          window.scrollY * -0.7 + 1 + "px"
+          window.scrollY === 0 ? "1px" : window.scrollY * -1.7 + "px"
       }
 
       window.onscroll = () => {

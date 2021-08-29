@@ -2,9 +2,7 @@ html {
   background-image: url("./assets/img/bg@2x.png");
   overflow-x: hidden;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
-  background-attachment: fixed;
+  background-size: calc(100% * 1.7);
 }
 
 body {
