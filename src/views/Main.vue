@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { DataProvider } from "./src/"
+import { DataProvider } from "@/data"
 
 export default {
   components: {

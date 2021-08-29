@@ -27,6 +27,10 @@ export const KoreaWeatherState = {
     time: "",
     value: "",
   },
+  weeklyTwoDays: {
+    day1: {},
+    day2: {},
+  },
   weekly: {
     day3: {},
     day4: {},

@@ -2,32 +2,62 @@
   <div class="weekly-weather-container">
     <h3 class="weekly-weather-container__title">주간예보</h3>
     <ul class="weekly-weather-container__item-list display-flex">
-      <li class="weekly-weather-container__list" v-for="item in 2" :key="item">
+      <li
+        class="weekly-weather-container__list"
+        v-for="(item, idx) in setWeekly.weeklyTwoDays"
+        :key="item"
+      >
         <div class="item-container display-flex">
-          <p class="item-container__temperatures--maximum">99º</p>
+          <p class="item-container__temperatures--maximum">
+            {{ Math.floor(item.tmxValue) }}º
+          </p>
           <figure class="item-container__img--maximum">
             <img
-              src="@/assets/img/sunny-icon@2x.png"
+              :src="getStatus(item.tmxPty, item.tmxSky)"
               alt="주간예보 날씨 아이콘 (최고 기온)"
             />
           </figure>
           <span class="item-container__separator"></span>
           <figure class="item-container__img--minimum">
             <img
-              src="@/assets/img/sunny-icon@2x.png"
+              :src="getStatus(item.tmnPty, item.tmnSky)"
               alt="주간예보 날씨 아이콘 (최저 기온)"
             />
           </figure>
-          <p class="item-container__temperatures--minimum">99º</p>
+          <p class="item-container__temperatures--minimum">
+            {{ Math.floor(item.tmnValue) }}º
+          </p>
           <div class="item-container__date-info display-flex">
-            <p class="item-container__day">내일</p>
-            <p class="item-container__date">12.31</p>
+            <p
+              class="item-container__day"
+              :class="
+                getDate(item.date).day === '일'
+                  ? 'font-color_red'
+                  : getDate(item.date).day === '토'
+                  ? 'font-color_blue'
+                  : ''
+              "
+            >
+              {{ idx === "day1" ? `내일` : "모레" }}
+            </p>
+            <p
+              class="item-container__date"
+              :class="
+                getDate(item.date).day === '일'
+                  ? 'font-color_red'
+                  : getDate(item.date).day === '토'
+                  ? 'font-color_blue'
+                  : ''
+              "
+            >
+              {{ getDate(item.date).date }}
+            </p>
           </div>
         </div>
       </li>
       <li
         class="weekly-weather-container__list"
-        v-for="item in setWeekly"
+        v-for="item in setWeekly.weekly"
         :key="item"
       >
         <div class="item-container display-flex">
@@ -79,7 +109,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, toRefs } from "@vue/runtime-core"
-import { dayChange, statusChange } from "./dateChange"
+import { dayChange, dayStatus, getDays, statusChange } from "./dateChange"
 import { SetUpType } from "./types"
 
 export default defineComponent({
@@ -103,7 +133,17 @@ export default defineComponent({
       return require(`@/assets/img/${data}-icon@2x.png`)
     }
 
-    return { dateChange, dateStatus }
+    const getDate: SetUpType["getDate"] = (date) => {
+      const data = getDays(date)
+      return data
+    }
+
+    const getStatus: SetUpType["getStatus"] = (pty, sky) => {
+      const data = dayStatus(pty, sky)
+      return require(`@/assets/img/${data}-icon@2x.png`)
+    }
+
+    return { dateChange, dateStatus, getDate, getStatus }
   },
 })
 </script>

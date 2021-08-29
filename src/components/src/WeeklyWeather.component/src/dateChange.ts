@@ -2,7 +2,7 @@ import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
 import utc from "dayjs/plugin/utc"
 import "dayjs/locale/ko"
-import { ChangeDate, ChangStatus, DateChange, DateStatus } from "./types"
+import { ChangeDate, DateChange, DateStatus, GetDate, GetSatus } from "./types"
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -28,4 +28,33 @@ export const statusChange: DateStatus<string> = (val: string) => {
   } else {
     return "cloud"
   }
+}
+
+export const getDays: GetDate<ChangeDate> = (val: string) => {
+  const date = dayjs(val).format("MM.DD")
+  const day = dayjs(val).format("dd")
+  return { date, day }
+}
+
+export const dayStatus: GetSatus<string> = (pty, sky) => {
+  if (sky === "1") {
+    return "sunny"
+  } else if (sky === "3" || sky === "4") {
+    if (pty === "0") {
+      return "cloud"
+    } else if (
+      pty === "1" ||
+      pty === "2" ||
+      pty === "4" ||
+      pty === "5" ||
+      pty === "6"
+    ) {
+      return "rain"
+    } else if (pty === "3" || pty === "7") {
+      return "snow"
+    }
+  } else {
+    return "cloud"
+  }
+  return "sunny"
 }
