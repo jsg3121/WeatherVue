@@ -35,7 +35,7 @@ export const getKoreaWeather = async (
 
     await http
       .request({
-        url: "http://localhost/api/ko/weekly",
+        url: "https://best-weather.com/api/ko/weekly",
         method: "GET",
         params: {
           latitude: data.value.lat,
