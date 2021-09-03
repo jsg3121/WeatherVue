@@ -38,6 +38,7 @@ export const KoreaWeatherState = {
     day6: {},
     day7: {},
   },
+  environment: {},
 }
 
 export type KoreaWeatherStateType = typeof KoreaWeatherState
