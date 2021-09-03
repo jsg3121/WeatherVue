@@ -75,4 +75,15 @@ export const getKoreaWeather = async (
         store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
       })
   }
+
+  await http
+    .request({
+      url: "https://best-weather.com/api/ko/livingInformation",
+      method: "GET",
+      params: {
+        nx: store.state.location.gridX,
+        ny: store.state.location.gridY,
+      },
+    })
+    .then((res) => {})
 }
