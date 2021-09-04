@@ -1,17 +1,16 @@
 # Best Weather
 
+**last update : 2021.09.04**
+변경사항
+
+- todoList github Project로 변경
+- 대기환경 정보 업데이트
+- readme 내용 업데이트
+
 ### 설치 및 실행
 
 1. `npm install` or `yarn`
 2. `npm run serve` or `yarn serve`
-
-Todo List (**last update : 2021.08.29**)
-
-- #1 : component defineComponent 적용
-- #2 : 현재 날씨 정보 비, 눈 등 세부 설정 적용
-- #3 : readme.md 수정
-- #4 : 비, 폭우 구분하여 아이콘 적용
-- #5 : 반응형 작업시 배경 패럴렉스 우선 적용 (배경이 더빠르게 이동할지 더 느리게 이동할지 결정 필요)
 
 ---
 

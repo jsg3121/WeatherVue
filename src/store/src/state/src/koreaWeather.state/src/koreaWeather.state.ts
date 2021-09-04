@@ -38,7 +38,19 @@ export const KoreaWeatherState = {
     day6: {},
     day7: {},
   },
-  environment: {},
+  environment: {
+    out: [
+      {
+        sidoName: "",
+        pm10Grade1h: "",
+        pm25Grade1h: "",
+        o3Grade: "",
+        dataTime: "",
+        stationName: "",
+      },
+    ],
+    uvValue: {},
+  },
 }
 
 export type KoreaWeatherStateType = typeof KoreaWeatherState

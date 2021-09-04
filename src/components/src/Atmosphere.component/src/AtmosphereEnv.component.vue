@@ -1,14 +1,53 @@
 <template>
   <div class="atmosphere-env-container">
     <ul class="atmosphere-env-container__list display-flex">
-      <li class="atmosphere-env-container__item" v-for="item in 4" :key="item">
+      <li class="atmosphere-env-container__item">
+        <div class="item-container display-flex">
+          <figure class="item-container__img">
+            <img
+              src="@/assets/img/fine-dust-icon@2x.png"
+              alt="대기환경 아이콘"
+            />
+          </figure>
+          <div class="item-container__description display-flex">
+            <p class="item-container__name">미세먼지</p>
+            <p class="item-container__status">{{ dustVal }}</p>
+          </div>
+        </div>
+      </li>
+      <li class="atmosphere-env-container__item">
+        <div class="item-container display-flex">
+          <figure class="item-container__img">
+            <img
+              src="@/assets/img/fine-particulate-matter-icon@2x.png"
+              alt="대기환경 아이콘"
+            />
+          </figure>
+          <div class="item-container__description display-flex">
+            <p class="item-container__name">초미세먼지</p>
+            <p class="item-container__status">{{ minDustVal }}</p>
+          </div>
+        </div>
+      </li>
+      <li class="atmosphere-env-container__item">
         <div class="item-container display-flex">
           <figure class="item-container__img">
             <img src="@/assets/img/uv-icon@2x.png" alt="대기환경 아이콘" />
           </figure>
           <div class="item-container__description display-flex">
             <p class="item-container__name">자외선</p>
-            <p class="item-container__status">주의</p>
+            <p class="item-container__status">{{ uvVal }}</p>
+          </div>
+        </div>
+      </li>
+      <li class="atmosphere-env-container__item">
+        <div class="item-container display-flex">
+          <figure class="item-container__img">
+            <img src="@/assets/img/ozone-icon@2x.png" alt="대기환경 아이콘" />
+          </figure>
+          <div class="item-container__description display-flex">
+            <p class="item-container__name">오존</p>
+            <p class="item-container__status">{{ o3Val }}</p>
           </div>
         </div>
       </li>
@@ -16,7 +55,57 @@
   </div>
 </template>
 <script lang="ts">
-export default {}
+import { defineComponent, ref } from "@vue/runtime-core"
+
+export default defineComponent({
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
+    const env = ref(props.data)
+    console.log(env.value)
+
+    const value = (val: string) => {
+      switch (val) {
+        case "1":
+          return "좋음"
+        case "2":
+          return "보통"
+        case "3":
+          return "나쁨"
+        case "4":
+          return "매우 나쁨"
+        default:
+          return "좋음"
+      }
+    }
+
+    const uvValue = (val: string) => {
+      const key = parseInt(val, 10)
+      if (key <= 2) {
+        return "낮음"
+      } else if (3 <= key && key <= 5) {
+        return "보통"
+      } else if (6 <= key && key <= 7) {
+        return "높음"
+      } else if (8 <= key && key <= 10) {
+        return "매우 높음"
+      } else if (11 <= key) {
+        return "위험"
+      }
+    }
+
+    const dustVal = ref(value(props.data.envData[0].pm10Grade1h))
+    const minDustVal = ref(value(props.data.envData[0].pm25Grade1h))
+    const o3Val = ref(uvValue(props.data.envData[0].o3Grade))
+    const uvVal = ref(uvValue(props.data.uvData.today))
+
+    return { env, dustVal, minDustVal, o3Val, uvVal }
+  },
+})
 </script>
 <style lang="scss">
 .atmosphere-env-container {
@@ -68,15 +157,26 @@ export default {}
           }
 
           .item-container__status {
-            width: 5rem;
-            height: 2rem;
-            font-size: 1.75rem;
+            width: 7rem;
+            height: 1.5rem;
+            font-size: 1.65rem;
             font-weight: bold;
             line-height: 1.2;
             letter-spacing: normal;
             text-align: center;
             color: #333333;
           }
+        }
+      }
+
+      &:nth-child(1) {
+        .item-container__name {
+          font-size: 1.2rem !important;
+        }
+      }
+      &:nth-child(2) {
+        .item-container__name {
+          font-size: 1rem !important;
         }
       }
     }
