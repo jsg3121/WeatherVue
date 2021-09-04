@@ -78,7 +78,7 @@ export const getKoreaWeather = async (
 
   await http
     .request({
-      url: "http://localhost/api/ko/livingInformation",
+      url: "https://best-weather.com/api/ko/livingInformation",
       method: "GET",
       params: {
         nx: store.state.location.gridX,
