@@ -11,11 +11,11 @@ const store = useStore()
 
 export const getKoreaWeather = async (
   data: Ref<RequestPositionType | undefined>
-) => {
+): Promise<void> => {
   if (data.value) {
     await http
       .request({
-        url: "https://best-weather.com/geolocation",
+        url: "http://localhost/geolocation",
         method: "GET",
         params: {
           latitude: data.value.lat,
@@ -33,59 +33,59 @@ export const getKoreaWeather = async (
         return e
       })
 
-    await http
-      .request({
-        url: "https://best-weather.com/api/ko/weekly",
-        method: "GET",
-        params: {
-          latitude: data.value.lat,
-          longitude: data.value.lon,
-        },
-      })
-      .then((res) => {
-        store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data)
-      })
-      .catch((e) => {
-        return e
-      })
+    //   await http
+    //     .request({
+    //       url: "https://best-weather.com/api/ko/weekly",
+    //       method: "GET",
+    //       params: {
+    //         latitude: data.value.lat,
+    //         longitude: data.value.lon,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data)
+    //     })
+    //     .catch((e) => {
+    //       return e
+    //     })
 
-    await http
-      .request({
-        url: "https://best-weather.com/api/ko/nowWeather",
-        method: "GET",
-        params: {
-          nx: store.state.location.gridX,
-          ny: store.state.location.gridY,
-        },
-      })
-      .then((res) => {
-        store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
-      })
+    //   await http
+    //     .request({
+    //       url: "https://best-weather.com/api/ko/nowWeather",
+    //       method: "GET",
+    //       params: {
+    //         nx: store.state.gridX,
+    //         ny: store.state.gridY,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
+    //     })
 
-    await http
-      .request({
-        url: "https://best-weather.com/api/ko/threeHours",
-        method: "GET",
-        params: {
-          nx: store.state.location.gridX,
-          ny: store.state.location.gridY,
-        },
-      })
-      .then((res) => {
-        store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
-      })
+    //   await http
+    //     .request({
+    //       url: "https://best-weather.com/api/ko/threeHours",
+    //       method: "GET",
+    //       params: {
+    //         nx: store.state.gridX,
+    //         ny: store.state.gridY,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
+    //     })
   }
 
-  await http
-    .request({
-      url: "https://best-weather.com/api/ko/livingInformation",
-      method: "GET",
-      params: {
-        nx: store.state.location.gridX,
-        ny: store.state.location.gridY,
-      },
-    })
-    .then((res) => {
-      store.dispatch(KoreaWeatherActionTypes.GET_ENV, res.data)
-    })
+  // await http
+  //   .request({
+  //     url: "https://best-weather.com/api/ko/livingInformation",
+  //     method: "GET",
+  //     params: {
+  //       nx: store.state.gridX,
+  //       ny: store.state.gridY,
+  //     },
+  //   })
+  //   .then((res) => {
+  //     store.dispatch(KoreaWeatherActionTypes.GET_ENV, res.data)
+  //   })
 }

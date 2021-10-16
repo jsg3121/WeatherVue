@@ -1,9 +1,9 @@
 <template>
   <suspense>
-    <template #default>
-      <DataProvider />
+    <DataProvider />
+    <!-- <template #default>
     </template>
-    <template #fallback> loading.... </template>
+    <template #fallback> loading.... </template> -->
   </suspense>
 </template>
 

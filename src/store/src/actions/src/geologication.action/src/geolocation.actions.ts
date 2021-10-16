@@ -16,7 +16,7 @@ type ArgumentedActionContext = {
 export interface GeolocationActions {
   [GeolocationActionTypes.GET_LOCATION](
     { commit }: ArgumentedActionContext,
-    payload: GeoLocationStateType
+    payload: GeoLocationStateType["geolocation"]
   ): Promise<GeoLocationStateType>
 }
 
@@ -26,9 +26,8 @@ export const geolocationAction: ActionTree<
 > &
   GeolocationActions = {
   [GeolocationActionTypes.GET_LOCATION]({ commit }, payload) {
-    return new Promise((res) => {
+    return new Promise(() => {
       commit(GeologicationMutationTypes.SET_LOCATION, payload)
-      res(payload)
     })
   },
 }

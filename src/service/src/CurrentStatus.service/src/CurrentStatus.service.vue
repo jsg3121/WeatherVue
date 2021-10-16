@@ -7,13 +7,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import Temperature from "./Temperatures.service.vue"
 import TitleLocation from "./TitleLocation.service.vue"
 
 export default defineComponent({
   components: {
     TitleLocation: TitleLocation,
-    Temperature: Temperature,
+    // Temperature: Temperature,
   },
   async setup() {
     return {}

@@ -36,6 +36,6 @@ export type Store = Omit<VueStore<State>, "getters" | "commit" | "dispatch"> & {
   }
 }
 
-export const useStore = () => {
+export const useStore = (): Store => {
   return store as Store
 }

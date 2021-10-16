@@ -3,12 +3,19 @@ import { MutationTree } from "vuex"
 import { GeologicationMutationTypes } from "./types"
 
 export type GeologicationMutations<S = GeoLocationStateType> = {
-  [GeologicationMutationTypes.SET_LOCATION](state: S, payload: any): void
+  [GeologicationMutationTypes.SET_LOCATION](
+    state: S,
+    payload: GeoLocationStateType["geolocation"]
+  ): void
 }
 
 export const geolocationMutations: MutationTree<GeoLocationStateType> &
   GeologicationMutations = {
   [GeologicationMutationTypes.SET_LOCATION](state, payload) {
-    state.location = payload
+    console.log("mutation payload")
+    console.log(payload)
+    console.log(state)
+
+    state.geolocation = payload
   },
 }

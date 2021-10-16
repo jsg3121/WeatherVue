@@ -4,13 +4,13 @@
 <script lang="ts">
 import { Components } from "@/components"
 import { useStore } from "@/store"
-import { onMounted, ref } from "@vue/runtime-core"
+import { defineComponent, onMounted, ref } from "@vue/runtime-core"
 
-export default {
+export default defineComponent({
   components: {
     AtmosphereStatus: Components.AtmosphereStatus,
   },
-  async setup(): Promise<any> {
+  async setup() {
     const store = useStore()
     const data = ref()
 
@@ -30,6 +30,6 @@ export default {
 
     return { atmosphere }
   },
-}
+})
 </script>
 <style lang="scss"></style>

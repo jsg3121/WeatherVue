@@ -20,9 +20,8 @@ export default {
 
   setup(): SetUpTypes {
     const store = useStore()
-
     const locationName = () => {
-      return `${store.state.location.depth1} ${store.state.location.depth2} ${store.state.location.depth3}`
+      return `${store.state.geolocation.fullLocation}`
     }
 
     return { locationName }
