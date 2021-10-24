@@ -40,7 +40,6 @@ export default defineComponent({
         })
       })
     }).then((res) => {
-      console.log(res)
       data.value = res
     })
     await getKoreaWeather(data)

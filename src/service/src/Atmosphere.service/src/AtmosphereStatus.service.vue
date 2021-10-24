@@ -11,15 +11,16 @@ export default defineComponent({
     AtmosphereStatus: Components.AtmosphereStatus,
   },
   async setup() {
-    const store = useStore()
+    const {
+      state: { currentTemperature },
+    } = useStore()
     const data = ref()
 
     const atmosphere = () => {
-      const state = store.state.currentTemperature
       data.value = {
-        reh: state.reh,
-        vec: state.vec,
-        wsd: state.wsd,
+        humidity: currentTemperature.humidity,
+        windDirection: currentTemperature.windDirection,
+        windSpeed: currentTemperature.windSpeed,
       }
       return data.value
     }

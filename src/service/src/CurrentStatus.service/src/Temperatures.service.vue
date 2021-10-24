@@ -10,10 +10,10 @@ import { useStore } from "@/store"
 
 type SetUpTypes = {
   nowTemperature: () => {
-    t1h: number // 현재 기온
-    tmn: number // 최저 기온
-    tmx: number // 최고 기온
-    sky: string // 하늘 상태
+    temperature: number
+    minTemp: number
+    maxTemp: number
+    sky: string
   }
 }
 
@@ -23,14 +23,24 @@ export default {
     WeatherCopSideBar: Components.WeatherCoperations,
   },
   async setup(): Promise<SetUpTypes> {
-    const store = useStore()
+    const {
+      state: { currentTemperature },
+    } = useStore()
+
+    /**
+     * ! 현재 날씨 상태
+     * * Data Options
+     * - temperature: 현재 기온
+     * - minTemp: 최저기온
+     * - maxTemp: 최고기온
+     * - sky: 하늘상태
+     */
     const nowTemperature = () => {
-      const data = store.state.currentTemperature
       return {
-        t1h: Math.round(parseInt(data.t1h, 10)),
-        tmn: Math.round(parseInt(data.tmn, 10)),
-        tmx: Math.round(parseInt(data.tmx, 10)),
-        sky: data.sky,
+        temperature: Math.round(parseInt(currentTemperature.temperature, 10)),
+        minTemp: Math.round(parseInt(currentTemperature.minTemp, 10)),
+        maxTemp: Math.round(parseInt(currentTemperature.maxTemp, 10)),
+        sky: currentTemperature.sky,
       }
     }
     return { nowTemperature }

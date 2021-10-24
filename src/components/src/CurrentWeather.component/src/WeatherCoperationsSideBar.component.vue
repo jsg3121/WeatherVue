@@ -39,7 +39,9 @@ export type SetUpTypes = {
 
 export default {
   setup(): SetUpTypes {
-    const store = useStore()
+    const {
+      state: { currentTemperature },
+    } = useStore()
 
     const weatherCoperations = ref([
       {
@@ -47,7 +49,7 @@ export default {
         name: "기상청",
         logo: require("@/assets/img/korea-weather-icon-s@2x.png"),
         selectLogo: require("@/assets/img/korea-weather-icon-n@2x.png"),
-        temperature: store.state.currentTemperature.t1h,
+        temperature: currentTemperature.temperature,
       },
       {
         index: 2,

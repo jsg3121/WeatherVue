@@ -12,7 +12,7 @@
 </template>
 <script lang="ts">
 import { Ref, ref } from "@vue/reactivity"
-import { defineComponent } from "vue"
+import { defineComponent, PropType } from "vue"
 import { CurrentInfo } from "./CurrentInfo/index"
 import { NowStatusRef, MinMaxRef } from "./types"
 
@@ -22,6 +22,13 @@ type SetUpTypes = {
   minMax: Ref<MinMaxRef>
 }
 
+interface CurrentProps {
+  temperature: number
+  minTemp: number
+  maxTemp: number
+  sky: string
+}
+
 export default defineComponent({
   components: {
     MinMaxInfo: CurrentInfo.MinMaxInfo,
@@ -29,19 +36,19 @@ export default defineComponent({
   },
   props: {
     nowTemperature: {
-      type: Object,
+      type: Object as PropType<CurrentProps>,
       required: true,
     },
   },
   setup(props): SetUpTypes {
     const nowStatus = ref<NowStatusRef>({
-      nowTemp: props.nowTemperature.t1h,
+      nowTemp: props.nowTemperature.temperature,
       nowSky: props.nowTemperature.sky,
     })
     const img = ref<string>()
     const minMax = ref<MinMaxRef>({
-      minTemp: props.nowTemperature.tmn,
-      maxTemp: props.nowTemperature.tmx,
+      minTemp: props.nowTemperature.minTemp,
+      maxTemp: props.nowTemperature.maxTemp,
     })
 
     const getSky = () => {

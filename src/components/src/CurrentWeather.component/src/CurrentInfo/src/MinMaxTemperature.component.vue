@@ -12,25 +12,31 @@
   </div>
 </template>
 <script lang="ts">
-import { ref, toRefs } from "@vue/reactivity"
-import { defineComponent } from "vue"
-import { ReturnToRefString } from "@/types"
+import { Ref, ref } from "@vue/reactivity"
+import { defineComponent, PropType } from "vue"
+
+type MinMaxProps = {
+  minTemp: number
+  maxTemp: number
+}
 
 type SetUpTypes = {
-  temperature: ReturnToRefString
+  temperature: Ref<MinMaxProps>
 }
 
 export default defineComponent({
   props: {
     minMax: {
-      type: Object,
+      type: Object as PropType<MinMaxProps>,
       required: true,
     },
   },
   setup(props): SetUpTypes {
-    const { minMax } = toRefs(props)
+    const temperature = ref<MinMaxProps>({
+      minTemp: props.minMax.minTemp,
+      maxTemp: props.minMax.maxTemp,
+    })
 
-    const temperature = ref<ReturnToRefString>(minMax)
     return { temperature }
   },
 })

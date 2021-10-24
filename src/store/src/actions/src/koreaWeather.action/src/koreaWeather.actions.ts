@@ -17,7 +17,7 @@ type ArgumentedActionContext = {
 export interface KoreaWeatherActions {
   [KoreaWeatherActionTypes.GET_WEATHER](
     { commit }: ArgumentedActionContext,
-    payload: KoreaWeatherStateType
+    payload: KoreaWeatherStateType["currentTemperature"]
   ): Promise<KoreaWeatherStateType>
   [KoreaWeatherActionTypes.GET_THREES](
     { commit }: ArgumentedActionContext,
@@ -39,9 +39,8 @@ export const koreaWeatherAction: ActionTree<
 > &
   KoreaWeatherActions = {
   [KoreaWeatherActionTypes.GET_WEATHER]({ commit }, payload) {
-    return new Promise((res) => {
+    return new Promise(() => {
       commit(KoreaWeatherMutationTypes.SET_WEATHER, payload)
-      res(payload)
     })
   },
   [KoreaWeatherActionTypes.GET_THREES]({ commit }, payload) {

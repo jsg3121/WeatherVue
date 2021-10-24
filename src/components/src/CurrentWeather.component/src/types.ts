@@ -1,13 +1,11 @@
-import { Ref } from "vue"
-
 export type NowStatusRef = {
-  nowTemp: string
+  nowTemp: number
   nowSky: string
 }
 
 export type MinMaxRef = {
-  minTemp: string
-  maxTemp: string
+  minTemp: number
+  maxTemp: number
 }
 
 export type SideBarListType = {
