@@ -8,19 +8,13 @@ import { Components } from "@/components"
 import { ref } from "@vue/runtime-core"
 import { useStore } from "@/store"
 import { onMounted } from "vue"
-
-type DataTypesProps = {
-  date: string
-  time: string
-  value: string
-  valueSKY: string
-  valuePTY: string
-}
+import { omit } from "lodash"
+import { HourlyTypes } from "@/store/src/state"
 
 type TimeSetDataTypes = {
-  threeHours: DataTypesProps
-  r06: Pick<DataTypesProps, "date" | "time" | "value">
-  s06: Pick<DataTypesProps, "date" | "time" | "value">
+  hourlyTemperature: Pick<HourlyTypes, "temperature" | "precipitation" | "sky">
+  rain6Hour: HourlyTypes["rain6Hour"]
+  snow6Hour: HourlyTypes["snow6Hour"]
 }
 
 type SetUpTypes = {
@@ -32,17 +26,18 @@ export default {
     TimeSetWeather: Components.TimeSet,
   },
   async setup(): Promise<SetUpTypes> {
-    const store = useStore()
+    const {
+      state: { hourlyTemperature },
+    } = useStore()
     const timeSetData = ref<TimeSetDataTypes>()
 
-    // await getThreeHours()
     const onDataList = () => {
       const data = {
-        threeHours: store.state.threeHours,
-        r06: store.state.r06,
-        s06: store.state.s06,
-      }
-      timeSetData.value = data
+        hourlyTemperature: omit(hourlyTemperature, ["rain6Hour", "snow6Hour"]),
+        rain6Hour: hourlyTemperature.rain6Hour,
+        snow6Hour: hourlyTemperature.snow6Hour,
+      } as unknown
+      timeSetData.value = data as TimeSetDataTypes
       return timeSetData.value
     }
 

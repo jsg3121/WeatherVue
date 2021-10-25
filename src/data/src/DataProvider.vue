@@ -1,17 +1,17 @@
 <template>
-  <Currnet />
-  <!-- <suspense>
+  <suspense>
     <template #default>
       <Fragment>
+        <Currnet />
         <AtmosStatus />
         <TimeSetWeather />
-        <WeeklyWeather />
-        <AtmosEnv />
-        <FooterVue />
+        <!-- <WeeklyWeather /> -->
+        <!-- <AtmosEnv /> -->
+        <!-- <FooterVue /> -->
       </Fragment>
     </template>
     <template #fallback> loading.... </template>
-  </suspense> -->
+  </suspense>
 </template>
 <script lang="ts">
 // import { Components } from "@/components"
@@ -23,10 +23,10 @@ import { getKoreaWeather } from "./koreaWeather.data"
 export default defineComponent({
   components: {
     Currnet: Service.CurrentStatus,
-    // TimeSetWeather: Service.TimeSetWeather,
+    TimeSetWeather: Service.TimeSetWeather,
     // WeeklyWeather: Service.WeeklyWeather,
     // AtmosEnv: Service.AtmosphereEnv,
-    // AtmosStatus: Service.AtmosphereStatus,
+    AtmosStatus: Service.AtmosphereStatus,
     // FooterVue: Components.Footer,
   },
   async setup() {

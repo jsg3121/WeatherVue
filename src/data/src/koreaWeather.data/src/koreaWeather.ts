@@ -72,18 +72,18 @@ export const getKoreaWeather = async (
     //     return e
     //   })
 
-    //   await http
-    //     .request({
-    //       url: "https://best-weather.com/api/ko/threeHours",
-    //       method: "GET",
-    //       params: {
-    //         nx: store.state.gridX,
-    //         ny: store.state.gridY,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
-    //     })
+    await http
+      .request({
+        url: "http://localhost/service/threehours",
+        method: "GET",
+        params: {
+          nx: geolocation.gridX,
+          ny: geolocation.gridY,
+        },
+      })
+      .then((res) => {
+        store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
+      })
   }
 
   // await http

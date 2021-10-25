@@ -1,9 +1,9 @@
 import { Ref } from "vue"
 
-export type PropsType = {
-  reh: number
-  wsd: number
-  vec: number
+export type AtmosStatusPropType = {
+  humidity: number
+  windDirection: number
+  windSpeed: number
 }
 
 export type CardDataType = {

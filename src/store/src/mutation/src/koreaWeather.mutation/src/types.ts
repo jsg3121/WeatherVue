@@ -4,3 +4,13 @@ export enum KoreaWeatherMutationTypes {
   SET_WEEKLY = "SET_WEEKLY",
   SET_ENV = "SET_ENV",
 }
+
+/**
+ * ! Hourly data payload types
+ */
+export type HourlyPayloadType = {
+  category: string
+  fcstDate: string
+  fcstTime: string
+  fcstValue: string
+}

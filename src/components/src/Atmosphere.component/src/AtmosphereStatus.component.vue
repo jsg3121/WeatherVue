@@ -22,12 +22,12 @@
 <script lang="ts">
 import { ref } from "@vue/reactivity"
 import { defineComponent, onMounted, PropType } from "@vue/runtime-core"
-import { setUpTypes, PropsType, CardDataType } from "./types"
+import { setUpTypes, AtmosStatusPropType, CardDataType } from "./types"
 
 export default defineComponent({
   props: {
     atmosphere: {
-      type: Object as PropType<PropsType>,
+      type: Object as PropType<AtmosStatusPropType>,
       required: true,
     },
   },
@@ -64,9 +64,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      cardData.value[1].rate = props.atmosphere.reh
-      cardData.value[0].rate = props.atmosphere.wsd
-      cardData.value[0].description = setWindDriection(props.atmosphere.vec)
+      cardData.value[1].rate = props.atmosphere.humidity
+      cardData.value[0].rate = props.atmosphere.windSpeed
+      cardData.value[0].description = setWindDriection(
+        props.atmosphere.windDirection
+      )
     })
 
     return { cardData }

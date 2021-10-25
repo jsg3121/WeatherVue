@@ -2,7 +2,7 @@ import {
   KoreaWeatherMutaions,
   KoreaWeatherMutationTypes,
 } from "@/store/src/mutation"
-import {} from "@/store/src/mutation/src/koreaWeather.mutation/src/types"
+import { HourlyPayloadType } from "@/store/src/mutation"
 import { KoreaWeatherStateType } from "@/store/src/state"
 import { ActionContext, ActionTree } from "vuex"
 import { KoreaWeatherActionTypes } from "./types"
@@ -21,7 +21,7 @@ export interface KoreaWeatherActions {
   ): Promise<KoreaWeatherStateType>
   [KoreaWeatherActionTypes.GET_THREES](
     { commit }: ArgumentedActionContext,
-    payload: KoreaWeatherStateType
+    payload: Array<HourlyPayloadType>
   ): Promise<KoreaWeatherStateType>
   [KoreaWeatherActionTypes.GET_WEEKLY](
     { commit }: ArgumentedActionContext,
@@ -44,21 +44,18 @@ export const koreaWeatherAction: ActionTree<
     })
   },
   [KoreaWeatherActionTypes.GET_THREES]({ commit }, payload) {
-    return new Promise((res) => {
+    return new Promise(() => {
       commit(KoreaWeatherMutationTypes.SET_THREES, payload)
-      res(payload)
     })
   },
   [KoreaWeatherActionTypes.GET_WEEKLY]({ commit }, payload) {
-    return new Promise((res) => {
+    return new Promise(() => {
       commit(KoreaWeatherMutationTypes.SET_WEEKLY, payload)
-      res(payload)
     })
   },
   [KoreaWeatherActionTypes.GET_ENV]({ commit }, payload) {
-    return new Promise((res) => {
+    return new Promise(() => {
       commit(KoreaWeatherMutationTypes.SET_ENV, payload)
-      res(payload)
     })
   },
 }

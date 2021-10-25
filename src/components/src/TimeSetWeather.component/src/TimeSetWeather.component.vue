@@ -1,13 +1,13 @@
 <template>
   <div class="timeSet-container">
-    <h3 class="timeSet-container__title">시간대별</h3>
+    <h3 class="timeSet-container__title">시간당 날씨 정보</h3>
     <ul class="timeSet-container__item-list display-flex">
       <li class="tiemSet-container__list" v-for="item in listData" :key="item">
         <div class="item-container display-flex">
-          <p class="item-container__temperatures">{{ item.value }}º</p>
+          <p class="item-container__temperatures">{{ item.temperature }}º</p>
           <figure class="item-container__img">
             <img
-              :src="item.iconSrc ? item.iconSrc : ''"
+              :src="item.skyImg ? item.skyImg : ''"
               alt="시간대별 날씨 아이콘"
             />
           </figure>
@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, PropType, ref } from "@vue/runtime-core"
-import { OnDataListType, TimeSetProps } from "./types"
+import { TimeSetProps } from "./types"
 
 export default defineComponent({
   props: {
@@ -30,49 +30,52 @@ export default defineComponent({
   },
 
   setup(props) {
-    const data = ref<TimeSetProps>(props.onDataList)
-    const listData = ref<Array<OnDataListType>>()
+    const data = ref<TimeSetProps["hourlyTemperature"]>(
+      props.onDataList.hourlyTemperature
+    )
+    const listData = ref()
 
-    const dataListFormat = () => {
-      if (listData.value) {
-        listData.value = listData.value.map((item: OnDataListType) => {
-          // 맑음
-          if (item.valueSKY === "1") {
-            return {
-              ...item,
-              iconSrc: require("@/assets/img/sunny-icon@2x.png"),
-            }
-          } else if (item.valueSKY === "3" || item.valueSKY === "4") {
-            if (item.valuePTY === "0") {
-              return {
-                ...item,
-                iconSrc: require("@/assets/img/cloud-icon@2x.png"),
-              }
-            } else if (
-              item.valuePTY === "1" ||
-              item.valuePTY === "2" ||
-              item.valuePTY === "4" ||
-              item.valuePTY === "5" ||
-              item.valuePTY === "6"
-            ) {
-              return {
-                ...item,
-                iconSrc: require("@/assets/img/rain-icon@2x.png"),
-              }
-            } else if (item.valuePTY === "3" || item.valuePTY === "7") {
-              return {
-                ...item,
-                iconSrc: require("@/assets/img/snow-icon@2x.png"),
-              }
-            }
-          }
-        }) as Array<OnDataListType>
+    const getSkyState = (sky: string, precipitation: string) => {
+      if (sky === "1") {
+        return require("@/assets/img/sunny-icon@2x.png")
+      } else if (sky === "3" || sky === "4") {
+        if (precipitation === "0") {
+          return require("@/assets/img/cloud-icon@2x.png")
+        } else if (
+          precipitation === "1" ||
+          precipitation === "2" ||
+          precipitation === "4" ||
+          precipitation === "5" ||
+          precipitation === "6"
+        ) {
+          return require("@/assets/img/rain-icon@2x.png")
+        } else if (precipitation === "3" || precipitation === "7") {
+          return require("@/assets/img/snow-icon@2x.png")
+        }
+      } else {
+        return require("@/assets/img/sunny-icon@2x.png")
       }
     }
 
+    const dataListFormat = () => {
+      listData.value = data.value.temperature.map((item, index) => {
+        console.log(item.fsctValue)
+        console.log(data.value.temperature[0])
+
+        return {
+          temperature: item.fsctValue,
+          time: item.fcstTime,
+          skyImg: getSkyState(
+            data.value.sky[index].fsctValue,
+            data.value.precipitation[index].fsctValue
+          ),
+        }
+      })
+    }
+
     onMounted(() => {
-      listData.value = props.onDataList.threeHours
       dataListFormat()
+      console.log(listData.value)
     })
 
     return { data, listData }
