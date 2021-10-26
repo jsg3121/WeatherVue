@@ -6,3 +6,9 @@ export type TimeSetProps = {
   rain6Hour: HourlyTypes["rain6Hour"]
   snow6Hour: HourlyTypes["snow6Hour"]
 }
+
+export type HourlyDataTypes = {
+  temperature: string
+  time: string
+  skyImg: NodeRequire
+}

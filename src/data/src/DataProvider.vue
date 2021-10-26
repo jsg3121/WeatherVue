@@ -5,7 +5,7 @@
         <Currnet />
         <AtmosStatus />
         <TimeSetWeather />
-        <!-- <WeeklyWeather /> -->
+        <WeeklyWeather />
         <!-- <AtmosEnv /> -->
         <!-- <FooterVue /> -->
       </Fragment>
@@ -24,7 +24,7 @@ export default defineComponent({
   components: {
     Currnet: Service.CurrentStatus,
     TimeSetWeather: Service.TimeSetWeather,
-    // WeeklyWeather: Service.WeeklyWeather,
+    WeeklyWeather: Service.WeeklyWeather,
     // AtmosEnv: Service.AtmosphereEnv,
     AtmosStatus: Service.AtmosphereStatus,
     // FooterVue: Components.Footer,

@@ -18,8 +18,19 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref } from "@vue/runtime-core"
-import { TimeSetProps } from "./types"
+import {
+  defineComponent,
+  onMounted,
+  PropType,
+  reactive,
+  Ref,
+  ref,
+} from "@vue/runtime-core"
+import { HourlyDataTypes, TimeSetProps } from "./types"
+
+type setUpTypes = {
+  listData: Ref<HourlyDataTypes[] | undefined>
+}
 
 export default defineComponent({
   props: {
@@ -29,11 +40,13 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
-    const data = ref<TimeSetProps["hourlyTemperature"]>(
-      props.onDataList.hourlyTemperature
-    )
-    const listData = ref()
+  setup(props): setUpTypes {
+    const data = reactive<TimeSetProps["hourlyTemperature"]>({
+      temperature: props.onDataList.hourlyTemperature.temperature,
+      precipitation: props.onDataList.hourlyTemperature.precipitation,
+      sky: props.onDataList.hourlyTemperature.sky,
+    })
+    const listData = ref<Array<HourlyDataTypes>>()
 
     const getSkyState = (sky: string, precipitation: string) => {
       if (sky === "1") {
@@ -58,16 +71,13 @@ export default defineComponent({
     }
 
     const dataListFormat = () => {
-      listData.value = data.value.temperature.map((item, index) => {
-        console.log(item.fsctValue)
-        console.log(data.value.temperature[0])
-
+      listData.value = data.temperature.map((item, index) => {
         return {
-          temperature: item.fsctValue,
+          temperature: item.fcstValue,
           time: item.fcstTime,
           skyImg: getSkyState(
-            data.value.sky[index].fsctValue,
-            data.value.precipitation[index].fsctValue
+            data.sky[index].fcstValue,
+            data.precipitation[index].fcstValue
           ),
         }
       })
@@ -75,10 +85,9 @@ export default defineComponent({
 
     onMounted(() => {
       dataListFormat()
-      console.log(listData.value)
     })
 
-    return { data, listData }
+    return { listData }
   },
 })
 </script>

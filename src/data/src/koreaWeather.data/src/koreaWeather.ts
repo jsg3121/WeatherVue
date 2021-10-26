@@ -56,21 +56,21 @@ export const getKoreaWeather = async (
         store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
       })
 
-    // await http
-    //   .request({
-    //     url: "https://best-weather.com/api/ko/weekly",
-    //     method: "GET",
-    //     params: {
-    //       latitude: data.value.lat,
-    //       longitude: data.value.lon,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data)
-    //   })
-    //   .catch((e) => {
-    //     return e
-    //   })
+    await http
+      .request({
+        url: "http://localhost/service/weekly",
+        method: "GET",
+        params: {
+          nx: geolocation.gridX,
+          ny: geolocation.gridY,
+        },
+      })
+      .then((res) => {
+        store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data)
+      })
+      .catch((e) => {
+        return e
+      })
 
     await http
       .request({

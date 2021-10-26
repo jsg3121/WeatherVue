@@ -1,19 +1,9 @@
-import { current, hourly } from "./stateList"
+import { current, hourly, weekly } from "./stateList"
 
 export const KoreaWeatherState = {
   currentTemperature: current,
   hourlyTemperature: hourly,
-  weeklyTwoDays: {
-    day1: {},
-    day2: {},
-  },
-  weekly: {
-    day3: {},
-    day4: {},
-    day5: {},
-    day6: {},
-    day7: {},
-  },
+  weeklyTemperature: weekly,
   environment: {
     out: [
       {

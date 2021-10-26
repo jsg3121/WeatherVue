@@ -1,6 +1,6 @@
 <template>
   <div>
-    <WeeklyWeather :setWeekly="{ weekly, weeklyTwoDays }" />
+    <WeeklyWeather :setWeekly="weeklyTemperature" />
   </div>
 </template>
 <script lang="ts">
@@ -14,10 +14,10 @@ export default defineComponent({
   },
   setup() {
     const {
-      state: { weekly, weeklyTwoDays },
+      state: { weeklyTemperature },
     } = useStore()
 
-    return { weekly, weeklyTwoDays }
+    return { weeklyTemperature }
   },
 })
 </script>

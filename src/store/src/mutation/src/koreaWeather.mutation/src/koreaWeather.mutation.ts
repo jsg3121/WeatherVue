@@ -12,7 +12,10 @@ export type KoreaWeatherMutaions<S = KoreaWeatherStateType> = {
     state: S,
     payload: Array<HourlyPayloadType>
   ): void
-  [KoreaWeatherMutationTypes.SET_WEEKLY](state: S, payload: any): void
+  [KoreaWeatherMutationTypes.SET_WEEKLY](
+    state: S,
+    payload: KoreaWeatherStateType["weeklyTemperature"]
+  ): void
   [KoreaWeatherMutationTypes.SET_ENV](state: S, payload: any): void
 }
 
@@ -48,8 +51,7 @@ export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
     state.hourlyTemperature = data as HourlyTypes
   },
   [KoreaWeatherMutationTypes.SET_WEEKLY](state, payload) {
-    state.weeklyTwoDays = payload.tomorrowMinMax
-    state.weekly = payload.weekOut
+    state.weeklyTemperature = payload
   },
   [KoreaWeatherMutationTypes.SET_ENV](state, payload) {
     state.environment = { ...payload }

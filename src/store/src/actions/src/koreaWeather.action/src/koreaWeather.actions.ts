@@ -25,7 +25,7 @@ export interface KoreaWeatherActions {
   ): Promise<KoreaWeatherStateType>
   [KoreaWeatherActionTypes.GET_WEEKLY](
     { commit }: ArgumentedActionContext,
-    payload: KoreaWeatherStateType
+    payload: KoreaWeatherStateType["weeklyTemperature"]
   ): Promise<KoreaWeatherStateType>
   [KoreaWeatherActionTypes.GET_ENV](
     { commit }: ArgumentedActionContext,
