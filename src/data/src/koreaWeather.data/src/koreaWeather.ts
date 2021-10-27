@@ -66,23 +66,13 @@ export const getKoreaWeather = async (
         },
       })
       .then((res) => {
-        store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data)
+        console.log(res.data.weeklyData)
+
+        store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data.weeklyData)
+        store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data.hourlyData)
       })
       .catch((e) => {
         return e
-      })
-
-    await http
-      .request({
-        url: "http://localhost/service/threehours",
-        method: "GET",
-        params: {
-          nx: geolocation.gridX,
-          ny: geolocation.gridY,
-        },
-      })
-      .then((res) => {
-        store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data)
       })
   }
 

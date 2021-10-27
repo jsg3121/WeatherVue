@@ -26,8 +26,6 @@ export type HourlyTypes = {
   precipitation: Array<HourlyTypesProps>
   sky: Array<HourlyTypesProps>
   temperature: Array<HourlyTypesProps>
-  rain6Hour: Array<HourlyTypesProps>
-  snow6Hour: Array<HourlyTypesProps>
 }
 
 /**

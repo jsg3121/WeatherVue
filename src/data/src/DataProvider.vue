@@ -7,7 +7,7 @@
         <TimeSetWeather />
         <WeeklyWeather />
         <!-- <AtmosEnv /> -->
-        <!-- <FooterVue /> -->
+        <FooterVue />
       </Fragment>
     </template>
     <template #fallback> loading.... </template>
@@ -15,6 +15,7 @@
 </template>
 <script lang="ts">
 // import { Components } from "@/components"
+import { Components } from "@/components"
 import { Service } from "@/service"
 import { RequestPositionType } from "@/types"
 import { defineComponent, ref } from "vue"
@@ -27,7 +28,7 @@ export default defineComponent({
     WeeklyWeather: Service.WeeklyWeather,
     // AtmosEnv: Service.AtmosphereEnv,
     AtmosStatus: Service.AtmosphereStatus,
-    // FooterVue: Components.Footer,
+    FooterVue: Components.Footer,
   },
   async setup() {
     const data = ref<RequestPositionType>()

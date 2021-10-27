@@ -26,7 +26,7 @@ export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
   },
   [KoreaWeatherMutationTypes.SET_THREES](state, payload) {
     const temperature = payload.filter((list) => {
-      return list.category === "T3H"
+      return list.category === "TMP"
     })
     const sky = payload.filter((list) => {
       return list.category === "SKY"
@@ -34,19 +34,10 @@ export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
     const precipitation = payload.filter((list) => {
       return list.category === "PTY"
     })
-    const rain6Hour = payload.filter((list) => {
-      return list.category === "R06"
-    })
-    const snow6Hour = payload.filter((list) => {
-      return list.category === "S06"
-    })
-
     const data: unknown = {
       temperature,
       sky,
       precipitation,
-      rain6Hour,
-      snow6Hour,
     }
     state.hourlyTemperature = data as HourlyTypes
   },

@@ -13,8 +13,6 @@ import { HourlyTypes } from "@/store/src/state"
 
 type TimeSetDataTypes = {
   hourlyTemperature: Pick<HourlyTypes, "temperature" | "precipitation" | "sky">
-  rain6Hour: HourlyTypes["rain6Hour"]
-  snow6Hour: HourlyTypes["snow6Hour"]
 }
 
 type SetUpTypes = {
@@ -33,9 +31,7 @@ export default {
 
     const onDataList = () => {
       const data = {
-        hourlyTemperature: omit(hourlyTemperature, ["rain6Hour", "snow6Hour"]),
-        rain6Hour: hourlyTemperature.rain6Hour,
-        snow6Hour: hourlyTemperature.snow6Hour,
+        hourlyTemperature: hourlyTemperature,
       } as unknown
       timeSetData.value = data as TimeSetDataTypes
       return timeSetData.value
