@@ -55,12 +55,13 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "@vue/runtime-core"
+import { AtmosDust, AtmosUv } from "@/store/src/state"
+import { defineComponent, PropType, ref } from "@vue/runtime-core"
 
 export default defineComponent({
   props: {
     data: {
-      type: Object,
+      type: Object as PropType<{ dust: Array<AtmosDust>; uv: AtmosUv }>,
       required: true,
     },
   },
@@ -97,11 +98,10 @@ export default defineComponent({
         return "위험"
       }
     }
-
-    const dustVal = ref(value(props.data.envData[0].pm10Grade1h))
-    const minDustVal = ref(value(props.data.envData[0].pm25Grade1h))
-    const o3Val = ref(uvValue(props.data.envData[0].o3Grade))
-    const uvVal = ref(uvValue(props.data.uvData.today))
+    const dustVal = ref(value(props.data.dust[0].pm10Grade1h))
+    const minDustVal = ref(value(props.data.dust[0].pm25Grade1h))
+    const o3Val = ref(uvValue(props.data.dust[0].o3Grade))
+    const uvVal = ref(uvValue(props.data.uv))
 
     return { env, dustVal, minDustVal, o3Val, uvVal }
   },

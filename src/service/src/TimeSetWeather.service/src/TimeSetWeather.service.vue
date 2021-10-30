@@ -8,7 +8,6 @@ import { Components } from "@/components"
 import { ref } from "@vue/runtime-core"
 import { useStore } from "@/store"
 import { onMounted } from "vue"
-import { omit } from "lodash"
 import { HourlyTypes } from "@/store/src/state"
 
 type TimeSetDataTypes = {

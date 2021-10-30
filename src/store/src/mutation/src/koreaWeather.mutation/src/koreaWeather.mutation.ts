@@ -16,7 +16,10 @@ export type KoreaWeatherMutaions<S = KoreaWeatherStateType> = {
     state: S,
     payload: KoreaWeatherStateType["weeklyTemperature"]
   ): void
-  [KoreaWeatherMutationTypes.SET_ENV](state: S, payload: any): void
+  [KoreaWeatherMutationTypes.SET_ENV](
+    state: S,
+    payload: KoreaWeatherStateType["atmos"]
+  ): void
 }
 
 export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
@@ -45,6 +48,6 @@ export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
     state.weeklyTemperature = payload
   },
   [KoreaWeatherMutationTypes.SET_ENV](state, payload) {
-    state.environment = { ...payload }
+    state.atmos = payload
   },
 }

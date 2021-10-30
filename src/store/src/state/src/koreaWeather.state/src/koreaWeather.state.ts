@@ -1,21 +1,12 @@
-import { current, hourly, weekly } from "./stateList"
+import { current, hourly, weekly, atmosDust, atmosUv } from "./stateList"
 
 export const KoreaWeatherState = {
   currentTemperature: current,
   hourlyTemperature: hourly,
   weeklyTemperature: weekly,
-  environment: {
-    out: [
-      {
-        sidoName: "",
-        pm10Grade1h: "",
-        pm25Grade1h: "",
-        o3Grade: "",
-        dataTime: "",
-        stationName: "",
-      },
-    ],
-    uvValue: {},
+  atmos: {
+    dust: atmosDust,
+    uv: atmosUv,
   },
 }
 

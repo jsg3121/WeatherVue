@@ -29,7 +29,7 @@ export interface KoreaWeatherActions {
   ): Promise<KoreaWeatherStateType>
   [KoreaWeatherActionTypes.GET_ENV](
     { commit }: ArgumentedActionContext,
-    payload: KoreaWeatherStateType
+    payload: KoreaWeatherStateType["atmos"]
   ): Promise<KoreaWeatherStateType>
 }
 

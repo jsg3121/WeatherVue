@@ -76,16 +76,12 @@ export const getKoreaWeather = async (
       })
   }
 
-  // await http
-  //   .request({
-  //     url: "https://best-weather.com/api/ko/livingInformation",
-  //     method: "GET",
-  //     params: {
-  //       nx: store.state.gridX,
-  //       ny: store.state.gridY,
-  //     },
-  //   })
-  //   .then((res) => {
-  //     store.dispatch(KoreaWeatherActionTypes.GET_ENV, res.data)
-  //   })
+  await http
+    .request({
+      url: "http://localhost/service/atmos",
+      method: "GET",
+    })
+    .then((res) => {
+      store.dispatch(KoreaWeatherActionTypes.GET_ENV, res.data)
+    })
 }

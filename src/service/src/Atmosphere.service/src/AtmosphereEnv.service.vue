@@ -1,26 +1,32 @@
 <template>
   <div>
-    <AtmosEnv :data="{ envData, uvData }" />
+    <AtmosEnv :data="{ dust, uv }" />
   </div>
 </template>
 <script lang="ts">
 import { Components } from "@/components"
 import { useStore } from "@/store"
+import { AtmosDust } from "@/store/src/state"
 import { defineComponent } from "@vue/runtime-core"
+
+type SetUpTypes = {
+  dust: Array<AtmosDust>
+  uv: string
+}
 
 export default defineComponent({
   components: {
     AtmosEnv: Components.AtmosphereEnv,
   },
-  setup() {
-    const store = useStore()
-
-    const envData = store.state.environment.out.filter((item) => {
-      return item.stationName === store.state.geolocation.location2 || "종로구"
+  setup(): SetUpTypes {
+    const {
+      state: { atmos, geolocation },
+    } = useStore()
+    const dust = atmos.dust.filter((item) => {
+      return item.stationName === geolocation.location2
     })
-    const uvData = store.state.environment.uvValue
-
-    return { envData, uvData }
+    const uv = atmos.uv
+    return { dust, uv }
   },
 })
 </script>

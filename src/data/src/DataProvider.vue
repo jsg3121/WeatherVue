@@ -6,7 +6,7 @@
         <AtmosStatus />
         <TimeSetWeather />
         <WeeklyWeather />
-        <!-- <AtmosEnv /> -->
+        <AtmosEnv />
         <FooterVue />
       </Fragment>
     </template>
@@ -14,7 +14,6 @@
   </suspense>
 </template>
 <script lang="ts">
-// import { Components } from "@/components"
 import { Components } from "@/components"
 import { Service } from "@/service"
 import { RequestPositionType } from "@/types"
@@ -26,7 +25,7 @@ export default defineComponent({
     Currnet: Service.CurrentStatus,
     TimeSetWeather: Service.TimeSetWeather,
     WeeklyWeather: Service.WeeklyWeather,
-    // AtmosEnv: Service.AtmosphereEnv,
+    AtmosEnv: Service.AtmosphereEnv,
     AtmosStatus: Service.AtmosphereStatus,
     FooterVue: Components.Footer,
   },

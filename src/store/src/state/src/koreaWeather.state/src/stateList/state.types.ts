@@ -48,3 +48,22 @@ export type WeeklyTypes = {
   day6: WeeklyDateType | null
   day7: WeeklyDateType | null
 }
+
+/**
+ * ! atmos dust
+ */
+
+export type AtmosDust = {
+  sidoName: string
+  pm10Grade1h: string
+  pm25Grade1h: string
+  o3Grade: string
+  dataTime: string
+  stationName: string
+}
+
+/**
+ * ! atmos uv
+ */
+
+export type AtmosUv = string
