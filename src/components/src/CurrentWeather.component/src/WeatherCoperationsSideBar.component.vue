@@ -5,10 +5,15 @@
         class="weather-sideBar__item"
         v-for="items in weatherCoperations"
         :key="items"
+        :class="items.selected ? 'selected' : ''"
+        @click="emitSelect(items.selectName)"
       >
         <div class="weather-sideBar__title display-flex">
           <figure class="weather-sideBar__icon">
-            <img :src="items.logo" alt="기상사 로고 이미지" />
+            <img
+              :src="items.selected ? items.selectLogo : items.logo"
+              alt="기상사 로고 이미지"
+            />
           </figure>
           <p class="weather-sideBar__name">{{ items.name }}</p>
         </div>
@@ -17,11 +22,7 @@
             <img src="@/assets/img/sunny-small-icon@2x.png" alt="" />
           </figure>
           <p class="weather-sideBar__current-temperature">
-            {{
-              items.temperature
-                ? Math.round(parseInt(items.temperature, 10))
-                : 99
-            }}º
+            {{ items.temperature ? items.temperature : 99 }}º
           </p>
         </div>
       </li>
@@ -29,45 +30,70 @@
   </div>
 </template>
 <script lang="ts">
-import { Ref, ref } from "vue"
-import { useStore } from "@/store"
+import { PersonalOptionsTypes } from "@/store/src/state"
+import { defineComponent, PropType, Ref, ref } from "vue"
 import { SideBarListType } from "./types"
 
 export type SetUpTypes = {
   weatherCoperations: Ref<SideBarListType[]>
+  emitSelect: (name: PersonalOptionsTypes) => void
 }
 
-export default {
-  setup(): SetUpTypes {
-    const {
-      state: { currentTemperature },
-    } = useStore()
+type SideBarListProps = {
+  selectWeatherCop: PersonalOptionsTypes
+  koreaTemperature: number
+}
 
-    const weatherCoperations = ref([
+export default defineComponent({
+  props: {
+    selectCop: {
+      type: Object as PropType<SideBarListProps>,
+      required: true,
+    },
+  },
+  emits: ["handleSelect"],
+  setup(props, { emit }): SetUpTypes {
+    const weatherCoperations = ref<Array<SideBarListType>>([
       {
         index: 1,
         name: "기상청",
+        selectName: "korea",
         logo: require("@/assets/img/korea-weather-icon-s@2x.png"),
         selectLogo: require("@/assets/img/korea-weather-icon-n@2x.png"),
-        temperature: currentTemperature.temperature,
+        temperature: props.selectCop.koreaTemperature,
+        selected: props.selectCop.selectWeatherCop === "korea" ? true : false,
       },
       {
         index: 2,
         name: "오픈웨더",
+        selectName: "openWeather",
         logo: require("@/assets/img/open-weather-map-icon-s@2x.png"),
         selectLogo: require("@/assets/img/open-weather-map-icon-n@2x.png"),
+        selected:
+          props.selectCop.selectWeatherCop === "openWeather" ? true : false,
       },
       {
         index: 3,
         name: "아큐웨더",
+        selectName: "accu",
         logo: require("@/assets/img/accu-weather-icon-n@2x.png"),
         selectLogo: require("@/assets/img/accu-weather-icon-s@2x.png"),
+        selected: props.selectCop.selectWeatherCop === "accu" ? true : false,
       },
     ])
 
-    return { weatherCoperations }
+    const emitSelect = (name: string) => {
+      weatherCoperations.value.map((list) => {
+        return list.selectName === name
+          ? (list.selected = true)
+          : (list.selected = false)
+      })
+      emit("handleSelect", name)
+    }
+
+    return { weatherCoperations, emitSelect }
   },
-}
+})
 </script>
 <style lang="scss">
 .weather-sideBar {
@@ -84,6 +110,18 @@ export default {
       background-color: rgba(255, 255, 255, 0.08);
       border-bottom-left-radius: 3.125rem;
       border-top-left-radius: 3.125rem;
+      cursor: pointer;
+
+      &.selected {
+        background: linear-gradient(to top, #001d35, #053863);
+
+        .weather-sideBar__name {
+          color: #ffffff !important;
+        }
+        .weather-sideBar__current-temperature {
+          color: #ffffff !important;
+        }
+      }
 
       &:last-child {
         margin-bottom: 0;

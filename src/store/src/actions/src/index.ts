@@ -1,6 +1,7 @@
 export * from "./example.action"
 export * from "./geologication.action"
 export * from "./koreaWeather.action"
+export * from "./personal.action"
 
 import { geolocationAction, GeolocationActions } from "./geologication.action"
 import { exampleAction, ExampleActions } from "./example.action"

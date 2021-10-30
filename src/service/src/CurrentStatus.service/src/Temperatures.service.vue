@@ -1,12 +1,15 @@
 <template>
   <div class="current-temperature-container display-flex">
     <NowTemperature :nowTemperature="nowTemperature()" />
-    <WeatherCopSideBar />
+    <WeatherCopSideBar :selectCop="selectCop" @handleSelect="handleSelect" />
   </div>
 </template>
 <script lang="ts">
 import { Components } from "@/components"
 import { useStore } from "@/store"
+import { PersonalOptionsActionTypes } from "@/store/src/actions"
+import { PersonalOptionsTypes } from "@/store/src/state"
+import { defineComponent } from "vue"
 
 type SetUpTypes = {
   nowTemperature: () => {
@@ -15,17 +18,20 @@ type SetUpTypes = {
     maxTemp: number
     sky: string
   }
+  selectCop: {
+    selectWeatherCop: string
+    koreaTemperature: number
+  }
+  handleSelect: (name: PersonalOptionsTypes) => void
 }
 
-export default {
+export default defineComponent({
   components: {
     NowTemperature: Components.CurrentTemperatures,
     WeatherCopSideBar: Components.WeatherCoperations,
   },
   async setup(): Promise<SetUpTypes> {
-    const {
-      state: { currentTemperature },
-    } = useStore()
+    const { state, dispatch } = useStore()
 
     /**
      * ! 현재 날씨 상태
@@ -37,15 +43,33 @@ export default {
      */
     const nowTemperature = () => {
       return {
-        temperature: Math.round(parseInt(currentTemperature.temperature, 10)),
-        minTemp: Math.round(parseInt(currentTemperature.minTemp, 10)),
-        maxTemp: Math.round(parseInt(currentTemperature.maxTemp, 10)),
-        sky: currentTemperature.sky,
+        temperature: Math.round(
+          parseInt(state.currentTemperature.temperature, 10)
+        ),
+        minTemp: Math.round(parseInt(state.currentTemperature.minTemp, 10)),
+        maxTemp: Math.round(parseInt(state.currentTemperature.maxTemp, 10)),
+        sky: state.currentTemperature.sky,
       }
     }
-    return { nowTemperature }
+
+    const getCop = () => {
+      return {
+        selectWeatherCop: state.selectWeatherCop,
+        koreaTemperature: Math.round(
+          parseInt(state.currentTemperature.temperature, 10)
+        ),
+      }
+    }
+
+    const selectCop = getCop()
+
+    const handleSelect = (name: PersonalOptionsTypes) => {
+      dispatch(PersonalOptionsActionTypes.GET_WEATHER_COP, name)
+    }
+
+    return { nowTemperature, selectCop, handleSelect }
   },
-}
+})
 </script>
 <style lang="scss">
 .current-temperature-container {

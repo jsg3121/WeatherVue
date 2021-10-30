@@ -12,7 +12,6 @@ export type PersonalOptionsMutations<S = PersonalOptionsStateType> = {
 export const personalOptionsMutations: MutationTree<PersonalOptionsStateType> &
   PersonalOptionsMutations = {
   [PersonalOptionsMutationsType.SET_WEATHER_COP](state, payload) {
-    console.log(state.selectWeatherCop)
-    console.log(payload)
+    state.selectWeatherCop = payload
   },
 }
