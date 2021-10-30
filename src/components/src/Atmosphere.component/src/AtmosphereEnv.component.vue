@@ -67,7 +67,6 @@ export default defineComponent({
   },
   setup(props) {
     const env = ref(props.data)
-    console.log(env.value)
 
     const value = (val: string) => {
       switch (val) {

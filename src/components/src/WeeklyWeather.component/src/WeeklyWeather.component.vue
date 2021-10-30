@@ -79,7 +79,6 @@ export default defineComponent({
   },
   setup(props): SetUpType {
     // const { setWeekly } = toRefs(props)
-    // console.log(setWeekly.value)
     const weeklyData = reactive<WeeklyTypes>(props.setWeekly)
 
     const getDate: SetUpType["getDate"] = (day: string) => {

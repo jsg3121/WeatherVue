@@ -12,10 +12,6 @@ export type GeologicationMutations<S = GeoLocationStateType> = {
 export const geolocationMutations: MutationTree<GeoLocationStateType> &
   GeologicationMutations = {
   [GeologicationMutationTypes.SET_LOCATION](state, payload) {
-    console.log("mutation payload")
-    console.log(payload)
-    console.log(state)
-
     state.geolocation = payload
   },
 }
