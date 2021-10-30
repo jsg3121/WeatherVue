@@ -24,7 +24,7 @@ export const getKoreaWeather = async (
      */
     await http
       .request({
-        url: "http://localhost/geolocation",
+        url: "https://best-weather.com/geolocation",
         method: "GET",
         params: {
           latitude: data.value.lat,
@@ -45,7 +45,7 @@ export const getKoreaWeather = async (
      */
     await http
       .request({
-        url: "http://localhost/service/current",
+        url: "https://best-weather.com/service/current",
         method: "GET",
         params: {
           nx: geolocation.gridX,
@@ -58,7 +58,7 @@ export const getKoreaWeather = async (
 
     await http
       .request({
-        url: "http://localhost/service/weekly",
+        url: "https://best-weather.com/service/weekly",
         method: "GET",
         params: {
           nx: geolocation.gridX,
@@ -76,7 +76,7 @@ export const getKoreaWeather = async (
       })
     await http
       .request({
-        url: "http://localhost/service/atmos",
+        url: "https://best-weather.com/service/atmos",
         method: "GET",
       })
       .then((res) => {

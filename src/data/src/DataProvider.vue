@@ -1,17 +1,12 @@
 <template>
-  <suspense>
-    <template #default>
-      <Fragment>
-        <Currnet />
-        <AtmosStatus />
-        <TimeSetWeather />
-        <WeeklyWeather />
-        <AtmosEnv />
-        <FooterVue />
-      </Fragment>
-    </template>
-    <template #fallback> loading.... </template>
-  </suspense>
+  <Fragment>
+    <Currnet />
+    <AtmosStatus />
+    <TimeSetWeather />
+    <WeeklyWeather />
+    <AtmosEnv />
+    <FooterVue />
+  </Fragment>
 </template>
 <script lang="ts">
 import { Components } from "@/components"

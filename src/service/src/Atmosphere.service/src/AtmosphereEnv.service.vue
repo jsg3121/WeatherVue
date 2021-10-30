@@ -18,7 +18,7 @@ export default defineComponent({
   components: {
     AtmosEnv: Components.AtmosphereEnv,
   },
-  setup(): SetUpTypes {
+  async setup(): Promise<SetUpTypes> {
     const {
       state: { atmos, geolocation },
     } = useStore()

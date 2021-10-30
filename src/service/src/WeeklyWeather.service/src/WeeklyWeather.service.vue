@@ -12,7 +12,7 @@ export default defineComponent({
   components: {
     WeeklyWeather: Components.WeeklyWeather,
   },
-  setup() {
+  async setup() {
     const {
       state: { weeklyTemperature },
     } = useStore()
