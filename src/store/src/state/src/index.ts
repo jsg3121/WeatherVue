@@ -6,6 +6,7 @@ export * from "./personal.state"
 import { exampleState } from "./example.state"
 import { GeoLocationState } from "./geologication.state"
 import { KoreaWeatherState } from "./koreaWeather.state"
+import { OpenWeatherState } from "./openWeather.state"
 import { PersonalOptionsState } from "./personal.state"
 
 export const state = {
@@ -13,6 +14,7 @@ export const state = {
   ...GeoLocationState,
   ...KoreaWeatherState,
   ...PersonalOptionsState,
+  ...OpenWeatherState,
 }
 
 export type State = typeof state
