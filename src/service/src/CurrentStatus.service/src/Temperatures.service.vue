@@ -17,10 +17,19 @@ type SetUpTypes = {
     minTemp: number
     maxTemp: number
     sky: string
+    pty: string
   }
   selectCop: {
-    selectWeatherCop: string
-    koreaTemperature: number
+    selectWeatherCop: PersonalOptionsTypes
+    temperature: {
+      korea: number
+    }
+    pty: {
+      korea: string
+    }
+    sky: {
+      korea: string
+    }
   }
   handleSelect: (name: PersonalOptionsTypes) => void
 }
@@ -31,7 +40,10 @@ export default defineComponent({
     WeatherCopSideBar: Components.WeatherCoperations,
   },
   async setup(): Promise<SetUpTypes> {
-    const { state, dispatch } = useStore()
+    const {
+      state: { currentTemperature, selectWeatherCop },
+      dispatch,
+    } = useStore()
 
     /**
      * ! 현재 날씨 상태
@@ -43,21 +55,26 @@ export default defineComponent({
      */
     const nowTemperature = () => {
       return {
-        temperature: Math.round(
-          parseInt(state.currentTemperature.temperature, 10)
-        ),
-        minTemp: Math.round(parseInt(state.currentTemperature.minTemp, 10)),
-        maxTemp: Math.round(parseInt(state.currentTemperature.maxTemp, 10)),
-        sky: state.currentTemperature.sky,
+        temperature: Math.round(parseInt(currentTemperature.temperature, 10)),
+        minTemp: Math.round(parseInt(currentTemperature.minTemp, 10)),
+        maxTemp: Math.round(parseInt(currentTemperature.maxTemp, 10)),
+        sky: currentTemperature.sky,
+        pty: currentTemperature.precipitation,
       }
     }
 
     const getCop = () => {
       return {
-        selectWeatherCop: state.selectWeatherCop,
-        koreaTemperature: Math.round(
-          parseInt(state.currentTemperature.temperature, 10)
-        ),
+        selectWeatherCop: selectWeatherCop,
+        temperature: {
+          korea: Math.round(parseInt(currentTemperature.temperature, 10)),
+        },
+        pty: {
+          korea: currentTemperature.precipitation,
+        },
+        sky: {
+          korea: currentTemperature.sky,
+        },
       }
     }
 

@@ -19,7 +19,14 @@
         </div>
         <div class="weather-sideBar__description display-flex">
           <figure class="weather-sideBar__currentIcon">
-            <img src="@/assets/img/sunny-small-icon@2x.png" alt="" />
+            <img
+              :src="
+                items.sky
+                  ? items.sky
+                  : require('@/assets/img/sunny-small-icon@2x.png')
+              "
+              alt=""
+            />
           </figure>
           <p class="weather-sideBar__current-temperature">
             {{ items.temperature ? items.temperature : 99 }}º
@@ -31,7 +38,7 @@
 </template>
 <script lang="ts">
 import { PersonalOptionsTypes } from "@/store/src/state"
-import { defineComponent, PropType, Ref, ref } from "vue"
+import { defineComponent, PropType, Ref, ref, toRefs } from "vue"
 import { SideBarListType } from "./types"
 
 export type SetUpTypes = {
@@ -41,7 +48,15 @@ export type SetUpTypes = {
 
 type SideBarListProps = {
   selectWeatherCop: PersonalOptionsTypes
-  koreaTemperature: number
+  temperature: {
+    korea: number
+  }
+  pty: {
+    korea: string
+  }
+  sky: {
+    korea: string
+  }
 }
 
 export default defineComponent({
@@ -53,6 +68,22 @@ export default defineComponent({
   },
   emits: ["handleSelect"],
   setup(props, { emit }): SetUpTypes {
+    const { selectWeatherCop, temperature, pty, sky } = toRefs(props.selectCop)
+
+    const getSky = (pty: string, sky: string) => {
+      if (sky === "1") {
+        return require("@/assets/img/sunny-small-icon@2x.png")
+      } else if (sky === "3") {
+        return require("@/assets/img/fog-small-icon@2x.png")
+      } else {
+        if (parseInt(String(pty), 10) > 0) {
+          return require("@/assets/img/rain-small-icon@2x.png")
+        } else {
+          return require("@/assets/img/cloud-small-icon@2x.png")
+        }
+      }
+    }
+
     const weatherCoperations = ref<Array<SideBarListType>>([
       {
         index: 1,
@@ -60,8 +91,9 @@ export default defineComponent({
         selectName: "korea",
         logo: require("@/assets/img/korea-weather-icon-s@2x.png"),
         selectLogo: require("@/assets/img/korea-weather-icon-n@2x.png"),
-        temperature: props.selectCop.koreaTemperature,
-        selected: props.selectCop.selectWeatherCop === "korea" ? true : false,
+        temperature: temperature.value.korea,
+        selected: selectWeatherCop.value === "korea" ? true : false,
+        sky: getSky(pty.value.korea, sky.value.korea),
       },
       {
         index: 2,
@@ -69,8 +101,7 @@ export default defineComponent({
         selectName: "openWeather",
         logo: require("@/assets/img/open-weather-map-icon-s@2x.png"),
         selectLogo: require("@/assets/img/open-weather-map-icon-n@2x.png"),
-        selected:
-          props.selectCop.selectWeatherCop === "openWeather" ? true : false,
+        selected: selectWeatherCop.value === "openWeather" ? true : false,
       },
       {
         index: 3,
@@ -78,7 +109,7 @@ export default defineComponent({
         selectName: "accu",
         logo: require("@/assets/img/accu-weather-icon-n@2x.png"),
         selectLogo: require("@/assets/img/accu-weather-icon-s@2x.png"),
-        selected: props.selectCop.selectWeatherCop === "accu" ? true : false,
+        selected: selectWeatherCop.value === "accu" ? true : false,
       },
     ])
 

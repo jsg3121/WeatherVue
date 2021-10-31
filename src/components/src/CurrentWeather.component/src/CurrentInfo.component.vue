@@ -11,15 +11,15 @@
   </div>
 </template>
 <script lang="ts">
-import { Ref, ref } from "@vue/reactivity"
+import { Ref, ref, toRefs } from "@vue/reactivity"
 import { defineComponent, PropType } from "vue"
 import { CurrentInfo } from "./CurrentInfo/index"
-import { NowStatusRef, MinMaxRef } from "./types"
+import { MinMax, MinMaxRef, NowStatus, NowStatusRef } from "./types"
 
 type SetUpTypes = {
-  nowStatus: Ref<NowStatusRef>
+  nowStatus: Ref<NowStatus>
   img: Ref<string | undefined>
-  minMax: Ref<MinMaxRef>
+  minMax: Ref<MinMax>
 }
 
 interface CurrentProps {
@@ -27,6 +27,7 @@ interface CurrentProps {
   minTemp: number
   maxTemp: number
   sky: string
+  pty: string
 }
 
 export default defineComponent({
@@ -41,14 +42,17 @@ export default defineComponent({
     },
   },
   setup(props): SetUpTypes {
+    const { temperature, minTemp, maxTemp, sky, pty } = toRefs<CurrentProps>(
+      props.nowTemperature
+    )
     const nowStatus = ref<NowStatusRef>({
-      nowTemp: props.nowTemperature.temperature,
-      nowSky: props.nowTemperature.sky,
+      nowTemp: temperature,
+      nowSky: sky,
     })
     const img = ref<string>()
     const minMax = ref<MinMaxRef>({
-      minTemp: props.nowTemperature.minTemp,
-      maxTemp: props.nowTemperature.maxTemp,
+      minTemp: minTemp,
+      maxTemp: maxTemp,
     })
 
     const getSky = () => {
@@ -60,8 +64,13 @@ export default defineComponent({
         nowStatus.value.nowSky = "구름 많음"
         img.value = require("@/assets/img/main-fog-icon@2x.png")
       } else if (value === "4") {
-        nowStatus.value.nowSky = "흐림"
-        img.value = require("@/assets/img/main-cloud-icon@2x.png")
+        if (parseInt(String(pty), 10) > 0) {
+          nowStatus.value.nowSky = "비"
+          img.value = require("@/assets/img/main-rain-icon@2x.png")
+        } else {
+          nowStatus.value.nowSky = "흐림"
+          img.value = require("@/assets/img/main-cloud-icon@2x.png")
+        }
       }
     }
     getSky()
