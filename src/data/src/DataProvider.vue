@@ -13,7 +13,7 @@ import { Components } from "@/components"
 import { Service } from "@/service"
 import { RequestPositionType } from "@/types"
 import { defineComponent, ref } from "vue"
-import { getKoreaWeather } from "./koreaWeather.data"
+import { getKoreaWeather, loadWeather } from "./koreaWeather.data"
 
 export default defineComponent({
   components: {
@@ -38,6 +38,7 @@ export default defineComponent({
       data.value = res
     })
     await getKoreaWeather(data)
+    await loadWeather()
 
     return {}
   },
