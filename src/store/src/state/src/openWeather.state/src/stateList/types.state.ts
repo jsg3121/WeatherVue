@@ -1,4 +1,4 @@
-export type CurrentTypes = {
+export type OpenWeatherCurrentTypes = {
   temp: number
   humidity: number
   wind_speed: number
@@ -8,13 +8,13 @@ export type CurrentTypes = {
   max_temp: number
 }
 
-export type WeeklyTypes = {
+export type OpenWeatherWeeklyTypes = {
   sky: string
   maxTemperature: number
   minTemperature: number
 }
 
-export type HourlyTypes = {
+export type OpenWeatherHourlyTypes = {
   sky: string
   temp: number
 }

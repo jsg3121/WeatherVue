@@ -17,19 +17,19 @@ type ArgumentedActionContext = {
 export interface KoreaWeatherActions {
   [KoreaWeatherActionTypes.GET_WEATHER](
     { commit }: ArgumentedActionContext,
-    payload: KoreaWeatherStateType["currentTemperature"]
+    payload: KoreaWeatherStateType["korea"]["currentTemperature"]
   ): Promise<KoreaWeatherStateType>
-  [KoreaWeatherActionTypes.GET_THREES](
+  [KoreaWeatherActionTypes.GET_HOURLY](
     { commit }: ArgumentedActionContext,
     payload: Array<HourlyPayloadType>
   ): Promise<KoreaWeatherStateType>
   [KoreaWeatherActionTypes.GET_WEEKLY](
     { commit }: ArgumentedActionContext,
-    payload: KoreaWeatherStateType["weeklyTemperature"]
+    payload: KoreaWeatherStateType["korea"]["weeklyTemperature"]
   ): Promise<KoreaWeatherStateType>
   [KoreaWeatherActionTypes.GET_ENV](
     { commit }: ArgumentedActionContext,
-    payload: KoreaWeatherStateType["atmos"]
+    payload: KoreaWeatherStateType["korea"]["atmos"]
   ): Promise<KoreaWeatherStateType>
 }
 
@@ -43,7 +43,7 @@ export const koreaWeatherAction: ActionTree<
       commit(KoreaWeatherMutationTypes.SET_WEATHER, payload)
     })
   },
-  [KoreaWeatherActionTypes.GET_THREES]({ commit }, payload) {
+  [KoreaWeatherActionTypes.GET_HOURLY]({ commit }, payload) {
     return new Promise(() => {
       commit(KoreaWeatherMutationTypes.SET_THREES, payload)
     })

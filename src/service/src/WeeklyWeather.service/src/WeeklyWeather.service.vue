@@ -14,7 +14,9 @@ export default defineComponent({
   },
   async setup() {
     const {
-      state: { weeklyTemperature },
+      state: {
+        korea: { weeklyTemperature },
+      },
     } = useStore()
 
     return { weeklyTemperature }

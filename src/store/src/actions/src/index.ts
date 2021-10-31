@@ -1,26 +1,26 @@
-export * from "./example.action"
 export * from "./geologication.action"
 export * from "./koreaWeather.action"
 export * from "./personal.action"
+export * from "./openWeather.action"
 
-import { geolocationAction, GeolocationActions } from "./geologication.action"
-import { exampleAction, ExampleActions } from "./example.action"
-import { State } from "../../state"
 import { ActionTree } from "vuex"
+import { State } from "../../state"
+import { geolocationAction, GeolocationActions } from "./geologication.action"
 import { koreaWeatherAction, KoreaWeatherActions } from "./koreaWeather.action"
+import { openWeatherAction, OpenWeatherActions } from "./openWeather.action"
 import {
   personalOptionsAction,
   PersonalOptionsActions,
 } from "./personal.action"
 
 export type Actions = GeolocationActions &
-  ExampleActions &
   KoreaWeatherActions &
-  PersonalOptionsActions
+  PersonalOptionsActions &
+  OpenWeatherActions
 
 export const actions: ActionTree<State, State> & Actions = {
   ...geolocationAction,
-  ...exampleAction,
   ...koreaWeatherAction,
   ...personalOptionsAction,
+  ...openWeatherAction,
 }

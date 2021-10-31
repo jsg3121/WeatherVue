@@ -1,4 +1,4 @@
-import { WeeklyTypes } from "./types.state"
+import { OpenWeatherWeeklyTypes } from "./types.state"
 
 /**
  * ! openWeather 주간 날씨
@@ -7,7 +7,7 @@ import { WeeklyTypes } from "./types.state"
  * - maxTemperature : 최고기온 `number`
  * - minTemperature : 최저기온 `number`
  */
-export const weekly: Array<WeeklyTypes> = [
+export const openWeatherWeekly: Array<OpenWeatherWeeklyTypes> = [
   {
     sky: "",
     maxTemperature: 0,

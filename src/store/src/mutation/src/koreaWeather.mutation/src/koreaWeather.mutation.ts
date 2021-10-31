@@ -6,7 +6,7 @@ import { KoreaWeatherMutationTypes, HourlyPayloadType } from "./types"
 export type KoreaWeatherMutaions<S = KoreaWeatherStateType> = {
   [KoreaWeatherMutationTypes.SET_WEATHER](
     state: S,
-    payload: KoreaWeatherStateType["currentTemperature"]
+    payload: KoreaWeatherStateType["korea"]["currentTemperature"]
   ): void
   [KoreaWeatherMutationTypes.SET_THREES](
     state: S,
@@ -14,18 +14,18 @@ export type KoreaWeatherMutaions<S = KoreaWeatherStateType> = {
   ): void
   [KoreaWeatherMutationTypes.SET_WEEKLY](
     state: S,
-    payload: KoreaWeatherStateType["weeklyTemperature"]
+    payload: KoreaWeatherStateType["korea"]["weeklyTemperature"]
   ): void
   [KoreaWeatherMutationTypes.SET_ENV](
     state: S,
-    payload: KoreaWeatherStateType["atmos"]
+    payload: KoreaWeatherStateType["korea"]["atmos"]
   ): void
 }
 
 export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
   KoreaWeatherMutaions = {
   [KoreaWeatherMutationTypes.SET_WEATHER](state, payload) {
-    state.currentTemperature = payload
+    state.korea.currentTemperature = payload
   },
   [KoreaWeatherMutationTypes.SET_THREES](state, payload) {
     const temperature = payload.filter((list) => {
@@ -42,12 +42,12 @@ export const koreaWeatherMutaions: MutationTree<KoreaWeatherStateType> &
       sky,
       precipitation,
     }
-    state.hourlyTemperature = data as HourlyTypes
+    state.korea.hourlyTemperature = data as HourlyTypes
   },
   [KoreaWeatherMutationTypes.SET_WEEKLY](state, payload) {
-    state.weeklyTemperature = payload
+    state.korea.weeklyTemperature = payload
   },
   [KoreaWeatherMutationTypes.SET_ENV](state, payload) {
-    state.atmos = payload
+    state.korea.atmos = payload
   },
 }

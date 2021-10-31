@@ -1,8 +1,8 @@
 import {
   OpenWeatherMutations,
   OpenWeatherMutationTypes,
-} from "@/store/src/mutation/src/openWeather.mutation"
-import { OpenWeatherStateType } from "@/store/src/state/src/openWeather.state"
+} from "@/store/src/mutation"
+import { OpenWeatherStateType } from "@/store/src/state"
 import { ActionContext, ActionTree } from "vuex"
 import { OpenWeatherActionTypes } from "./types"
 
@@ -14,20 +14,20 @@ type ArgumuntedActionContext = {
 } & Omit<ActionContext<OpenWeatherStateType, OpenWeatherStateType>, "commit">
 
 export interface OpenWeatherActions {
-  [OpenWeatherActionTypes.GET_WEATHER](
+  [OpenWeatherActionTypes.GET_OPEN_WEATHER](
     { commit }: ArgumuntedActionContext,
     payload: OpenWeatherStateType
   ): Promise<OpenWeatherStateType>
 }
 
-export const openWatherAction: ActionTree<
+export const openWeatherAction: ActionTree<
   OpenWeatherStateType,
   OpenWeatherStateType
 > &
   OpenWeatherActions = {
-  [OpenWeatherActionTypes.GET_WEATHER]({ commit }, payload) {
+  [OpenWeatherActionTypes.GET_OPEN_WEATHER]({ commit }, payload) {
     return new Promise(() => {
-      commit(OpenWeatherMutationTypes.SET_WEATHER, payload)
+      commit(OpenWeatherMutationTypes.SET_OPEN_WEATHER, payload)
     })
   },
 }

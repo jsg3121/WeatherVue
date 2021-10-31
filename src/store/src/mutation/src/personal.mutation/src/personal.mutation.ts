@@ -5,13 +5,13 @@ import { PersonalOptionsMutationsType } from "./types"
 export type PersonalOptionsMutations<S = PersonalOptionsStateType> = {
   [PersonalOptionsMutationsType.SET_WEATHER_COP](
     state: S,
-    payload: PersonalOptionsStateType["selectWeatherCop"]
+    payload: PersonalOptionsStateType["personal"]["selectWeatherCop"]
   ): void
 }
 
 export const personalOptionsMutations: MutationTree<PersonalOptionsStateType> &
   PersonalOptionsMutations = {
   [PersonalOptionsMutationsType.SET_WEATHER_COP](state, payload) {
-    state.selectWeatherCop = payload
+    state.personal.selectWeatherCop = payload
   },
 }

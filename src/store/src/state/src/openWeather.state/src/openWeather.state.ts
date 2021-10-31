@@ -1,9 +1,15 @@
-import { current, hourly, weekly } from "./stateList"
+import {
+  openWeatherCurrent,
+  openWeatherHourly,
+  openWeatherWeekly,
+} from "./stateList"
 
 export const OpenWeatherState = {
-  current: current,
-  hourly: hourly,
-  weekly: weekly,
+  openWeather: {
+    current: openWeatherCurrent,
+    hourly: openWeatherHourly,
+    weekly: openWeatherWeekly,
+  },
 }
 
 export type OpenWeatherStateType = typeof OpenWeatherState

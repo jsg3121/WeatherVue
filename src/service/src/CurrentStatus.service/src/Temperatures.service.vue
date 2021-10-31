@@ -41,9 +41,14 @@ export default defineComponent({
   },
   async setup(): Promise<SetUpTypes> {
     const {
-      state: { currentTemperature, selectWeatherCop },
+      state: {
+        korea: { currentTemperature },
+        personal: { selectWeatherCop },
+      },
       dispatch,
     } = useStore()
+
+    console.log(currentTemperature)
 
     /**
      * ! 현재 날씨 상태

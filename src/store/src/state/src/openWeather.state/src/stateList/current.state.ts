@@ -1,4 +1,4 @@
-import { CurrentTypes } from "./types.state"
+import { OpenWeatherCurrentTypes } from "./types.state"
 
 /**
  * ! openWeather 현재 상태
@@ -11,7 +11,7 @@ import { CurrentTypes } from "./types.state"
  * - min_temp: 당일 최저기온  `number`
  * - max_temp: 당일 최고기온  `number`
  */
-export const current: CurrentTypes = {
+export const openWeatherCurrent: OpenWeatherCurrentTypes = {
   temp: 0,
   humidity: 0,
   wind_speed: 0,

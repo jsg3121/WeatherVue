@@ -75,7 +75,7 @@ export const loadWeather = async (): Promise<void> => {
     })
     .then((res) => {
       store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data.weeklyData)
-      store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data.hourlyData)
+      store.dispatch(KoreaWeatherActionTypes.GET_HOURLY, res.data.hourlyData)
     })
     .catch((e) => {
       return e

@@ -1,3 +1,3 @@
 export enum OpenWeatherMutationTypes {
-  SET_WEATHER = "SET_WEATHER",
+  SET_OPEN_WEATHER = "SET_OPEN_WEATHER",
 }
