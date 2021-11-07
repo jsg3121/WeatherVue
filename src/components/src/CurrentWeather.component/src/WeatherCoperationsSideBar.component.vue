@@ -50,12 +50,14 @@ type SideBarListProps = {
   selectWeatherCop: PersonalOptionsTypes
   temperature: {
     korea: number
+    openWeather: number
   }
   pty: {
     korea: string
   }
   sky: {
     korea: string
+    openWeather: string
   }
 }
 
@@ -75,12 +77,37 @@ export default defineComponent({
         return require("@/assets/img/sunny-small-icon@2x.png")
       } else if (sky === "3") {
         return require("@/assets/img/fog-small-icon@2x.png")
-      } else {
-        if (parseInt(String(pty), 10) > 0) {
-          return require("@/assets/img/rain-small-icon@2x.png")
+      } else if (sky === "4") {
+        if (String(pty) !== "0") {
+          if (
+            String(pty) === "2" ||
+            String(pty) === "3" ||
+            String(pty) === "6" ||
+            String(pty) === "7"
+          ) {
+            return require("@/assets/img/smow-small-icon@2x.png")
+          } else {
+            return require("@/assets/img/rain-small-icon@2x.png")
+          }
         } else {
           return require("@/assets/img/cloud-small-icon@2x.png")
         }
+      }
+    }
+
+    const getOpenWeatherSky = (sky: string) => {
+      if (sky === "clear sky") {
+        return require("@/assets/img/sunny-small-icon@2x.png")
+      } else if (sky.indexOf("cloud") >= 0) {
+        if (sky.indexOf("few") >= 0) {
+          return require("@/assets/img/fog-small-icon@2x.png")
+        } else {
+          return require("@/assets/img/cloud-small-icon@2x.png")
+        }
+      } else if (sky.indexOf("rain") >= 0) {
+        return require("@/assets/img/rain-small-icon@2x.png")
+      } else if (sky.indexOf("snow") >= 0) {
+        return require("@/assets/img/smow-small-icon@2x.png")
       }
     }
 
@@ -101,7 +128,9 @@ export default defineComponent({
         selectName: "openWeather",
         logo: require("@/assets/img/open-weather-map-icon-s@2x.png"),
         selectLogo: require("@/assets/img/open-weather-map-icon-n@2x.png"),
+        temperature: temperature.value.openWeather,
         selected: selectWeatherCop.value === "openWeather" ? true : false,
+        sky: getOpenWeatherSky(sky.value.openWeather),
       },
       {
         index: 3,

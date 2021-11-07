@@ -14,20 +14,18 @@
 import { Ref, ref, toRefs } from "@vue/reactivity"
 import { defineComponent, PropType } from "vue"
 import { CurrentInfo } from "./CurrentInfo/index"
-import { MinMax, MinMaxRef, NowStatus, NowStatusRef } from "./types"
+import {
+  MinMax,
+  MinMaxRef,
+  NowStatus,
+  NowStatusRef,
+  CurrentProps,
+} from "./types"
 
 type SetUpTypes = {
   nowStatus: Ref<NowStatus>
   img: Ref<string | undefined>
   minMax: Ref<MinMax>
-}
-
-interface CurrentProps {
-  temperature: number
-  minTemp: number
-  maxTemp: number
-  sky: string
-  pty: string
 }
 
 export default defineComponent({
@@ -46,8 +44,14 @@ export default defineComponent({
       props.nowTemperature
     )
     const nowStatus = ref<NowStatusRef>({
-      nowTemp: temperature,
-      nowSky: sky,
+      korea: {
+        nowTemp: temperature,
+        nowSky: sky,
+      },
+      openWeather: {
+        nowTemp: temperature,
+        nowSky: sky,
+      },
     })
     const img = ref<string>()
     const minMax = ref<MinMaxRef>({
@@ -56,19 +60,29 @@ export default defineComponent({
     })
 
     const getSky = () => {
-      const value = nowStatus.value.nowSky
+      const value = nowStatus.value.korea.nowSky
       if (value === "1") {
-        nowStatus.value.nowSky = "맑음"
+        nowStatus.value.korea.nowSky = "맑음"
         img.value = require("@/assets/img/main-sunny-icon@2x.png")
       } else if (value === "3") {
-        nowStatus.value.nowSky = "구름 많음"
+        nowStatus.value.korea.nowSky = "구름 많음"
         img.value = require("@/assets/img/main-fog-icon@2x.png")
       } else if (value === "4") {
-        if (parseInt(String(pty), 10) > 0) {
-          nowStatus.value.nowSky = "비"
-          img.value = require("@/assets/img/main-rain-icon@2x.png")
+        if (String(pty) !== "0") {
+          if (
+            String(pty) === "2" ||
+            String(pty) === "3" ||
+            String(pty) === "6" ||
+            String(pty) === "7"
+          ) {
+            nowStatus.value.korea.nowSky = "눈"
+            img.value = require("@/assets/img/main-snow-icon@2x.png")
+          } else {
+            nowStatus.value.korea.nowSky = "비"
+            img.value = require("@/assets/img/main-rain-icon@2x.png")
+          }
         } else {
-          nowStatus.value.nowSky = "흐림"
+          nowStatus.value.korea.nowSky = "흐림"
           img.value = require("@/assets/img/main-cloud-icon@2x.png")
         }
       }

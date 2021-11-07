@@ -5,14 +5,13 @@ import { OpenWeatherMutationTypes } from "./types"
 export type OpenWeatherMutations<S = OpenWeatherStateType> = {
   [OpenWeatherMutationTypes.SET_OPEN_WEATHER](
     state: S,
-    payload: OpenWeatherStateType
+    payload: OpenWeatherStateType["openWeather"]
   ): void
 }
 
 export const openWeatherMutations: MutationTree<OpenWeatherStateType> &
   OpenWeatherMutations = {
   [OpenWeatherMutationTypes.SET_OPEN_WEATHER](state, payload) {
-    console.log(state)
-    console.log(payload)
+    state.openWeather = payload
   },
 }

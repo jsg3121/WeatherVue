@@ -16,7 +16,7 @@ type ArgumuntedActionContext = {
 export interface OpenWeatherActions {
   [OpenWeatherActionTypes.GET_OPEN_WEATHER](
     { commit }: ArgumuntedActionContext,
-    payload: OpenWeatherStateType
+    payload: OpenWeatherStateType["openWeather"]
   ): Promise<OpenWeatherStateType>
 }
 

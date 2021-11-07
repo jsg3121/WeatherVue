@@ -23,12 +23,14 @@ type SetUpTypes = {
     selectWeatherCop: PersonalOptionsTypes
     temperature: {
       korea: number
+      openWeather: number
     }
     pty: {
       korea: string
     }
     sky: {
       korea: string
+      openWeather: string
     }
   }
   handleSelect: (name: PersonalOptionsTypes) => void
@@ -44,6 +46,7 @@ export default defineComponent({
       state: {
         korea: { currentTemperature },
         personal: { selectWeatherCop },
+        openWeather: { current },
       },
       dispatch,
     } = useStore()
@@ -64,7 +67,7 @@ export default defineComponent({
         minTemp: Math.round(parseInt(currentTemperature.minTemp, 10)),
         maxTemp: Math.round(parseInt(currentTemperature.maxTemp, 10)),
         sky: currentTemperature.sky,
-        pty: currentTemperature.precipitation,
+        pty: currentTemperature.pty,
       }
     }
 
@@ -73,12 +76,14 @@ export default defineComponent({
         selectWeatherCop: selectWeatherCop,
         temperature: {
           korea: Math.round(parseInt(currentTemperature.temperature, 10)),
+          openWeather: Math.round(current.temp),
         },
         pty: {
-          korea: currentTemperature.precipitation,
+          korea: currentTemperature.pty,
         },
         sky: {
           korea: currentTemperature.sky,
+          openWeather: current.sky,
         },
       }
     }

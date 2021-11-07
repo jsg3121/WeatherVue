@@ -1,24 +1,40 @@
-import { PersonalOptionsTypes } from "@/store/src/state"
+import { CurrentTypes, PersonalOptionsTypes } from "@/store/src/state"
 import { Ref } from "@vue/reactivity"
 
+export type CurrentProps = Omit<
+  CurrentTypes,
+  "humidity" | "windDirection" | "windSpeed"
+>
 export type NowStatusRef = {
-  nowTemp: Ref<number>
-  nowSky: Ref<string>
+  korea: {
+    nowTemp: Ref<CurrentProps["temperature"]>
+    nowSky: Ref<string>
+  }
+  openWeather: {
+    nowTemp: Ref<CurrentProps["temperature"]>
+    nowSky: Ref<string>
+  }
 }
 
 export type NowStatus = {
-  nowTemp: number
-  nowSky: string
+  korea: {
+    nowTemp: string
+    nowSky: string
+  }
+  openWeather: {
+    nowTemp: string
+    nowSky: string
+  }
 }
 
 export type MinMaxRef = {
-  minTemp: Ref<number>
-  maxTemp: Ref<number>
+  minTemp: Ref<CurrentProps["minTemp"]>
+  maxTemp: Ref<CurrentProps["maxTemp"]>
 }
 
 export type MinMax = {
-  minTemp: number
-  maxTemp: number
+  minTemp: string
+  maxTemp: string
 }
 
 export type SideBarListType = {

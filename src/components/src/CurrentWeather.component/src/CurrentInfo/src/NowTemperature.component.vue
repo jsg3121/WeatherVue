@@ -22,8 +22,8 @@ export default defineComponent({
   },
   setup(props): SetUpTypes {
     const nowData = ref<NowInfoProps>({
-      nowTemp: props.nowInfo.nowTemp,
-      nowSky: props.nowInfo.nowSky,
+      nowTemp: props.nowInfo.korea.nowTemp,
+      nowSky: props.nowInfo.korea.nowSky,
     })
 
     return { nowData }
