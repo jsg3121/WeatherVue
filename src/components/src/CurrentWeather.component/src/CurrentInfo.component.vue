@@ -4,6 +4,7 @@
       <img :src="`${img}`" alt="기상 아이콘" />
     </figure>
     <div class="current-info__description display-flex">
+      {{ selectWeatherCop }}
       <NowInfo :nowInfo="nowStatus" />
       <MinMaxInfo :minMax="minMax" />
     </div>
@@ -13,6 +14,7 @@
 import { Ref, ref, toRefs } from "@vue/reactivity"
 import { defineComponent, PropType } from "vue"
 import { CurrentInfo } from "./CurrentInfo/index"
+import { PersonalOptionsTypes } from "@/store/src/state"
 import {
   MinMax,
   MinMaxRef,
@@ -22,9 +24,30 @@ import {
 } from "./types"
 
 type SetUpTypes = {
-  nowStatus: Ref<NowStatus>
+  nowStatus: any
   img: Ref<string | undefined>
   minMax: Ref<MinMax>
+  selectWeatherCop: Ref<PersonalOptionsTypes>
+}
+
+type WeatherDataType = {
+  selectWeatherCop: PersonalOptionsTypes
+  weather: {
+    korea: {
+      temperature: number
+      sky: string
+      pty: string
+      minTemp: string
+      maxTemp: string
+    }
+    openWeather: {
+      temperature: number
+      sky: string
+      pty: string
+      minTemp: string
+      maxTemp: string
+    }
+  }
 }
 
 export default defineComponent({
@@ -34,29 +57,29 @@ export default defineComponent({
   },
   props: {
     nowTemperature: {
-      type: Object as PropType<CurrentProps>,
+      type: Object as PropType<WeatherDataType>,
       required: true,
     },
   },
   setup(props): SetUpTypes {
-    const { temperature, minTemp, maxTemp, sky, pty } = toRefs<CurrentProps>(
+    const { selectWeatherCop, weather } = toRefs<WeatherDataType>(
       props.nowTemperature
     )
 
-    const nowStatus = ref<NowStatusRef>({
+    const nowStatus = ref({
       korea: {
-        nowTemp: temperature,
-        nowSky: sky,
+        nowTemp: weather.value.korea.temperature,
+        nowSky: weather.value.korea.sky,
       },
       openWeather: {
-        nowTemp: temperature,
-        nowSky: sky,
+        nowTemp: weather.value.openWeather.temperature,
+        nowSky: weather.value.openWeather.sky,
       },
     })
     const img = ref<string>()
-    const minMax = ref<MinMaxRef>({
-      minTemp: minTemp,
-      maxTemp: maxTemp,
+    const minMax = ref({
+      minTemp: weather.value.korea.minTemp,
+      maxTemp: weather.value.korea.maxTemp,
     })
 
     const getSky = () => {
@@ -68,12 +91,12 @@ export default defineComponent({
         nowStatus.value.korea.nowSky = "구름 많음"
         img.value = require("@/assets/img/main-fog-icon@2x.png")
       } else if (value === "4") {
-        if (String(pty) !== "0") {
+        if (String(weather.value.korea.pty) !== "0") {
           if (
-            String(pty) === "2" ||
-            String(pty) === "3" ||
-            String(pty) === "6" ||
-            String(pty) === "7"
+            String(weather.value.korea.pty) === "2" ||
+            String(weather.value.korea.pty) === "3" ||
+            String(weather.value.korea.pty) === "6" ||
+            String(weather.value.korea.pty) === "7"
           ) {
             nowStatus.value.korea.nowSky = "눈"
             img.value = require("@/assets/img/main-snow-icon@2x.png")
@@ -89,7 +112,7 @@ export default defineComponent({
     }
     getSky()
 
-    return { nowStatus, img, minMax }
+    return { nowStatus, img, minMax, selectWeatherCop }
   },
 })
 </script>

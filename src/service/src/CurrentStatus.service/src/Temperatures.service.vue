@@ -9,7 +9,7 @@ import { Components } from "@/components"
 import { useStore } from "@/store"
 import { PersonalOptionsActionTypes } from "@/store/src/actions"
 import { PersonalOptionsTypes } from "@/store/src/state"
-import { defineComponent, reactive, watch, WatchStopHandle } from "vue"
+import { defineComponent, reactive, watch } from "vue"
 
 type WeatherDataType = {
   selectWeatherCop: PersonalOptionsTypes
@@ -18,17 +18,21 @@ type WeatherDataType = {
       temperature: number
       sky: string
       pty: string
+      minTemp: string
+      maxTemp: string
     }
     openWeather: {
       temperature: number
       sky: string
       pty: string
+      minTemp: string
+      maxTemp: string
     }
   }
 }
 
 type SetUpTypes = {
-  nowTemperature: WatchStopHandle
+  nowTemperature: () => WeatherDataType
   weatherData: WeatherDataType
   handleSelect: (name: PersonalOptionsTypes) => void
 }
@@ -55,11 +59,15 @@ export default defineComponent({
           temperature: Math.round(parseInt(currentTemperature.temperature, 10)),
           sky: currentTemperature.sky,
           pty: currentTemperature.pty,
+          minTemp: currentTemperature.minTemp,
+          maxTemp: currentTemperature.maxTemp,
         },
         openWeather: {
           temperature: Math.round(current.temp),
           sky: current.sky,
           pty: currentTemperature.pty,
+          minTemp: String(current.min_temp),
+          maxTemp: String(current.max_temp),
         },
       },
     })
@@ -72,15 +80,18 @@ export default defineComponent({
      * - maxTemp: 최고기온
      * - sky: 하늘상태
      */
-    const nowTemperature = watch(weatherData, () => {
-      console.log(weatherData)
+    const nowTemperature = () => {
       return weatherData
-    })
+    }
 
     const handleSelect = (name: PersonalOptionsTypes) => {
       dispatch(PersonalOptionsActionTypes.GET_WEATHER_COP, name)
       weatherData.selectWeatherCop = name
     }
+
+    watch(weatherData, () => {
+      nowTemperature()
+    })
 
     return { nowTemperature, weatherData, handleSelect }
   },
