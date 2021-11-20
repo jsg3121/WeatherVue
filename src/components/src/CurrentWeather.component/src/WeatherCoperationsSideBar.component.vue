@@ -48,16 +48,17 @@ export type SetUpTypes = {
 
 type SideBarListProps = {
   selectWeatherCop: PersonalOptionsTypes
-  temperature: {
-    korea: number
-    openWeather: number
-  }
-  pty: {
-    korea: string
-  }
-  sky: {
-    korea: string
-    openWeather: string
+  weather: {
+    korea: {
+      temperature: number
+      sky: string
+      pty: string
+    }
+    openWeather: {
+      temperature: number
+      sky: string
+      pty: string
+    }
   }
 }
 
@@ -70,7 +71,7 @@ export default defineComponent({
   },
   emits: ["handleSelect"],
   setup(props, { emit }): SetUpTypes {
-    const { selectWeatherCop, temperature, pty, sky } = toRefs(props.selectCop)
+    const { selectWeatherCop, weather } = toRefs(props.selectCop)
 
     const getSky = (pty: string, sky: string) => {
       if (sky === "1") {
@@ -118,9 +119,9 @@ export default defineComponent({
         selectName: "korea",
         logo: require("@/assets/img/korea-weather-icon-s@2x.png"),
         selectLogo: require("@/assets/img/korea-weather-icon-n@2x.png"),
-        temperature: temperature.value.korea,
+        temperature: weather.value.korea.temperature,
         selected: selectWeatherCop.value === "korea" ? true : false,
-        sky: getSky(pty.value.korea, sky.value.korea),
+        sky: getSky(weather.value.korea.pty, weather.value.korea.sky),
       },
       {
         index: 2,
@@ -128,9 +129,9 @@ export default defineComponent({
         selectName: "openWeather",
         logo: require("@/assets/img/open-weather-map-icon-s@2x.png"),
         selectLogo: require("@/assets/img/open-weather-map-icon-n@2x.png"),
-        temperature: temperature.value.openWeather,
+        temperature: weather.value.openWeather.temperature,
         selected: selectWeatherCop.value === "openWeather" ? true : false,
-        sky: getOpenWeatherSky(sky.value.openWeather),
+        sky: getOpenWeatherSky(weather.value.openWeather.sky),
       },
       {
         index: 3,

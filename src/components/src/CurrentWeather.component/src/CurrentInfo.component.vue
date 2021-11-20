@@ -1,7 +1,6 @@
 <template>
   <div class="current-info">
     <figure class="current-info__img">
-      <!-- #TODO : #1  -->
       <img :src="`${img}`" alt="기상 아이콘" />
     </figure>
     <div class="current-info__description display-flex">
@@ -43,6 +42,7 @@ export default defineComponent({
     const { temperature, minTemp, maxTemp, sky, pty } = toRefs<CurrentProps>(
       props.nowTemperature
     )
+
     const nowStatus = ref<NowStatusRef>({
       korea: {
         nowTemp: temperature,

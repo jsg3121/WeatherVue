@@ -1,7 +1,7 @@
 <template>
   <div class="current-temperature-container display-flex">
     <NowTemperature :nowTemperature="nowTemperature()" />
-    <WeatherCopSideBar :selectCop="selectCop" @handleSelect="handleSelect" />
+    <WeatherCopSideBar :selectCop="weatherData" @handleSelect="handleSelect" />
   </div>
 </template>
 <script lang="ts">
@@ -9,30 +9,27 @@ import { Components } from "@/components"
 import { useStore } from "@/store"
 import { PersonalOptionsActionTypes } from "@/store/src/actions"
 import { PersonalOptionsTypes } from "@/store/src/state"
-import { defineComponent } from "vue"
+import { defineComponent, reactive, watch, WatchStopHandle } from "vue"
+
+type WeatherDataType = {
+  selectWeatherCop: PersonalOptionsTypes
+  weather: {
+    korea: {
+      temperature: number
+      sky: string
+      pty: string
+    }
+    openWeather: {
+      temperature: number
+      sky: string
+      pty: string
+    }
+  }
+}
 
 type SetUpTypes = {
-  nowTemperature: () => {
-    temperature: number
-    minTemp: number
-    maxTemp: number
-    sky: string
-    pty: string
-  }
-  selectCop: {
-    selectWeatherCop: PersonalOptionsTypes
-    temperature: {
-      korea: number
-      openWeather: number
-    }
-    pty: {
-      korea: string
-    }
-    sky: {
-      korea: string
-      openWeather: string
-    }
-  }
+  nowTemperature: WatchStopHandle
+  weatherData: WeatherDataType
   handleSelect: (name: PersonalOptionsTypes) => void
 }
 
@@ -51,7 +48,21 @@ export default defineComponent({
       dispatch,
     } = useStore()
 
-    console.log(currentTemperature)
+    const weatherData = reactive<WeatherDataType>({
+      selectWeatherCop: selectWeatherCop,
+      weather: {
+        korea: {
+          temperature: Math.round(parseInt(currentTemperature.temperature, 10)),
+          sky: currentTemperature.sky,
+          pty: currentTemperature.pty,
+        },
+        openWeather: {
+          temperature: Math.round(current.temp),
+          sky: current.sky,
+          pty: currentTemperature.pty,
+        },
+      },
+    })
 
     /**
      * ! 현재 날씨 상태
@@ -61,40 +72,17 @@ export default defineComponent({
      * - maxTemp: 최고기온
      * - sky: 하늘상태
      */
-    const nowTemperature = () => {
-      return {
-        temperature: Math.round(parseInt(currentTemperature.temperature, 10)),
-        minTemp: Math.round(parseInt(currentTemperature.minTemp, 10)),
-        maxTemp: Math.round(parseInt(currentTemperature.maxTemp, 10)),
-        sky: currentTemperature.sky,
-        pty: currentTemperature.pty,
-      }
-    }
-
-    const getCop = () => {
-      return {
-        selectWeatherCop: selectWeatherCop,
-        temperature: {
-          korea: Math.round(parseInt(currentTemperature.temperature, 10)),
-          openWeather: Math.round(current.temp),
-        },
-        pty: {
-          korea: currentTemperature.pty,
-        },
-        sky: {
-          korea: currentTemperature.sky,
-          openWeather: current.sky,
-        },
-      }
-    }
-
-    const selectCop = getCop()
+    const nowTemperature = watch(weatherData, () => {
+      console.log(weatherData)
+      return weatherData
+    })
 
     const handleSelect = (name: PersonalOptionsTypes) => {
       dispatch(PersonalOptionsActionTypes.GET_WEATHER_COP, name)
+      weatherData.selectWeatherCop = name
     }
 
-    return { nowTemperature, selectCop, handleSelect }
+    return { nowTemperature, weatherData, handleSelect }
   },
 })
 </script>
