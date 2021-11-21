@@ -18,15 +18,8 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  PropType,
-  reactive,
-  Ref,
-  ref,
-} from "@vue/runtime-core"
-import { HourlyDataTypes, TimeSetProps } from "./types"
+import { defineComponent, Ref, toRefs } from "@vue/runtime-core"
+import { HourlyDataTypes } from "./types"
 
 type setUpTypes = {
   listData: Ref<HourlyDataTypes[] | undefined>
@@ -35,59 +28,61 @@ type setUpTypes = {
 export default defineComponent({
   props: {
     onDataList: {
-      type: Object as PropType<TimeSetProps>,
+      type: Object,
       required: true,
     },
   },
 
-  setup(props): setUpTypes {
-    const data = reactive<TimeSetProps["hourlyTemperature"]>({
-      temperature: props.onDataList.hourlyTemperature.temperature,
-      precipitation: props.onDataList.hourlyTemperature.precipitation,
-      sky: props.onDataList.hourlyTemperature.sky,
-    })
-    const listData = ref<Array<HourlyDataTypes>>()
+  setup(props) {
+    const { onDataList } = toRefs(props)
 
-    const getSkyState = (sky: string, precipitation: string) => {
-      if (sky === "1") {
-        return require("@/assets/img/sunny-icon@2x.png")
-      } else if (sky === "3" || sky === "4") {
-        if (precipitation === "0") {
-          return require("@/assets/img/cloud-icon@2x.png")
-        } else if (
-          precipitation === "1" ||
-          precipitation === "2" ||
-          precipitation === "4" ||
-          precipitation === "5" ||
-          precipitation === "6"
-        ) {
-          return require("@/assets/img/rain-icon@2x.png")
-        } else if (precipitation === "3" || precipitation === "7") {
-          return require("@/assets/img/snow-icon@2x.png")
-        }
-      } else {
-        return require("@/assets/img/sunny-icon@2x.png")
-      }
-    }
+    // const data = reactive<TimeSetProps["hourlyTemperature"]>({
+    //   temperature: onDataList.hourlyTemperature.temperature,
+    //   precipitation: onDataList.hourlyTemperature.precipitation,
+    //   sky: onDataList.hourlyTemperature.sky,
+    // })
+    // const listData = ref<Array<HourlyDataTypes>>()
 
-    const dataListFormat = () => {
-      listData.value = data.temperature.map((item, index) => {
-        return {
-          temperature: item.fcstValue,
-          time: item.fcstTime,
-          skyImg: getSkyState(
-            data.sky[index].fcstValue,
-            data.precipitation[index].fcstValue
-          ),
-        }
-      })
-    }
+    // const getSkyState = (sky: string, precipitation: string) => {
+    //   if (sky === "1") {
+    //     return require("@/assets/img/sunny-icon@2x.png")
+    //   } else if (sky === "3" || sky === "4") {
+    //     if (precipitation === "0") {
+    //       return require("@/assets/img/cloud-icon@2x.png")
+    //     } else if (
+    //       precipitation === "1" ||
+    //       precipitation === "2" ||
+    //       precipitation === "4" ||
+    //       precipitation === "5" ||
+    //       precipitation === "6"
+    //     ) {
+    //       return require("@/assets/img/rain-icon@2x.png")
+    //     } else if (precipitation === "3" || precipitation === "7") {
+    //       return require("@/assets/img/snow-icon@2x.png")
+    //     }
+    //   } else {
+    //     return require("@/assets/img/sunny-icon@2x.png")
+    //   }
+    // }
 
-    onMounted(() => {
-      dataListFormat()
-    })
+    // const dataListFormat = () => {
+    //   listData.value = data.temperature.map((item, index) => {
+    //     return {
+    //       temperature: item.fcstValue,
+    //       time: item.fcstTime,
+    //       skyImg: getSkyState(
+    //         data.sky[index].fcstValue,
+    //         data.precipitation[index].fcstValue
+    //       ),
+    //     }
+    //   })
+    // }
 
-    return { listData }
+    // onMounted(() => {
+    //   dataListFormat()
+    // })
+
+    return {}
   },
 })
 </script>

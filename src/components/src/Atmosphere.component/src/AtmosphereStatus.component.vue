@@ -21,8 +21,8 @@
 </template>
 <script lang="ts">
 import { ref, toRefs } from "@vue/reactivity"
-import { defineComponent, onMounted, PropType, watch } from "@vue/runtime-core"
-import { setUpTypes, AtmosStatusPropType, CardDataType } from "./types"
+import { defineComponent, PropType, watch } from "@vue/runtime-core"
+import { AtmosStatusPropType, CardDataType, setUpTypes } from "./types"
 
 export default defineComponent({
   props: {
