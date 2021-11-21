@@ -3,7 +3,7 @@
  */
 export type CurrentTypes = {
   humidity: string
-  precipitation: string
+  pty: string
   temperature: string
   windDirection: string
   windSpeed: string

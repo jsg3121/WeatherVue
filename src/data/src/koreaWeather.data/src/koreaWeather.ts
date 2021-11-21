@@ -20,8 +20,8 @@ export const getKoreaWeather = async (
      */
     await http
       .request({
-        // url: "https://best-weather.com/geolocation",
-        url: "http://localhost/geolocation",
+        url: "https://best-weather.com/geolocation",
+        // url: "http://localhost/geolocation",
         method: "GET",
         params: {
           latitude: data.value.lat,
@@ -47,10 +47,10 @@ export const loadWeather = async (): Promise<void> => {
    * @params {nx: number, ny: number}
    * @return {object} CurrentTypes
    */
-  await http
+  http
     .request({
-      // url: "https://best-weather.com/service/current",
-      url: "http://localhost/service/current",
+      url: "https://best-weather.com/service/current",
+      // url: "http://localhost/service/current",
       method: "GET",
       params: {
         nx: geolocation.gridX,
@@ -61,10 +61,10 @@ export const loadWeather = async (): Promise<void> => {
       store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
     })
 
-  await http
+  http
     .request({
-      // url: "https://best-weather.com/service/weekly",
-      url: "http://localhost/service/weekly",
+      url: "https://best-weather.com/service/weekly",
+      // url: "http://localhost/service/weekly",
       method: "GET",
       params: {
         nx: geolocation.gridX,
@@ -75,15 +75,15 @@ export const loadWeather = async (): Promise<void> => {
     })
     .then((res) => {
       store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data.weeklyData)
-      store.dispatch(KoreaWeatherActionTypes.GET_THREES, res.data.hourlyData)
+      store.dispatch(KoreaWeatherActionTypes.GET_HOURLY, res.data.hourlyData)
     })
     .catch((e) => {
       return e
     })
-  await http
+  http
     .request({
-      // url: "https://best-weather.com/service/atmos",
-      url: "http://localhost/service/atmos",
+      url: "https://best-weather.com/service/atmos",
+      // url: "http://localhost/service/atmos",
       method: "GET",
     })
     .then((res) => {

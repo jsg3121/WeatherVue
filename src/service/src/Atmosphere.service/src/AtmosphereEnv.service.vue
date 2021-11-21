@@ -20,7 +20,10 @@ export default defineComponent({
   },
   async setup(): Promise<SetUpTypes> {
     const {
-      state: { atmos, geolocation },
+      state: {
+        korea: { atmos },
+        geolocation,
+      },
     } = useStore()
     const dust = atmos.dust.filter((item) => {
       return item.stationName === geolocation.location2

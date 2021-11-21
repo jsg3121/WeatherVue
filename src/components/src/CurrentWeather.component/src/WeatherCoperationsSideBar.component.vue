@@ -48,14 +48,17 @@ export type SetUpTypes = {
 
 type SideBarListProps = {
   selectWeatherCop: PersonalOptionsTypes
-  temperature: {
-    korea: number
-  }
-  pty: {
-    korea: string
-  }
-  sky: {
-    korea: string
+  weather: {
+    korea: {
+      temperature: number
+      sky: string
+      pty: string
+    }
+    openWeather: {
+      temperature: number
+      sky: string
+      pty: string
+    }
   }
 }
 
@@ -68,19 +71,46 @@ export default defineComponent({
   },
   emits: ["handleSelect"],
   setup(props, { emit }): SetUpTypes {
-    const { selectWeatherCop, temperature, pty, sky } = toRefs(props.selectCop)
+    const { selectWeatherCop, weather } = toRefs(props.selectCop)
 
     const getSky = (pty: string, sky: string) => {
       if (sky === "1") {
         return require("@/assets/img/sunny-small-icon@2x.png")
       } else if (sky === "3") {
         return require("@/assets/img/fog-small-icon@2x.png")
-      } else {
-        if (parseInt(String(pty), 10) > 0) {
-          return require("@/assets/img/rain-small-icon@2x.png")
+      } else if (sky === "4") {
+        if (String(pty) !== "0") {
+          if (
+            String(pty) === "2" ||
+            String(pty) === "3" ||
+            String(pty) === "6" ||
+            String(pty) === "7"
+          ) {
+            return require("@/assets/img/smow-small-icon@2x.png")
+          } else {
+            return require("@/assets/img/rain-small-icon@2x.png")
+          }
         } else {
           return require("@/assets/img/cloud-small-icon@2x.png")
         }
+      }
+    }
+
+    const getOpenWeatherSky = (sky: string) => {
+      if (sky === "clear sky") {
+        return require("@/assets/img/sunny-small-icon@2x.png")
+      } else if (sky.indexOf("cloud") >= 0) {
+        if (sky.indexOf("few") >= 0) {
+          return require("@/assets/img/fog-small-icon@2x.png")
+        } else {
+          return require("@/assets/img/cloud-small-icon@2x.png")
+        }
+      } else if (sky.indexOf("rain") >= 0) {
+        return require("@/assets/img/rain-small-icon@2x.png")
+      } else if (sky.indexOf("snow") >= 0) {
+        return require("@/assets/img/smow-small-icon@2x.png")
+      } else {
+        return require("@/assets/img/cloud-small-icon@2x.png")
       }
     }
 
@@ -91,9 +121,9 @@ export default defineComponent({
         selectName: "korea",
         logo: require("@/assets/img/korea-weather-icon-s@2x.png"),
         selectLogo: require("@/assets/img/korea-weather-icon-n@2x.png"),
-        temperature: temperature.value.korea,
+        temperature: weather.value.korea.temperature,
         selected: selectWeatherCop.value === "korea" ? true : false,
-        sky: getSky(pty.value.korea, sky.value.korea),
+        sky: getSky(weather.value.korea.pty, weather.value.korea.sky),
       },
       {
         index: 2,
@@ -101,16 +131,18 @@ export default defineComponent({
         selectName: "openWeather",
         logo: require("@/assets/img/open-weather-map-icon-s@2x.png"),
         selectLogo: require("@/assets/img/open-weather-map-icon-n@2x.png"),
+        temperature: weather.value.openWeather.temperature,
         selected: selectWeatherCop.value === "openWeather" ? true : false,
+        sky: getOpenWeatherSky(weather.value.openWeather.sky),
       },
-      {
-        index: 3,
-        name: "아큐웨더",
-        selectName: "accu",
-        logo: require("@/assets/img/accu-weather-icon-n@2x.png"),
-        selectLogo: require("@/assets/img/accu-weather-icon-s@2x.png"),
-        selected: selectWeatherCop.value === "accu" ? true : false,
-      },
+      // {
+      //   index: 3,
+      //   name: "아큐웨더",
+      //   selectName: "accu",
+      //   logo: require("@/assets/img/accu-weather-icon-n@2x.png"),
+      //   selectLogo: require("@/assets/img/accu-weather-icon-s@2x.png"),
+      //   selected: selectWeatherCop.value === "accu" ? true : false,
+      // },
     ])
 
     const emitSelect = (name: string) => {

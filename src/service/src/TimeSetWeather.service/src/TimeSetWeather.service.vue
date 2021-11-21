@@ -24,7 +24,9 @@ export default {
   },
   async setup(): Promise<SetUpTypes> {
     const {
-      state: { hourlyTemperature },
+      state: {
+        korea: { hourlyTemperature },
+      },
     } = useStore()
     const timeSetData = ref<TimeSetDataTypes>()
 

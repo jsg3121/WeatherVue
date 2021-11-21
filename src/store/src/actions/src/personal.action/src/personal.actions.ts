@@ -19,7 +19,7 @@ type ArgumentedActionContext = {
 export interface PersonalOptionsActions {
   [PersonalOptionsActionTypes.GET_WEATHER_COP](
     { commit }: ArgumentedActionContext,
-    payload: PersonalOptionsStateType["selectWeatherCop"]
+    payload: PersonalOptionsStateType["personal"]["selectWeatherCop"]
   ): Promise<PersonalOptionsStateType>
 }
 

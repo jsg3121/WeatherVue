@@ -14,6 +14,7 @@ import { Service } from "@/service"
 import { RequestPositionType } from "@/types"
 import { defineComponent, ref } from "vue"
 import { getKoreaWeather, loadWeather } from "./koreaWeather.data"
+import { getOpenWeatherMap } from "./openWeather.data"
 
 export default defineComponent({
   components: {
@@ -37,8 +38,14 @@ export default defineComponent({
     }).then((res) => {
       data.value = res
     })
-    await getKoreaWeather(data)
-    await loadWeather()
+    // await getKoreaWeather(data)
+    // await loadWeather()
+    // getOpenWeatherMap()
+    await Promise.all([
+      getKoreaWeather(data),
+      loadWeather(),
+      getOpenWeatherMap(),
+    ])
 
     return {}
   },

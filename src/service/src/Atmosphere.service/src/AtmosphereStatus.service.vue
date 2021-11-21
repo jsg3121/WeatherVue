@@ -12,7 +12,9 @@ export default defineComponent({
   },
   async setup() {
     const {
-      state: { currentTemperature },
+      state: {
+        korea: { currentTemperature },
+      },
     } = useStore()
     const data = ref()
 

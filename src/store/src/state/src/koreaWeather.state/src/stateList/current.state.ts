@@ -14,7 +14,7 @@ import { CurrentTypes } from "./state.types"
  */
 export const current: CurrentTypes = {
   humidity: "",
-  precipitation: "",
+  pty: "",
   temperature: "",
   windDirection: "",
   windSpeed: "",

@@ -5,8 +5,8 @@
   </div>
 </template>
 <script lang="ts">
-import { Ref, ref } from "@vue/reactivity"
-import { defineComponent } from "vue"
+import { Ref, ref, toRefs } from "@vue/reactivity"
+import { defineComponent, watch } from "vue"
 import { NowInfoProps } from "./types"
 
 type SetUpTypes = {
@@ -19,11 +19,21 @@ export default defineComponent({
       type: Object,
       required: true,
     },
+    selectCop: {
+      type: String,
+      required: true,
+    },
   },
   setup(props): SetUpTypes {
+    const { selectCop: weatherCop, nowInfo } = toRefs(props)
     const nowData = ref<NowInfoProps>({
-      nowTemp: props.nowInfo.nowTemp,
-      nowSky: props.nowInfo.nowSky,
+      nowTemp: nowInfo.value.nowTemp,
+      nowSky: nowInfo.value.nowSky,
+    })
+
+    watch(weatherCop, () => {
+      nowData.value.nowTemp = nowInfo.value.nowTemp
+      nowData.value.nowSky = nowInfo.value.nowSky
     })
 
     return { nowData }
