@@ -12,7 +12,6 @@
   </div>
 </template>
 <script lang="ts">
-import { Ref, ref } from "@vue/reactivity"
 import { defineComponent, PropType, reactive, toRefs, watch } from "vue"
 
 type MinMaxProps = {
