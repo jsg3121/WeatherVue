@@ -1,6 +1,6 @@
 <template>
   <div class="current-temperature-container display-flex">
-    <NowTemperature :nowTemperature="nowTemperature()" />
+    <NowTemperature :nowTemperature="weatherData" />
     <WeatherCopSideBar :selectCop="weatherData" @handleSelect="handleSelect" />
   </div>
 </template>
@@ -9,7 +9,7 @@ import { Components } from "@/components"
 import { useStore } from "@/store"
 import { PersonalOptionsActionTypes } from "@/store/src/actions"
 import { PersonalOptionsTypes } from "@/store/src/state"
-import { defineComponent, reactive, watch } from "vue"
+import { defineComponent, reactive } from "vue"
 
 type WeatherDataType = {
   selectWeatherCop: PersonalOptionsTypes
@@ -32,7 +32,6 @@ type WeatherDataType = {
 }
 
 type SetUpTypes = {
-  nowTemperature: () => WeatherDataType
   weatherData: WeatherDataType
   handleSelect: (name: PersonalOptionsTypes) => void
 }
@@ -72,28 +71,12 @@ export default defineComponent({
       },
     })
 
-    /**
-     * ! 현재 날씨 상태
-     * * Data Options
-     * - temperature: 현재 기온
-     * - minTemp: 최저기온
-     * - maxTemp: 최고기온
-     * - sky: 하늘상태
-     */
-    const nowTemperature = () => {
-      return weatherData
-    }
-
     const handleSelect = (name: PersonalOptionsTypes) => {
       dispatch(PersonalOptionsActionTypes.GET_WEATHER_COP, name)
       weatherData.selectWeatherCop = name
     }
 
-    watch(weatherData, () => {
-      nowTemperature()
-    })
-
-    return { nowTemperature, weatherData, handleSelect }
+    return { weatherData, handleSelect }
   },
 })
 </script>

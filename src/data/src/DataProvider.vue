@@ -38,9 +38,14 @@ export default defineComponent({
     }).then((res) => {
       data.value = res
     })
-    await getKoreaWeather(data)
-    await loadWeather()
-    getOpenWeatherMap()
+    // await getKoreaWeather(data)
+    // await loadWeather()
+    // getOpenWeatherMap()
+    await Promise.all([
+      getKoreaWeather(data),
+      loadWeather(),
+      getOpenWeatherMap(),
+    ])
 
     return {}
   },

@@ -4,29 +4,22 @@
       <img :src="`${img}`" alt="기상 아이콘" />
     </figure>
     <div class="current-info__description display-flex">
-      {{ selectWeatherCop }}
-      <NowInfo :nowInfo="nowStatus" />
-      <MinMaxInfo :minMax="minMax" />
+      <NowInfo :nowInfo="showWeather" :selectCop="selectWeatherCop" />
+      <MinMaxInfo :minMax="minMax" :selectCop="selectWeatherCop" />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Ref, ref, toRefs } from "@vue/reactivity"
-import { defineComponent, PropType } from "vue"
-import { CurrentInfo } from "./CurrentInfo/index"
 import { PersonalOptionsTypes } from "@/store/src/state"
-import {
-  MinMax,
-  MinMaxRef,
-  NowStatus,
-  NowStatusRef,
-  CurrentProps,
-} from "./types"
+import { reactive, Ref, ref, toRefs } from "@vue/reactivity"
+import { defineComponent, PropType, watch } from "vue"
+import { CurrentInfo } from "./CurrentInfo/index"
+import { MinMax, ShowWeatherType } from "./types"
 
 type SetUpTypes = {
-  nowStatus: any
+  showWeather: ShowWeatherType
   img: Ref<string | undefined>
-  minMax: Ref<MinMax>
+  minMax: MinMax
   selectWeatherCop: Ref<PersonalOptionsTypes>
 }
 
@@ -65,54 +58,65 @@ export default defineComponent({
     const { selectWeatherCop, weather } = toRefs<WeatherDataType>(
       props.nowTemperature
     )
-
-    const nowStatus = ref({
-      korea: {
-        nowTemp: weather.value.korea.temperature,
-        nowSky: weather.value.korea.sky,
-      },
-      openWeather: {
-        nowTemp: weather.value.openWeather.temperature,
-        nowSky: weather.value.openWeather.sky,
-      },
+    const firstSet = selectWeatherCop.value as keyof WeatherDataType["weather"]
+    const showWeather = reactive<ShowWeatherType>({
+      nowTemp: weather.value[firstSet].temperature,
+      nowSky: weather.value[firstSet].sky,
     })
+
     const img = ref<string>()
-    const minMax = ref({
-      minTemp: weather.value.korea.minTemp,
-      maxTemp: weather.value.korea.maxTemp,
+    const minMax = reactive<MinMax>({
+      minTemp: weather.value[firstSet].minTemp,
+      maxTemp: weather.value[firstSet].maxTemp,
     })
 
     const getSky = () => {
-      const value = nowStatus.value.korea.nowSky
-      if (value === "1") {
-        nowStatus.value.korea.nowSky = "맑음"
+      const value = showWeather.nowSky
+      if (value === "1" || value === "clear sky") {
+        showWeather.nowSky = "맑음"
         img.value = require("@/assets/img/main-sunny-icon@2x.png")
-      } else if (value === "3") {
-        nowStatus.value.korea.nowSky = "구름 많음"
+      } else if (value === "3" || value.indexOf("few") >= 0) {
+        showWeather.nowSky = "구름 많음"
         img.value = require("@/assets/img/main-fog-icon@2x.png")
-      } else if (value === "4") {
-        if (String(weather.value.korea.pty) !== "0") {
+      } else if (value === "4" || value.indexOf("cloud") >= 0) {
+        if (
+          String(weather.value.korea.pty) !== "0" ||
+          value.indexOf("snow") >= 0 ||
+          value.indexOf("rain") >= 0
+        ) {
           if (
             String(weather.value.korea.pty) === "2" ||
             String(weather.value.korea.pty) === "3" ||
             String(weather.value.korea.pty) === "6" ||
-            String(weather.value.korea.pty) === "7"
+            String(weather.value.korea.pty) === "7" ||
+            value.indexOf("snow") >= 0
           ) {
-            nowStatus.value.korea.nowSky = "눈"
+            showWeather.nowSky = "눈"
             img.value = require("@/assets/img/main-snow-icon@2x.png")
           } else {
-            nowStatus.value.korea.nowSky = "비"
+            showWeather.nowSky = "비"
             img.value = require("@/assets/img/main-rain-icon@2x.png")
           }
         } else {
-          nowStatus.value.korea.nowSky = "흐림"
+          showWeather.nowSky = "흐림"
           img.value = require("@/assets/img/main-cloud-icon@2x.png")
         }
+      } else {
+        showWeather.nowSky = "흐림"
+        img.value = require("@/assets/img/main-cloud-icon@2x.png")
       }
     }
+    watch(selectWeatherCop, () => {
+      const cop = selectWeatherCop.value as keyof WeatherDataType["weather"]
+      showWeather.nowTemp = weather.value[cop].temperature
+      showWeather.nowSky = weather.value[cop].sky
+      minMax.minTemp = weather.value[cop].minTemp
+      minMax.maxTemp = weather.value[cop].maxTemp
+      getSky()
+    })
     getSky()
 
-    return { nowStatus, img, minMax, selectWeatherCop }
+    return { showWeather, img, minMax, selectWeatherCop }
   },
 })
 </script>

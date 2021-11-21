@@ -109,6 +109,8 @@ export default defineComponent({
         return require("@/assets/img/rain-small-icon@2x.png")
       } else if (sky.indexOf("snow") >= 0) {
         return require("@/assets/img/smow-small-icon@2x.png")
+      } else {
+        return require("@/assets/img/cloud-small-icon@2x.png")
       }
     }
 
@@ -133,14 +135,14 @@ export default defineComponent({
         selected: selectWeatherCop.value === "openWeather" ? true : false,
         sky: getOpenWeatherSky(weather.value.openWeather.sky),
       },
-      {
-        index: 3,
-        name: "아큐웨더",
-        selectName: "accu",
-        logo: require("@/assets/img/accu-weather-icon-n@2x.png"),
-        selectLogo: require("@/assets/img/accu-weather-icon-s@2x.png"),
-        selected: selectWeatherCop.value === "accu" ? true : false,
-      },
+      // {
+      //   index: 3,
+      //   name: "아큐웨더",
+      //   selectName: "accu",
+      //   logo: require("@/assets/img/accu-weather-icon-n@2x.png"),
+      //   selectLogo: require("@/assets/img/accu-weather-icon-s@2x.png"),
+      //   selected: selectWeatherCop.value === "accu" ? true : false,
+      // },
     ])
 
     const emitSelect = (name: string) => {

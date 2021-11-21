@@ -7,8 +7,8 @@ export const getOpenWeatherMap = async (): Promise<void> => {
   } = store
   await http
     .request({
-      // url: "https://best-weather.com/service/openweather",
-      url: "http://localhost/service/openweather",
+      url: "https://best-weather.com/service/openweather",
+      // url: "http://localhost/service/openweather",
       method: "GET",
       params: {
         latitude: geolocation.positionNx,

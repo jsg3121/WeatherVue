@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { Ref, ref } from "@vue/reactivity"
-import { defineComponent, PropType } from "vue"
+import { defineComponent, PropType, reactive, toRefs, watch } from "vue"
 
 type MinMaxProps = {
   minTemp: number
@@ -21,7 +21,7 @@ type MinMaxProps = {
 }
 
 type SetUpTypes = {
-  temperature: Ref<MinMaxProps>
+  temperature: MinMaxProps
 }
 
 export default defineComponent({
@@ -30,13 +30,22 @@ export default defineComponent({
       type: Object as PropType<MinMaxProps>,
       required: true,
     },
+    selectCop: {
+      type: String,
+      required: true,
+    },
   },
   setup(props): SetUpTypes {
-    const temperature = ref<MinMaxProps>({
-      minTemp: props.minMax.minTemp,
-      maxTemp: props.minMax.maxTemp,
+    const { selectCop: weatherCop, minMax } = toRefs(props)
+    const temperature = reactive<MinMaxProps>({
+      minTemp: minMax.value.minTemp,
+      maxTemp: minMax.value.maxTemp,
     })
 
+    watch(weatherCop, () => {
+      temperature.minTemp = minMax.value.minTemp
+      temperature.maxTemp = minMax.value.maxTemp
+    })
     return { temperature }
   },
 })

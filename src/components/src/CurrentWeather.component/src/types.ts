@@ -47,3 +47,8 @@ export type SideBarListType = {
   selected: boolean
   sky?: NodeRequire
 }
+
+export type ShowWeatherType = {
+  nowTemp: number
+  nowSky: string
+}
