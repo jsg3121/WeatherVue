@@ -9,7 +9,7 @@ dayjs.locale("ko")
 
 export const setTime = (index: number): string => {
   const nowDate = dayjs(new Date()).tz("Asia/Seoul")
-  return nowDate.add(index, "hour").format("hhmm")
+  return nowDate.add(index, "hour").format("HHmm")
 }
 
 export const changeSky = (sky: string): NodeRequire => {

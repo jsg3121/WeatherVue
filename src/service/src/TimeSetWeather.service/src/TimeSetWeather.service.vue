@@ -64,6 +64,7 @@ export default defineComponent({
     }
 
     const onDataList = () => {
+      timeSetData.length = 0
       switch (personal.selectWeatherCop) {
         case "korea": {
           koreaTemp.forEach((list, index) => {
@@ -83,10 +84,9 @@ export default defineComponent({
             timeSetData.push({
               time: setTime(index),
               sky: changeSky(list.sky),
-              temp: String(list.temp),
+              temp: String(Math.round(list.temp)),
             })
           })
-
           return
         }
         default: {
