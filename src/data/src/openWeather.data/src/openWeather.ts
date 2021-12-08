@@ -1,11 +1,11 @@
 import { store } from "@/store"
 import { OpenWeatherActionTypes } from "@/store/src/actions"
 import http from "axios"
-export const getOpenWeatherMap = async (): Promise<void> => {
+export const getOpenWeatherMap = async (): Promise<boolean> => {
   const {
     state: { geolocation },
   } = store
-  await http
+  return await http
     .request({
       url: "https://best-weather.com/service/openweather",
       // url: "http://localhost/service/openweather",
@@ -17,6 +17,7 @@ export const getOpenWeatherMap = async (): Promise<void> => {
     })
     .then((res) => {
       store.dispatch(OpenWeatherActionTypes.GET_OPEN_WEATHER, res.data)
+      return true
     })
     .catch((e) => {
       return e

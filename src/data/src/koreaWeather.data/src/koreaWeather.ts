@@ -11,7 +11,7 @@ const store = useStore()
 
 export const getKoreaWeather = async (
   data: Ref<RequestPositionType | undefined>
-): Promise<void> => {
+): Promise<boolean> => {
   if (data.value) {
     /**
      * ! 현재 접속 위치 좌표
@@ -35,9 +35,10 @@ export const getKoreaWeather = async (
         return e
       })
   }
+  return true
 }
 
-export const loadWeather = async (): Promise<void> => {
+export const loadWeather = async (): Promise<boolean> => {
   const {
     state: { geolocation },
   } = store
@@ -47,46 +48,58 @@ export const loadWeather = async (): Promise<void> => {
    * @params {nx: number, ny: number}
    * @return {object} CurrentTypes
    */
-  http
-    .request({
-      url: "https://best-weather.com/service/current",
-      // url: "http://localhost/service/current",
-      method: "GET",
-      params: {
-        nx: geolocation.gridX,
-        ny: geolocation.gridY,
-      },
-    })
-    .then((res) => {
-      store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
-    })
 
-  http
-    .request({
-      url: "https://best-weather.com/service/weekly",
-      // url: "http://localhost/service/weekly",
-      method: "GET",
-      params: {
-        nx: geolocation.gridX,
-        ny: geolocation.gridY,
-        locationCode: geolocation.weeklyLocatioCode,
-        skyCode: geolocation.weeklySkyLocationCode,
-      },
-    })
-    .then((res) => {
-      store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data.weeklyData)
-      store.dispatch(KoreaWeatherActionTypes.GET_HOURLY, res.data.hourlyData)
-    })
-    .catch((e) => {
-      return e
-    })
-  http
-    .request({
-      url: "https://best-weather.com/service/atmos",
-      // url: "http://localhost/service/atmos",
-      method: "GET",
-    })
-    .then((res) => {
-      store.dispatch(KoreaWeatherActionTypes.GET_ENV, res.data)
-    })
+  const current = async () => {
+    await http
+      .request({
+        url: "https://best-weather.com/service/current",
+        // url: "http://localhost/service/current",
+        method: "GET",
+        params: {
+          nx: geolocation.gridX,
+          ny: geolocation.gridY,
+        },
+      })
+      .then((res) => {
+        store.dispatch(KoreaWeatherActionTypes.GET_WEATHER, res.data)
+      })
+  }
+
+  const weekly = async () => {
+    await http
+      .request({
+        url: "https://best-weather.com/service/weekly",
+        // url: "http://localhost/service/weekly",
+        method: "GET",
+        params: {
+          nx: geolocation.gridX,
+          ny: geolocation.gridY,
+          locationCode: geolocation.weeklyLocatioCode,
+          skyCode: geolocation.weeklySkyLocationCode,
+        },
+      })
+      .then((res) => {
+        store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data.weeklyData)
+        store.dispatch(KoreaWeatherActionTypes.GET_HOURLY, res.data.hourlyData)
+      })
+      .catch((e) => {
+        return e
+      })
+  }
+
+  const hourly = async () => {
+    await http
+      .request({
+        url: "https://best-weather.com/service/atmos",
+        // url: "http://localhost/service/atmos",
+        method: "GET",
+      })
+      .then((res) => {
+        store.dispatch(KoreaWeatherActionTypes.GET_ENV, res.data)
+      })
+  }
+
+  return await Promise.allSettled([current(), weekly(), hourly()]).then(() => {
+    return true
+  })
 }
