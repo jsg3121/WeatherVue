@@ -5,10 +5,12 @@ import { CurrentTemperaturesComponents } from "./src/CurrentWeather.component"
 import { TimeSetComponent } from "./src/TimeSetWeather.component"
 import { WeeklyWeatherComponent } from "./src/WeeklyWeather.component"
 import { AtmosphereComponent } from "./src/Atmosphere.component"
+import { LoadingImage } from "./src/utils"
 
 export const Components = {
   Header,
   Footer,
+  LoadingImage,
   ...GeolocationComponents,
   ...CurrentTemperaturesComponents,
   ...TimeSetComponent,

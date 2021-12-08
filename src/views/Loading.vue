@@ -1,8 +1,8 @@
 <template>
   <div class="loading-container">
     <div class="container-layout">
+      <LoadingImage />
       {{ ing }}
-      <!-- <button @click="$emit('isLoading')">asdfasd</button> -->
     </div>
   </div>
 </template>
@@ -11,8 +11,12 @@ import { defineComponent, ref } from "@vue/runtime-core"
 import { RequestPositionType } from "@/types"
 import { getKoreaWeather, loadWeather } from "@/data/src/koreaWeather.data"
 import { getOpenWeatherMap } from "@/data/src/openWeather.data"
+import { Components } from "@/components"
 
 export default defineComponent({
+  components: {
+    LoadingImage: Components.LoadingImage,
+  },
   setup(_props, { emit }) {
     const ing = ref("0%")
     const data = ref<RequestPositionType>()
@@ -44,14 +48,30 @@ export default defineComponent({
 
     getData().then(() => {
       ing.value = "모든 정보를 불러왔어요!"
-
-      setTimeout(() => {
-        emit("isLoading")
-      }, 3000)
+      // setTimeout(() => {
+      //   emit("isLoading")
+      // }, 3000)
     })
 
     return { ing }
   },
 })
 </script>
-<style lang="ts"></style>
+<style lang="scss">
+.loading-container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .container-layout {
+    width: 15rem;
+    height: 7rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+</style>
