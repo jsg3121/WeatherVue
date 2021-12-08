@@ -4,12 +4,9 @@
     <ul class="timeSet-container__item-list display-flex">
       <li class="tiemSet-container__list" v-for="item in listData" :key="item">
         <div class="item-container display-flex">
-          <p class="item-container__temperatures">{{ item.temperature }}º</p>
+          <p class="item-container__temperatures">{{ item.temp }}º</p>
           <figure class="item-container__img">
-            <img
-              :src="item.skyImg ? item.skyImg : ''"
-              alt="시간대별 날씨 아이콘"
-            />
+            <img :src="item.sky ? item.sky : ''" alt="시간대별 날씨 아이콘" />
           </figure>
           <p class="item-container__time">{{ item.time.substr(0, 2) }}시</p>
         </div>
@@ -18,74 +15,24 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  PropType,
-  reactive,
-  Ref,
-  ref,
-} from "@vue/runtime-core"
-import { HourlyDataTypes, TimeSetProps } from "./types"
+import { defineComponent, PropType, reactive, toRefs } from "@vue/runtime-core"
+import { TimeSetDataTypes } from "./types"
 
 type setUpTypes = {
-  listData: Ref<HourlyDataTypes[] | undefined>
+  listData: TimeSetDataTypes[] | undefined
 }
 
 export default defineComponent({
   props: {
     onDataList: {
-      type: Object as PropType<TimeSetProps>,
+      type: Object as PropType<Array<TimeSetDataTypes>>,
       required: true,
     },
   },
 
   setup(props): setUpTypes {
-    const data = reactive<TimeSetProps["hourlyTemperature"]>({
-      temperature: props.onDataList.hourlyTemperature.temperature,
-      precipitation: props.onDataList.hourlyTemperature.precipitation,
-      sky: props.onDataList.hourlyTemperature.sky,
-    })
-    const listData = ref<Array<HourlyDataTypes>>()
-
-    const getSkyState = (sky: string, precipitation: string) => {
-      if (sky === "1") {
-        return require("@/assets/img/sunny-icon@2x.png")
-      } else if (sky === "3" || sky === "4") {
-        if (precipitation === "0") {
-          return require("@/assets/img/cloud-icon@2x.png")
-        } else if (
-          precipitation === "1" ||
-          precipitation === "2" ||
-          precipitation === "4" ||
-          precipitation === "5" ||
-          precipitation === "6"
-        ) {
-          return require("@/assets/img/rain-icon@2x.png")
-        } else if (precipitation === "3" || precipitation === "7") {
-          return require("@/assets/img/snow-icon@2x.png")
-        }
-      } else {
-        return require("@/assets/img/sunny-icon@2x.png")
-      }
-    }
-
-    const dataListFormat = () => {
-      listData.value = data.temperature.map((item, index) => {
-        return {
-          temperature: item.fcstValue,
-          time: item.fcstTime,
-          skyImg: getSkyState(
-            data.sky[index].fcstValue,
-            data.precipitation[index].fcstValue
-          ),
-        }
-      })
-    }
-
-    onMounted(() => {
-      dataListFormat()
-    })
+    const { onDataList } = toRefs(props)
+    const listData = reactive<Array<TimeSetDataTypes>>(onDataList.value)
 
     return { listData }
   },

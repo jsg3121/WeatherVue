@@ -1,49 +1,110 @@
 <template>
   <div>
-    <TimeSetWeather :onDataList="onDataList()" />
+    <TimeSetWeather :onDataList="timeSetData" />
   </div>
 </template>
 <script lang="ts">
 import { Components } from "@/components"
-import { ref } from "@vue/runtime-core"
 import { useStore } from "@/store"
-import { onMounted } from "vue"
-import { HourlyTypes } from "@/store/src/state"
+// import { HourlyTypes } from "@/store/src/state"
+import { defineComponent, reactive, watch } from "vue"
+import { changeSky, setTime } from "./hourlyUtils"
+import { NodeRequire } from "@/types"
 
 type TimeSetDataTypes = {
-  hourlyTemperature: Pick<HourlyTypes, "temperature" | "precipitation" | "sky">
+  time: string
+  sky: NodeRequire
+  temp: string
 }
 
 type SetUpTypes = {
-  onDataList: () => TimeSetDataTypes | undefined
+  timeSetData: Array<TimeSetDataTypes>
 }
 
-export default {
+export default defineComponent({
   components: {
     TimeSetWeather: Components.TimeSet,
   },
-  async setup(): Promise<SetUpTypes> {
+  setup(): SetUpTypes {
     const {
       state: {
-        korea: { hourlyTemperature },
+        korea: {
+          hourlyTemperature: {
+            precipitation: koreaPrecipitation,
+            sky: koreaSky,
+            temperature: koreaTemp,
+          },
+        },
+        openWeather: { hourly },
+        personal,
       },
     } = useStore()
-    const timeSetData = ref<TimeSetDataTypes>()
+    const timeSetData = reactive<Array<TimeSetDataTypes>>([])
 
-    const onDataList = () => {
-      const data = {
-        hourlyTemperature: hourlyTemperature,
-      } as unknown
-      timeSetData.value = data as TimeSetDataTypes
-      return timeSetData.value
+    const getSkyState = (sky: string, precipitation: string) => {
+      if (sky === "1") {
+        return require("@/assets/img/sunny-icon@2x.png")
+      } else if (sky === "3" || sky === "4") {
+        if (precipitation === "0") {
+          return require("@/assets/img/cloud-icon@2x.png")
+        } else if (
+          precipitation === "1" ||
+          precipitation === "2" ||
+          precipitation === "4" ||
+          precipitation === "5" ||
+          precipitation === "6"
+        ) {
+          return require("@/assets/img/rain-icon@2x.png")
+        } else if (precipitation === "3" || precipitation === "7") {
+          return require("@/assets/img/snow-icon@2x.png")
+        }
+      } else {
+        return require("@/assets/img/sunny-icon@2x.png")
+      }
     }
 
-    onMounted(() => {
-      onDataList()
-    })
+    const onDataList = () => {
+      timeSetData.length = 0
+      switch (personal.selectWeatherCop) {
+        case "korea": {
+          koreaTemp.forEach((list, index) => {
+            timeSetData.push({
+              time: list.fcstTime,
+              sky: getSkyState(
+                koreaSky[index].fcstValue,
+                koreaPrecipitation[index].fcstValue
+              ),
+              temp: list.fcstValue,
+            })
+          })
+          return
+        }
+        case "openWeather": {
+          hourly.forEach((list, index) => {
+            timeSetData.push({
+              time: setTime(index),
+              sky: changeSky(list.sky),
+              temp: String(Math.round(list.temp)),
+            })
+          })
+          return
+        }
+        default: {
+          return
+        }
+      }
+    }
+    onDataList()
 
-    return { onDataList }
+    watch(
+      () => personal.selectWeatherCop,
+      () => {
+        onDataList()
+      }
+    )
+
+    return { timeSetData }
   },
-}
+})
 </script>
 <style lang="scss"></style>

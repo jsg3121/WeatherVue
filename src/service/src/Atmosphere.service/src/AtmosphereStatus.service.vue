@@ -1,37 +1,58 @@
 <template>
-  <AtmosphereStatus :atmosphere="atmosphere()" />
+  <AtmosphereStatus :atmosphere="data" />
 </template>
 <script lang="ts">
 import { Components } from "@/components"
 import { useStore } from "@/store"
-import { defineComponent, onMounted, ref } from "@vue/runtime-core"
+import { defineComponent, ref, watch } from "vue"
 
 export default defineComponent({
   components: {
     AtmosphereStatus: Components.AtmosphereStatus,
   },
-  async setup() {
+  setup() {
     const {
       state: {
         korea: { currentTemperature },
+        openWeather: { current },
+        personal,
       },
     } = useStore()
     const data = ref()
 
     const atmosphere = () => {
-      data.value = {
-        humidity: currentTemperature.humidity,
-        windDirection: currentTemperature.windDirection,
-        windSpeed: currentTemperature.windSpeed,
+      switch (personal.selectWeatherCop) {
+        case "korea": {
+          data.value = {
+            humidity: parseInt(currentTemperature.humidity, 10),
+            windDirection: parseInt(currentTemperature.windDirection, 10),
+            windSpeed: parseInt(currentTemperature.windSpeed, 10),
+          }
+          return
+        }
+        case "openWeather": {
+          data.value = {
+            humidity: current.humidity,
+            windDirection: current.wind_deg,
+            windSpeed: current.wind_speed,
+          }
+          return
+        }
+        default: {
+          return
+        }
       }
-      return data.value
     }
+    watch(
+      () => personal.selectWeatherCop,
+      () => {
+        atmosphere()
+      }
+    )
 
-    onMounted(() => {
-      atmosphere()
-    })
+    atmosphere()
 
-    return { atmosphere }
+    return { data }
   },
 })
 </script>

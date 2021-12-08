@@ -1,12 +1,11 @@
 import { HourlyTypes } from "@/store/src/state"
-import { NodeRequire } from "@/types"
 
 export type TimeSetProps = {
   hourlyTemperature: Pick<HourlyTypes, "temperature" | "precipitation" | "sky">
 }
 
-export type HourlyDataTypes = {
-  temperature: string
+export type TimeSetDataTypes = {
   time: string
-  skyImg: NodeRequire
+  sky: NodeRequire
+  temp: string
 }

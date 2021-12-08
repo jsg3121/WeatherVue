@@ -20,9 +20,9 @@
   </div>
 </template>
 <script lang="ts">
-import { ref } from "@vue/reactivity"
-import { defineComponent, onMounted, PropType } from "@vue/runtime-core"
-import { setUpTypes, AtmosStatusPropType, CardDataType } from "./types"
+import { ref, toRefs } from "@vue/reactivity"
+import { defineComponent, PropType, watch } from "@vue/runtime-core"
+import { AtmosStatusPropType, CardDataType, setUpTypes } from "./types"
 
 export default defineComponent({
   props: {
@@ -32,6 +32,8 @@ export default defineComponent({
     },
   },
   setup(props): setUpTypes {
+    const { atmosphere } = toRefs(props)
+
     const cardData = ref<Array<CardDataType>>([
       {
         img: require("@/assets/img/windy-icon@2x.png"),
@@ -63,13 +65,18 @@ export default defineComponent({
       return "풍속"
     }
 
-    onMounted(() => {
+    const setData = () => {
       cardData.value[1].rate = props.atmosphere.humidity
       cardData.value[0].rate = props.atmosphere.windSpeed
       cardData.value[0].description = setWindDriection(
         props.atmosphere.windDirection
       )
+    }
+
+    watch(atmosphere, () => {
+      setData()
     })
+    setData()
 
     return { cardData }
   },
