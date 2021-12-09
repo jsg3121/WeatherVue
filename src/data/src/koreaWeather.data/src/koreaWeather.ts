@@ -96,7 +96,7 @@ export const loadWeather = async (): Promise<boolean> => {
         params: {
           nx: geolocation.gridX,
           ny: geolocation.gridY,
-          locationCode: geolocation.locationEncoding,
+          locationCode: geolocation.location1,
           skyCode: geolocation.weeklySkyLocationCode,
         },
       })
