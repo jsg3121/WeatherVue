@@ -2,7 +2,9 @@
   <div class="loading-container">
     <div class="container-layout">
       <LoadingImage />
-      {{ ing }}
+      <p>
+        {{ ing }}
+      </p>
     </div>
   </div>
 </template>
@@ -36,7 +38,7 @@ export default defineComponent({
 
       await getKoreaWeather(data).then((res) => {
         if (res) {
-          ing.value = "이제 날씨 정보를 가져올게요!!"
+          ing.value = "날씨 정보를 가져오는 중입니다"
         }
         return
       })
@@ -47,10 +49,10 @@ export default defineComponent({
     }
 
     getData().then(() => {
-      ing.value = "모든 정보를 불러왔어요!"
-      // setTimeout(() => {
-      //   emit("isLoading")
-      // }, 3000)
+      ing.value = "완료되었습니다!"
+      setTimeout(() => {
+        emit("isLoading")
+      }, 1500)
     })
 
     return { ing }
@@ -68,10 +70,18 @@ export default defineComponent({
   .container-layout {
     width: 15rem;
     height: 7rem;
+    text-align: center;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    p {
+      width: 100%;
+      text-align: center;
+      font-weight: 700;
+      color: #04061d;
+    }
   }
 }
 </style>

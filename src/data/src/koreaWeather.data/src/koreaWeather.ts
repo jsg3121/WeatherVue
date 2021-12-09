@@ -87,19 +87,25 @@ export const loadWeather = async (): Promise<boolean> => {
       })
   }
 
-  const hourly = async () => {
+  const atmos = async () => {
     await http
       .request({
         url: "https://best-weather.com/service/atmos",
         // url: "http://localhost/service/atmos",
         method: "GET",
+        params: {
+          nx: geolocation.gridX,
+          ny: geolocation.gridY,
+          locationCode: geolocation.locationEncoding,
+          skyCode: geolocation.weeklySkyLocationCode,
+        },
       })
       .then((res) => {
         store.dispatch(KoreaWeatherActionTypes.GET_ENV, res.data)
       })
   }
 
-  return await Promise.allSettled([current(), weekly(), hourly()]).then(() => {
+  return await Promise.allSettled([current(), weekly(), atmos()]).then(() => {
     return true
   })
 }

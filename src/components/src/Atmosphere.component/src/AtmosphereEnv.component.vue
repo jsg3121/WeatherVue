@@ -58,6 +58,43 @@
 import { AtmosDust, AtmosUv } from "@/store/src/state"
 import { defineComponent, PropType, ref } from "@vue/runtime-core"
 
+const value = (val: string) => {
+  console.log("111111111111111")
+
+  console.log(val)
+
+  switch (val) {
+    case "1":
+      return "좋음"
+    case "2":
+      return "보통"
+    case "3":
+      return "나쁨"
+    case "4":
+      return "매우 나쁨"
+    case null:
+    case undefined:
+      return "보통"
+    default:
+      return "좋음"
+  }
+}
+
+const uvValue = (val: string) => {
+  const key = parseInt(val, 10)
+  if (key <= 2) {
+    return "낮음"
+  } else if (3 <= key && key <= 5) {
+    return "보통"
+  } else if (6 <= key && key <= 7) {
+    return "높음"
+  } else if (8 <= key && key <= 10) {
+    return "매우 높음"
+  } else if (11 <= key) {
+    return "위험"
+  }
+}
+
 export default defineComponent({
   props: {
     data: {
@@ -67,36 +104,6 @@ export default defineComponent({
   },
   setup(props) {
     const env = ref(props.data)
-
-    const value = (val: string) => {
-      switch (val) {
-        case "1":
-          return "좋음"
-        case "2":
-          return "보통"
-        case "3":
-          return "나쁨"
-        case "4":
-          return "매우 나쁨"
-        default:
-          return "좋음"
-      }
-    }
-
-    const uvValue = (val: string) => {
-      const key = parseInt(val, 10)
-      if (key <= 2) {
-        return "낮음"
-      } else if (3 <= key && key <= 5) {
-        return "보통"
-      } else if (6 <= key && key <= 7) {
-        return "높음"
-      } else if (8 <= key && key <= 10) {
-        return "매우 높음"
-      } else if (11 <= key) {
-        return "위험"
-      }
-    }
     const dustVal = ref(value(props.data.dust[0].pm10Grade1h))
     const minDustVal = ref(value(props.data.dust[0].pm25Grade1h))
     const o3Val = ref(uvValue(props.data.dust[0].o3Grade))
