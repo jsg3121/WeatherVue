@@ -98,17 +98,16 @@ const uvValue = (val: string) => {
 export default defineComponent({
   props: {
     data: {
-      type: Object as PropType<{ dust: Array<AtmosDust>; uv: AtmosUv }>,
+      type: Object as PropType<{ dust: AtmosDust; uv: AtmosUv }>,
       required: true,
     },
   },
   setup(props) {
     const env = ref(props.data)
-    const dustVal = ref(value(props.data.dust[0].pm10Grade1h))
-    const minDustVal = ref(value(props.data.dust[0].pm25Grade1h))
-    const o3Val = ref(uvValue(props.data.dust[0].o3Grade))
+    const dustVal = ref(value(props.data.dust.pm10Grade1h))
+    const minDustVal = ref(value(props.data.dust.pm25Grade1h))
+    const o3Val = ref(uvValue(props.data.dust.o3Grade))
     const uvVal = ref(uvValue(props.data.uv))
-
     return { env, dustVal, minDustVal, o3Val, uvVal }
   },
 })

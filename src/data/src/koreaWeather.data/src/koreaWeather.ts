@@ -94,9 +94,8 @@ export const loadWeather = async (): Promise<boolean> => {
         // url: "http://localhost/service/atmos",
         method: "GET",
         params: {
-          nx: geolocation.gridX,
-          ny: geolocation.gridY,
-          locationCode: geolocation.location1,
+          location: geolocation.fullLocation,
+          locationCode: geolocation.locationEncoding,
           skyCode: geolocation.weeklySkyLocationCode,
         },
       })
