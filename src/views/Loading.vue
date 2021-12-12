@@ -5,6 +5,7 @@
       <p>
         {{ ing }}
       </p>
+      <p class="alert">현재 기상청 네트워크가 불안정합니다.</p>
     </div>
   </div>
 </template>
