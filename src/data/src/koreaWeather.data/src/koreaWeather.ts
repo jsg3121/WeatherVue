@@ -89,8 +89,8 @@ export const loadWeather = async (): Promise<boolean> => {
   const hourly = async () => {
     await http
       .request({
-        // url: "https://best-weather.com/service/hourly",
-        url: "http://localhost/service/hourly",
+        url: "https://best-weather.com/service/hourly",
+        // url: "http://localhost/service/hourly",
         method: "GET",
         params: {
           nx: geolocation.gridX,
