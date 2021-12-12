@@ -52,8 +52,8 @@ export const loadWeather = async (): Promise<boolean> => {
   const current = async () => {
     await http
       .request({
-        url: "https://best-weather.com/service/current",
-        // url: "http://localhost/service/current",
+        // url: "https://best-weather.com/service/current",
+        url: "http://localhost/service/current",
         method: "GET",
         params: {
           nx: geolocation.gridX,
@@ -68,8 +68,8 @@ export const loadWeather = async (): Promise<boolean> => {
   const weekly = async () => {
     await http
       .request({
-        url: "https://best-weather.com/service/weekly",
-        // url: "http://localhost/service/weekly",
+        // url: "https://best-weather.com/service/weekly",
+        url: "http://localhost/service/weekly",
         method: "GET",
         params: {
           nx: geolocation.gridX,
@@ -79,8 +79,26 @@ export const loadWeather = async (): Promise<boolean> => {
         },
       })
       .then((res) => {
-        store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data.weeklyData)
-        store.dispatch(KoreaWeatherActionTypes.GET_HOURLY, res.data.hourlyData)
+        store.dispatch(KoreaWeatherActionTypes.GET_WEEKLY, res.data)
+      })
+      .catch((e) => {
+        return e
+      })
+  }
+
+  const hourly = async () => {
+    await http
+      .request({
+        // url: "https://best-weather.com/service/hourly",
+        url: "http://localhost/service/hourly",
+        method: "GET",
+        params: {
+          nx: geolocation.gridX,
+          ny: geolocation.gridY,
+        },
+      })
+      .then((res) => {
+        store.dispatch(KoreaWeatherActionTypes.GET_HOURLY, res.data)
       })
       .catch((e) => {
         return e
@@ -90,8 +108,8 @@ export const loadWeather = async (): Promise<boolean> => {
   const atmos = async () => {
     await http
       .request({
-        url: "https://best-weather.com/service/atmos",
-        // url: "http://localhost/service/atmos",
+        // url: "https://best-weather.com/service/atmos",
+        url: "http://localhost/service/atmos",
         method: "GET",
         params: {
           location: geolocation.fullLocation,
@@ -104,7 +122,12 @@ export const loadWeather = async (): Promise<boolean> => {
       })
   }
 
-  return await Promise.allSettled([current(), weekly(), atmos()]).then(() => {
+  return await Promise.allSettled([
+    current(),
+    weekly(),
+    atmos(),
+    hourly(),
+  ]).then(() => {
     return true
   })
 }
