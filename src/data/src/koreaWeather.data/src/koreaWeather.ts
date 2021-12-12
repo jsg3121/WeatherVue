@@ -52,8 +52,8 @@ export const loadWeather = async (): Promise<boolean> => {
   const current = async () => {
     await http
       .request({
-        // url: "https://best-weather.com/service/current",
-        url: "http://localhost/service/current",
+        url: "https://best-weather.com/service/current",
+        // url: "http://localhost/service/current",
         method: "GET",
         params: {
           nx: geolocation.gridX,
@@ -68,8 +68,8 @@ export const loadWeather = async (): Promise<boolean> => {
   const weekly = async () => {
     await http
       .request({
-        // url: "https://best-weather.com/service/weekly",
-        url: "http://localhost/service/weekly",
+        url: "https://best-weather.com/service/weekly",
+        // url: "http://localhost/service/weekly",
         method: "GET",
         params: {
           nx: geolocation.gridX,
@@ -108,8 +108,8 @@ export const loadWeather = async (): Promise<boolean> => {
   const atmos = async () => {
     await http
       .request({
-        // url: "https://best-weather.com/service/atmos",
-        url: "http://localhost/service/atmos",
+        url: "https://best-weather.com/service/atmos",
+        // url: "http://localhost/service/atmos",
         method: "GET",
         params: {
           location: geolocation.fullLocation,

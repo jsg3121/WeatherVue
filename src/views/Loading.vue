@@ -81,6 +81,13 @@ export default defineComponent({
       text-align: center;
       font-weight: 700;
       color: #04061d;
+
+      &.alert {
+        margin-top: 0.5rem;
+        font-size: 0.825rem;
+        font-weight: 300;
+        color: #ff4a4a;
+      }
     }
   }
 }

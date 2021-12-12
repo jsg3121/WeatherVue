@@ -67,16 +67,17 @@ export default defineComponent({
       timeSetData.length = 0
       switch (personal.selectWeatherCop) {
         case "korea": {
-          koreaTemp.forEach((list, index) => {
+          for (let i = 0; i < 40; i++) {
             timeSetData.push({
-              time: list.fcstTime,
+              time: koreaTemp[i].fcstTime,
               sky: getSkyState(
-                koreaSky[index].fcstValue,
-                koreaPrecipitation[index].fcstValue
+                koreaSky[i].fcstValue,
+                koreaPrecipitation[i].fcstValue
               ),
-              temp: list.fcstValue,
+              temp: koreaTemp[i].fcstValue,
             })
-          })
+          }
+
           return
         }
         case "openWeather": {
