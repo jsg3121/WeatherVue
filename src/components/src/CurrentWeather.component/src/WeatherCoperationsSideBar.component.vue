@@ -145,8 +145,6 @@ export default defineComponent({
       // },
     ])
 
-    console.log(weather.value.korea.temperature)
-
     const emitSelect = (name: string) => {
       weatherCoperations.value.map((list) => {
         return list.selectName === name
@@ -162,20 +160,26 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .weather-sideBar {
-  width: calc(100% - 29rem);
+  width: 100%;
   flex-direction: column;
 
   .weather-sideBar__list {
+    position: relative;
+    height: 19.5rem;
+    width: 14rem;
+
     .weather-sideBar__item {
       width: 14rem;
       height: 9.125rem;
-      margin: 0 0 1.25rem 2.5rem;
+      margin: 0 0 1.25rem 0;
       padding: 1.25rem 1.5625rem 1.5625rem 2.1875rem;
       box-shadow: 0 0.375rem 1.125rem 0 rgba(0, 0, 0, 0.24);
       background-color: rgba(255, 255, 255, 0.08);
       border-bottom-left-radius: 3.125rem;
       border-top-left-radius: 3.125rem;
+      right: 0;
       cursor: pointer;
+      overflow: hidden;
 
       &.selected {
         background: linear-gradient(to top, #001d35, #053863);
@@ -186,14 +190,57 @@ export default defineComponent({
         .weather-sideBar__current-temperature {
           color: #ffffff !important;
         }
+
+        &:after {
+          display: none;
+        }
+      }
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, #001d35, #053863);
+        transform: translate(-100%, 0%);
+        transition: transform 0.3s;
+      }
+
+      &:hover {
+        &:after {
+          top: 0;
+          left: 0;
+          transform: translate(0, 0);
+        }
+
+        .weather-sideBar__name {
+          color: #ffffff !important;
+          transition: color 0.2s;
+        }
+        .weather-sideBar__current-temperature {
+          color: #ffffff !important;
+          transition: color 0.2s;
+        }
+      }
+
+      &:first-child {
+        position: absolute;
+        top: 0;
       }
 
       &:last-child {
+        position: absolute;
+        bottom: 0;
         margin-bottom: 0;
       }
 
       .weather-sideBar__title {
         justify-content: space-around;
+        position: relative;
+        z-index: 100;
 
         .weather-sideBar__icon {
           width: 1.875rem;
@@ -218,6 +265,8 @@ export default defineComponent({
         height: calc(100% - 3.1875rem);
         margin-top: 1.3125rem;
         justify-content: flex-start;
+        position: relative;
+        z-index: 100;
 
         .weather-sideBar__currentIcon {
           width: 3.125rem;
@@ -242,6 +291,24 @@ export default defineComponent({
       @media screen and (max-width: 640px) {
         margin-left: 0;
       }
+
+      // &:hover {
+      //   padding: 1.5rem 1.8125rem 1.8125rem 2.4375rem;
+      //   width: 14.5rem;
+      //   height: 9.625rem;
+      //   display: block;
+      //   background: linear-gradient(to top, #001d35, #053863);
+      //   position: relative;
+      //   transition: all 0.3s;
+
+      //   &:first-child {
+      //     margin: -0.25rem -2.5rem 1rem 2rem;
+      //   }
+
+      //   &:last-child {
+      //     margin: -0.25rem -2.5rem -0.25rem 2rem;
+      //   }
+      // }
     }
   }
 }
