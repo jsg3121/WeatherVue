@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-container">
+  <div class="loading-container" :class="{ fade_out: fade_out }">
     <div class="container-layout">
       <LoadingImage />
       <p>
@@ -23,6 +23,7 @@ export default defineComponent({
   setup(_props, { emit }) {
     const ing = ref("0%")
     const data = ref<RequestPositionType>()
+    const fade_out = ref<boolean>(false)
 
     const getData = async () => {
       await new Promise((res: (value: RequestPositionType) => void) => {
@@ -43,24 +44,32 @@ export default defineComponent({
         }
         return
       })
-
       await Promise.allSettled([loadWeather(), getOpenWeatherMap()])
-
       return true
     }
 
     getData().then(() => {
       ing.value = "완료되었습니다!"
+      fade_out.value = true
       setTimeout(() => {
         emit("isLoading")
       }, 1500)
     })
 
-    return { ing }
+    return { ing, fade_out }
   },
 })
 </script>
 <style lang="scss">
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .loading-container {
   width: 100vw;
   height: 100vh;
@@ -90,6 +99,10 @@ export default defineComponent({
         color: #ff4a4a;
       }
     }
+  }
+
+  &.fade_out {
+    animation: fadeout 1.7s;
   }
 }
 </style>
