@@ -67,7 +67,7 @@ export default defineComponent({
 
     const setData = () => {
       cardData.value[1].rate = props.atmosphere.humidity
-      cardData.value[0].rate = props.atmosphere.windSpeed
+      cardData.value[0].rate = Math.round(props.atmosphere.windSpeed)
       cardData.value[0].description = setWindDriection(
         props.atmosphere.windDirection
       )

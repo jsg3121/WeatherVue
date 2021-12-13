@@ -11,10 +11,7 @@
 <script lang="ts">
 import { Components } from "@/components"
 import { Service } from "@/service"
-import { RequestPositionType } from "@/types"
-import { defineComponent, ref } from "vue"
-import { getKoreaWeather, loadWeather } from "./koreaWeather.data"
-import { getOpenWeatherMap } from "./openWeather.data"
+import { defineComponent } from "vue"
 
 export default defineComponent({
   components: {
@@ -26,27 +23,6 @@ export default defineComponent({
     FooterVue: Components.Footer,
   },
   async setup() {
-    const data = ref<RequestPositionType>()
-
-    await new Promise((res: (value: RequestPositionType) => void) => {
-      navigator.geolocation.getCurrentPosition((position) => {
-        res({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        })
-      })
-    }).then((res) => {
-      data.value = res
-    })
-    // await getKoreaWeather(data)
-    // await loadWeather()
-    // getOpenWeatherMap()
-    await Promise.all([
-      getKoreaWeather(data),
-      loadWeather(),
-      getOpenWeatherMap(),
-    ])
-
     return {}
   },
 })

@@ -10,7 +10,7 @@ import { AtmosDust } from "@/store/src/state"
 import { defineComponent } from "@vue/runtime-core"
 
 type SetUpTypes = {
-  dust: Array<AtmosDust>
+  dust: AtmosDust
   uv: string
 }
 
@@ -22,13 +22,11 @@ export default defineComponent({
     const {
       state: {
         korea: { atmos },
-        geolocation,
       },
     } = useStore()
-    const dust = atmos.dust.filter((item) => {
-      return item.stationName === geolocation.location2
-    })
+    const dust = atmos.dust[0]
     const uv = atmos.uv
+
     return { dust, uv }
   },
 })
