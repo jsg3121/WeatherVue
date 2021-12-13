@@ -29,7 +29,7 @@
             />
           </figure>
           <p class="weather-sideBar__current-temperature">
-            {{ items.temperature ? items.temperature : 99 }}º
+            {{ items.temperature }}º
           </p>
         </div>
       </li>
@@ -144,6 +144,8 @@ export default defineComponent({
       //   selected: selectWeatherCop.value === "accu" ? true : false,
       // },
     ])
+
+    console.log(weather.value.korea.temperature)
 
     const emitSelect = (name: string) => {
       weatherCoperations.value.map((list) => {

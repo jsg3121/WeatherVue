@@ -59,10 +59,6 @@ import { AtmosDust, AtmosUv } from "@/store/src/state"
 import { defineComponent, PropType, ref } from "@vue/runtime-core"
 
 const value = (val: string) => {
-  console.log("111111111111111")
-
-  console.log(val)
-
   switch (val) {
     case "1":
       return "좋음"
