@@ -6,7 +6,11 @@
         <div class="item-container display-flex">
           <p class="item-container__temperatures">{{ item.temp }}º</p>
           <figure class="item-container__img">
-            <img :src="item.sky ? item.sky : ''" alt="시간대별 날씨 아이콘" />
+            <img
+              loading="lazy"
+              :src="item.sky ? item.sky : ''"
+              alt="시간대별 날씨 아이콘"
+            />
           </figure>
           <p class="item-container__time">{{ item.time.substr(0, 2) }}시</p>
         </div>

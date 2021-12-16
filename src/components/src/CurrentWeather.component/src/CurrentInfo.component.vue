@@ -1,7 +1,7 @@
 <template>
   <div class="current-info">
     <figure class="current-info__img">
-      <img :src="`${img}`" alt="기상 아이콘" />
+      <img loading="lazy" :src="`${img}`" alt="기상 아이콘" />
     </figure>
     <div class="current-info__description display-flex">
       <NowInfo :nowInfo="showWeather" :selectCop="selectWeatherCop" />

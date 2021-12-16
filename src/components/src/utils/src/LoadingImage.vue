@@ -2,7 +2,7 @@ import { defineComponent } from "vue";
 
 <template>
   <figure class="lotate-container">
-    <img :src="imgLotate" alt="Loading img" />
+    <img loading="lazy" :src="imgLotate" alt="Loading img" />
   </figure>
 </template>
 <script lang="ts">

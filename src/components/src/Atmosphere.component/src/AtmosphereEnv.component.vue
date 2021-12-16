@@ -32,7 +32,11 @@
       <li class="atmosphere-env-container__item">
         <div class="item-container display-flex">
           <figure class="item-container__img">
-            <img src="@/assets/img/uv-icon@2x.png" alt="대기환경 아이콘" />
+            <img
+              loading="lazy"
+              src="@/assets/img/uv-icon@2x.png"
+              alt="대기환경 아이콘"
+            />
           </figure>
           <div class="item-container__description display-flex">
             <p class="item-container__name">자외선</p>
@@ -43,7 +47,11 @@
       <li class="atmosphere-env-container__item">
         <div class="item-container display-flex">
           <figure class="item-container__img">
-            <img src="@/assets/img/ozone-icon@2x.png" alt="대기환경 아이콘" />
+            <img
+              loading="lazy"
+              src="@/assets/img/ozone-icon@2x.png"
+              alt="대기환경 아이콘"
+            />
           </figure>
           <div class="item-container__description display-flex">
             <p class="item-container__name">오존</p>

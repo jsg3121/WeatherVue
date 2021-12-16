@@ -6,7 +6,7 @@
       :key="item"
     >
       <figure class="atmosphere-container__img">
-        <img :src="item.img" :alt="item.alt" />
+        <img loading="lazy" :src="item.img" :alt="item.alt" />
       </figure>
       <div class="atmosphere-container__description display-flex">
         <p class="atmosphere-container__figure">
