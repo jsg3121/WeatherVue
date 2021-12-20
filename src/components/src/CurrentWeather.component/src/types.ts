@@ -46,6 +46,7 @@ export type SideBarListType = {
   temperature?: number
   selected: boolean
   sky?: NodeRequire
+  hover: boolean
 }
 
 export type ShowWeatherType = {

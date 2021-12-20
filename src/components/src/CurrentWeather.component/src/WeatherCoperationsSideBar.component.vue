@@ -7,11 +7,17 @@
         :key="items"
         :class="items.selected ? 'selected' : ''"
         @click="emitSelect(items.selectName)"
+        @mouseover="items.hover = true"
+        @mouseleave="items.hover = false"
       >
         <div class="weather-sideBar__title display-flex">
           <figure class="weather-sideBar__icon">
             <img
-              :src="items.selected ? items.selectLogo : items.logo"
+              :src="
+                items.hover === true || items.selected
+                  ? items.selectLogo
+                  : items.logo
+              "
               alt="기상사 로고 이미지"
             />
           </figure>
@@ -124,6 +130,7 @@ export default defineComponent({
         temperature: weather.value.korea.temperature,
         selected: selectWeatherCop.value === "korea" ? true : false,
         sky: getSky(weather.value.korea.pty, weather.value.korea.sky),
+        hover: false,
       },
       {
         index: 2,
@@ -134,6 +141,7 @@ export default defineComponent({
         temperature: weather.value.openWeather.temperature,
         selected: selectWeatherCop.value === "openWeather" ? true : false,
         sky: getOpenWeatherSky(weather.value.openWeather.sky),
+        hover: false,
       },
       // {
       //   index: 3,
